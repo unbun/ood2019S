@@ -1,0 +1,50 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- project coordinates -->
+  <groupId>cs3500</groupId>
+  <artifactId>hw01</artifactId>
+  <version>su2015-1.0</version>
+
+  <!-- project properties -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <!-- library dependencies -->
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>${project.basedir}/src</sourceDirectory>
+    <testSourceDirectory>${project.basedir}/test</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <additionalparam>
+            -link http://docs.oracle.com/javase/8/docs/api/
+          </additionalparam>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
