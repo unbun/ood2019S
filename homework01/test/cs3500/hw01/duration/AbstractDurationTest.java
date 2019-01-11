@@ -3,8 +3,11 @@ package cs3500.hw01.duration;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
-/** Tests for {@link Duration}s. */
+/**
+ * Tests for {@link Duration}s.
+ */
 public abstract class AbstractDurationTest {
   /*
     Leave this section alone: It contains two abstract methods to
@@ -12,51 +15,11 @@ public abstract class AbstractDurationTest {
     will supply particular implementations of Duration to be used within 
     your tests.
    */
-  /**
-   * Constructs an instance of the class under test representing the duration
-   * given in hours, minutes, and seconds.
-   *
-   * @param hours the hours in the duration
-   * @param minutes the minutes in the duration
-   * @param seconds the seconds in the duration
-   * @return an instance of the class under test
-   */
-  protected abstract Duration hms(int hours, int minutes, int seconds);
 
-  /**
-   * Constructs an instance of the class under test representing the duration
-   * given in seconds.
-   *
-   * @param inSeconds the total seconds in the duration
-   * @return an instance of the class under test
-   */
-  protected abstract Duration sec(long inSeconds);
-
-  public static final class HmsDurationTest extends AbstractDurationTest {
-    @Override
-    protected Duration hms(int hours, int minutes, int seconds) {
-      return new HmsDuration(hours, minutes, seconds);
-    }
-
-    @Override
-    protected Duration sec(long inSeconds) {
-      return new HmsDuration(inSeconds);
-    }
-  }
-
-  public static final class CompactDurationTest extends AbstractDurationTest {
-    @Override
-    protected Duration hms(int hours, int minutes, int seconds) {
-      return new CompactDuration(hours, minutes, seconds);
-    }
-
-    @Override
-    protected Duration sec(long inSeconds) {
-      return new CompactDuration(inSeconds);
-    }
-  }
-
-
+  static long s1 = 328375982;
+  static long s2 = 299699;
+  Duration d1_23_45 = hms(1, 23, 45);
+  Duration d2_03_00 = hms(2, 3, 0);
 
 
   // The interesting tests for Durations begin here.
@@ -72,15 +35,26 @@ public abstract class AbstractDurationTest {
   // It's almost like AbstractDurationTest is a "factory" for making tests,
   // and in fact, this is a variation on a pattern we'll see again later
   // in the course.
-
-
-
-  static long s1 = 328375982;
-  static long s2 = 299699;
-
-  Duration d1_23_45 = hms(1, 23, 45);
-  Duration d2_03_00 = hms(2, 3, 0);
   Duration d457_03_00 = hms(457, 3, 0);
+
+  /**
+   * Constructs an instance of the class under test representing the duration given in hours,
+   * minutes, and seconds.
+   *
+   * @param hours   the hours in the duration
+   * @param minutes the minutes in the duration
+   * @param seconds the seconds in the duration
+   * @return an instance of the class under test
+   */
+  protected abstract Duration hms(int hours, int minutes, int seconds);
+
+  /**
+   * Constructs an instance of the class under test representing the duration given in seconds.
+   *
+   * @param inSeconds the total seconds in the duration
+   * @return an instance of the class under test
+   */
+  protected abstract Duration sec(long inSeconds);
 
   @Test
   public void zeroIsZero() {
@@ -139,37 +113,61 @@ public abstract class AbstractDurationTest {
     assertEquals(s2, sec(s2).inSeconds());
 
     assertEquals(sec(s1),
-                  sec(sec(s1).inSeconds()));
+            sec(sec(s1).inSeconds()));
     assertEquals(sec(s2),
-                  sec(sec(s2).inSeconds()));
+            sec(sec(s2).inSeconds()));
 
     assertEquals(d1_23_45,
-                  sec(d1_23_45.inSeconds()));
+            sec(d1_23_45.inSeconds()));
     assertEquals(d2_03_00,
-                  sec(d2_03_00.inSeconds()));
+            sec(d2_03_00.inSeconds()));
     assertEquals(d457_03_00,
-                  sec(d457_03_00.inSeconds()));
+            sec(d457_03_00.inSeconds()));
   }
 
   @Test
   public void _1_23_03_plus_2_14_45_is_3_37_48() {
     assertEquals(hms(3, 37, 48),
-                  hms(1, 23, 3).plus(hms(2, 14, 45)));
+            hms(1, 23, 3).plus(hms(2, 14, 45)));
   }
 
   @Test
   public void plusCarries() {
     assertEquals(hms(3, 38, 18),
-                  hms(1, 23, 33).plus(hms(2, 14, 45)));
+            hms(1, 23, 33).plus(hms(2, 14, 45)));
     assertEquals(hms(4, 19, 48),
-                  hms(1, 23, 3).plus(hms(2, 56, 45)));
+            hms(1, 23, 3).plus(hms(2, 56, 45)));
     assertEquals(hms(4, 20, 18),
-                  hms(1, 23, 33).plus(hms(2, 56, 45)));
+            hms(1, 23, 33).plus(hms(2, 56, 45)));
   }
 
   @Test
   public void addWorks() {
     assertEquals(s1 + s2, sec(s1).plus(sec(s2)).inSeconds());
     assertEquals(2 * s1 + s2, sec(2 * s1).plus(sec(s2)).inSeconds());
+  }
+
+  public static final class HmsDurationTest extends AbstractDurationTest {
+    @Override
+    protected Duration hms(int hours, int minutes, int seconds) {
+      return new HmsDuration(hours, minutes, seconds);
+    }
+
+    @Override
+    protected Duration sec(long inSeconds) {
+      return new HmsDuration(inSeconds);
+    }
+  }
+
+  public static final class CompactDurationTest extends AbstractDurationTest {
+    @Override
+    protected Duration hms(int hours, int minutes, int seconds) {
+      return new CompactDuration(hours, minutes, seconds);
+    }
+
+    @Override
+    protected Duration sec(long inSeconds) {
+      return new CompactDuration(inSeconds);
+    }
   }
 }

@@ -1,15 +1,15 @@
 package cs3500.hw01.duration;
 
 /**
- * Durations represented compactly, with a range of 0 to
- * 2<sup>63</sup>-1 seconds.
+ * Durations represented compactly, with a range of 0 to 2<sup>63</sup>-1 seconds.
  */
 public final class CompactDuration extends AbstractDuration {
+  private final long inSeconds;
+
   /**
-   * Constructs a duration in terms of its length in hours, minutes, and
-   * seconds.
+   * Constructs a duration in terms of its length in hours, minutes, and seconds.
    *
-   * @param hours the number of hours
+   * @param hours   the number of hours
    * @param minutes the number of minutes
    * @param seconds the number of inSeconds
    * @throws IllegalArgumentException if any argument is negative
@@ -33,8 +33,6 @@ public final class CompactDuration extends AbstractDuration {
     this.inSeconds = inSeconds;
   }
 
-  private final long inSeconds;
-
   @Override
   protected Duration fromSeconds(long seconds) {
     return new CompactDuration(seconds);
@@ -48,8 +46,14 @@ public final class CompactDuration extends AbstractDuration {
   @Override
   public String asHms() {
     return String.format("%d:%02d:%02d",
-                          hoursOf(inSeconds),
-                          minutesOf(inSeconds),
-                          secondsOf(inSeconds));
+            hoursOf(inSeconds),
+            minutesOf(inSeconds),
+            secondsOf(inSeconds));
   }
+
+  @Override
+  public String format(String template) {
+    return formatWithSeconds(template, inSeconds);
+  }
+
 }
