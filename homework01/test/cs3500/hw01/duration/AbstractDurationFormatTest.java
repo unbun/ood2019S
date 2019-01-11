@@ -26,33 +26,45 @@ public abstract class AbstractDurationFormatTest {
             hms(4, 5, 17).format("%h:%M:%S"));
   }
 
-  // ADD MORE TESTS HERE
-  // Your tests must only use hms(...) and sec(...) to construct new Durations
-  // and must *not* directly say "new CompactDuration(...)" or
-  // "new HmsDuration(...)"
-
   @Test
-  public void testSpecifierChars() {
-    ArrayList specialKeys = new ArrayList<>(Arrays.asList('%', 't', 's', 'S', 'm', 'M', 'h', 'H'));
+  public void testAllSpecifierChars() {
+    ArrayList hmsKeys = new ArrayList<>(Arrays.asList('s', 'S', 'm', 'M', 'h', 'H'));
+    char percKey = '%';
+    char durKey = 't';
+
     for (char curr = 32; curr < 127; curr++) {
-      if (specialKeys.contains(curr)) {
-        //testing to ensure that the specifier character is recognized and replaced
-        assertNotEquals("%" + curr, hms(33, 33, 33).format("%" + curr));
+      //testing to ensure that the specifier character is recognized and replaced
+      if (hmsKeys.contains(curr)) {
+        assertNotEquals("%" + curr + 't', sec(123).format("%" + curr + 't'));
+        assertEquals("33t", hms(33, 33, 33).format("%" + curr) + 't');
+      }
+
+      if (curr == percKey) {
+        assertNotEquals("%" + curr + 't', sec(123).format("%" + curr + 't'));
+        assertEquals("%t", hms(33, 33, 33).format("%" + curr) + 't');
+      }
+
+      if (curr == durKey) {
+        assertNotEquals("%" + curr + 't', sec(123).format("%" + curr + 't'));
+        assertEquals("120813t", hms(33, 33, 33).format("%" + curr + 't'));
       }
     }
   }
 
   @Test
-  public void testFixedChars() {
+  public void testAllFixedChars() {
     ArrayList specialKeys = new ArrayList<>(Arrays.asList('%', 't', 's', 'S', 'm', 'M', 'h', 'H'));
     for (char curr = 32; curr < 127; curr++) {
       if (!specialKeys.contains(curr)) {
         try {
           hms(1, 2, 3).format("%" + curr);
-          // testing to ensure that the previous line throws and error
+
+          // testing to ensure that the previous line throws an error to be caught
           assertNotEquals(1, 1);
         } catch (IllegalArgumentException e) {
+
           // testing to ensure that the exception is some non-null message
+          // (server message may be different from mine)
           assertNotEquals(null, e.getMessage());
         }
       }
@@ -60,61 +72,80 @@ public abstract class AbstractDurationFormatTest {
   }
 
   @Test
-  public void nonFormating() {
+  public void nonFormatting1() {
     assertEquals("nothing is formatted", hms(12, 14, 13).format("nothing is formatted"));
+  }
 
+  @Test
+  public void nonFormatting2() {
     assertEquals("time's up: 0:00:0, total:0", sec(0).format("time's up: %h:%M:%s, total:%t"));
+  }
+
+  @Test
+  public void nonFormatting3() {
     assertEquals("time's up: 00:0:00, total:0",
             hms(0, 0, 0).format("time's up: %H:%m:%S, total:%t"));
   }
 
+
   @Test
-  public void durationFormating() {
+  public void basicFormatting() {
     assertEquals("12345seconds", hms(3, 25, 45).format("%tseconds"));
-    assertEquals("12346 seconds", sec(12346).format("%t seconds"));
   }
 
   @Test
-  public void basicHMSFormating() {
+  public void basicHMSFormatting1() {
     assertEquals("3 hours, 37 minutes, 18 seconds.",
-            hms(3, 37, 18).format("%h hours, %m minutes, %s seconds."));
+            hms(3, 37, 18).format("%h hours, %M minutes, %s seconds."));
+  }
+
+  @Test
+  public void basicHMSFormatting2() {
     assertEquals("03:05:09 with leading zeros",
             hms(3, 5, 9).format("%H:%M:%S with leading zeros"));
-    assertEquals("13:55:39 without leading zeros",
-            hms(13, 55, 39).format("%H:%M:%S without leading zeros"));
-    assertEquals("% percents are fine.", hms(0, 0, 0).format("%% percents are"
-            + " fine."));
+  }
 
-    assertEquals("%:4:05:2", hms(4, 5, 2).format("%%:%h:%M:%s"));
-    assertEquals("%:04:5:02", hms(4, 5, 2).format("%%:%H:%m:%S"));
-    assertEquals("%:4:5:2", sec(14702).format("%%:%h:%m:%s"));
-    assertEquals("%:04:05:02", sec(14702).format("%%:%H:%M:%S"));
-
-    assertEquals("04:05:17", sec(14717).format("%H:%M:%S"));
-    assertEquals("14717: total duration", hms(4, 5, 17).format("%t: total duration"));
+  @Test
+  public void basicHMSFormatting3() {
     assertEquals("04 hours, 5 minutes, and 17 seconds", sec(14717).format("%H "
             + "hours, %m minutes, and %s seconds"));
   }
 
+
   @Test
-  public void specifierOrderFormatting() {
-    assertEquals("m2 minutes", sec(124).format("m%m minutes"));
-    assertEquals("m02Minutes", hms(0, 2, 4).format("m%MMinutes"));
-    assertEquals("56", hms(9, 56, 2).format("%m"));
+  public void basicHMSFormatting4() {
+    assertEquals("13:55:39 without leading zeros",
+            hms(13, 55, 39).format("%h:%m:%s without leading zeros"));
+  }
 
-    assertEquals("m12 hours", sec(43205).format("m%H hours"));
-    assertEquals("s12hours", hms(12, 13, 14).format("s%hhours"));
-    assertEquals("9", hms(9, 56, 2).format("%h"));
+  @Test
+  public void basicHMSFormatting5() {
+    assertEquals("13:55:39 without leading zeros",
+            hms(13, 55, 39).format("%H:%M:%S without leading zeros"));
+  }
 
-    assertEquals("m12 hours", sec(43205).format("m%H hours"));
-    assertEquals("s12hours", hms(12, 13, 14).format("s%hhours"));
-    assertEquals("s12minutes", hms(12, 13, 14).format("s%hminutes"));
-    assertEquals("s12seconds", hms(12, 13, 14).format("s%hseconds"));
-    assertEquals("h05 seconds", sec(43205).format("h%S seconds"));
-    assertEquals("s14seconds", hms(12, 13, 14).format("s%sseconds"));
-    assertEquals("2", hms(9, 56, 2).format("%s"));
-    assertEquals("9", hms(9, 56, 2).format("%h"));
+  @Test
+  public void consistentZerofill1() {
+    assertEquals(hms(11, 22, 33).format("%h %m %s"),
+            hms(11, 22, 33).format("%H %M %S"));
+  }
 
+  @Test
+  public void consistentZerofill2() {
+    assertEquals(sec(11 * 3600 + 22 * 60 + 33).format("%h %m %s"),
+            sec(11 * 3600 + 22 * 60 + 33).format("%H %M %S"));
+  }
+
+  @Test
+  public void consistentZerofill3() {
+    assertEquals(hms(1, 2, 3).format("0%h 0%m 0%s"),
+            hms(1, 2, 3).format("%H %M %S"));
+  }
+
+  @Test
+  public void consistentZerofill4() {
+    assertEquals(hms(1, 2, 3).format("0%h 0%m 0%s"),
+            hms(1, 2, 3).format("%H %M %S"));
   }
 
   @Test
@@ -125,39 +156,99 @@ public abstract class AbstractDurationFormatTest {
 
   @Test
   public void checkPrecedence() {
+    assertEquals("s14seconds", hms(12, 13, 14).format("s%Sseconds"));
+  }
+
+
+  @Test
+  public void checkPrecedence1() {
     assertEquals("123sec = 0m:02m:3S %H",
             hms(0, 2, 3).format("%tsec = %hm:%Mm:%sS %%H"));
+  }
+
+  @Test
+  public void checkPrecedence2() {
     assertEquals("09h56m02s", hms(9, 56, 2).format("%Hh%Mm%Ss"));
   }
 
   @Test
-  public void overflowFormatting() {
+  public void overflowFormatting1() {
     assertEquals("3962", hms(0, 65, 62).format("%t"));
+  }
+
+  @Test
+  public void overflowFormatting2() {
     assertEquals("5 $3c0nd$ 05 m1nut3$ 04 h0ur$",
             hms(3, 63, 125).format("%s $3c0nd$ %M m1nut3$ %H h0ur$"));
   }
 
   @Test
   public void formatsAtEdges() {
-    assertEquals("s:3, s:3, s:3", hms(5, 47, 3).format("s:%s, s:%s, s:%s"));
-    assertEquals("s:3, s:3, s:03", sec(20823).format("s:%s, s:%s, s:%S"));
-    assertEquals("s:3, m:47, s:3", hms(5, 47, 3).format("s:%s, m:%M, s:%s"));
-    assertEquals("s:3, m:47, h:05", sec(20823).format("s:%s, m:%m, h:%H"));
+    assertEquals("03, s:3, s:3", hms(3, 3, 3).format("%S, s:%s, s:%s"));
   }
 
   @Test
-  public void percentLiterals() {
+  public void formatsAtEdges1() {
+    assertEquals("3, s:3, s:3", hms(3, 3, 3).format("%s, s:%m, s:%m"));
+  }
+
+  @Test
+  public void formatsAtEdges2() {
+    assertEquals("3, s:3, s:03", sec(3 * 3600 + 3 * 60 + 3).format("%m, s:%s, s:%M"));
+  }
+
+  @Test
+  public void formatsAtEdges3() {
+    assertEquals("3, m:47, s:03", hms(3, 47, 3).format("%h, m:%M, s:%H"));
+  }
+
+  @Test
+  public void formatsAtEdges4() {
+    assertEquals("03, m:47, h:03", sec(3 * 3600 + 47 * 60 + 3).format("%H, m:%m, h:%H"));
+  }
+
+  @Test
+  public void formatsAtEdges5() {
+    assertEquals("03, m:47, h:03", sec(3 * 3600 + 47 * 60 + 3).format("%H, m:%M, h:%H"));
+  }
+
+  @Test
+  public void formatsAtEdges6() {
+    assertEquals("03, s:3, s:03", sec(3 * 3600 + 3 * 60 + 3).format("%M, s:%s, s:%M"));
+  }
+
+  @Test
+  public void percentLiterals1() {
     assertEquals("so%methi%ng % i%s for%Ma%t%ted",
             hms(12, 14, 13).format("so%%methi%%ng %% i%%s for%%Ma%%t%%ted"));
+  }
+
+  @Test
+  public void percentLiterals2() {
     assertEquals("so%methi%ng % i%s for14a4405344053ed",
             hms(12, 14, 13).format("so%%methi%%ng %% i%%s for%Ma%t%ted"));
-    assertEquals("%%11169%%", hms(3, 6, 9).format("%%%%%t%%%%"));
-
   }
+
+  @Test
+  public void percentLiterals3() {
+    assertEquals("%%11169%%", hms(3, 6, 9).format("%%%%%t%%%%"));
+  }
+
+  @Test
+  public void percentLiterals4() {
+    assertEquals("%:4:05:2", hms(4, 5, 2).format("%%:%h:%M:%s"));
+  }
+
+  @Test
+  public void percentLiterals5() {
+    assertEquals("%:04:5:02", hms(4, 5, 2).format("%%:%H:%m:%S"));
+  }
+
+  //IllegalArgument tests
 
   @Test(expected = IllegalArgumentException.class)
   public void badSymbolWithGood() {
-    sec(25234).format("%tsec: %H%n%s");
+    hms(0, 1, 2).format("%tsec: %H%n%s");
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -173,6 +264,11 @@ public abstract class AbstractDurationFormatTest {
   @Test(expected = IllegalArgumentException.class)
   public void percentAtEnd() {
     hms(7, 23, 12).format("end of string: %");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void percentAtEnd2() {
+    sec(72312).format("end of string: %");
   }
 
   @Test(expected = IllegalArgumentException.class)
