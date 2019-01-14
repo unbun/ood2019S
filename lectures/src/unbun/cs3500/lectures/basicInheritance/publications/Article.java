@@ -4,7 +4,7 @@
 //// (You don't need to submit it, either.)
 ////
 
-package unbun.cs3500.lectures.lecture2;
+package unbun.cs3500.lectures.basicInheritance.publications;
 
 /**
  * Represents bibliographic information for journal articles.

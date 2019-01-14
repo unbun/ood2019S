@@ -126,7 +126,7 @@ abstract class AbstractDuration implements Duration {
 
   /**
    * A helper function to format to the {@code Duration} interface's format() method with a given
-   * amount of time.
+   * amount of time. Formats according the documentation outlined int {@code Duration.format()}
    *
    * @param template  the template
    * @param inSeconds the time in seconds that will be formatted
@@ -134,7 +134,6 @@ abstract class AbstractDuration implements Duration {
    * @throws IllegalArgumentException if {@code template} is malformed
    */
   protected String formatWithSeconds(String template, long inSeconds) {
-
     char[] chars = template.toCharArray();
     String formatted = "";
 

@@ -1,4 +1,4 @@
-package unbun.cs3500.lectures.lecture2;
+package unbun.cs3500.lectures.basicInheritance.durations;
 
 public interface Duration extends Comparable<Duration>{
   long inSeconds();
