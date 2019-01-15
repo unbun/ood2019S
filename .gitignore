@@ -1,3 +1,10 @@
-.zip
-.idea
+#Packages
+*.zip
+*.tar
+*.gz
+
+#InteliJ files
+*.idea
+
+#Output files
 target/

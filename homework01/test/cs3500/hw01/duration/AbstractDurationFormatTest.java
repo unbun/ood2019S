@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 //TODO: test negatives(?)
@@ -31,7 +32,7 @@ public abstract class AbstractDurationFormatTest {
   }
 
   @Test
-  public void testAllChars() {
+  public void formatWithAllChars() {
     ArrayList specifiers = new ArrayList<>(Arrays.asList('%', 't', 's', 'S', 'm', 'M', 'h', 'H'));
     for (char curr = 32; curr < 127; curr++) {
       if (specifiers.contains(curr)) {
@@ -40,11 +41,12 @@ public abstract class AbstractDurationFormatTest {
       } else {
         try {
           hms(1, 2, 3).format("%" + curr);
+
           fail("non-specifier should throw error");
+
           // line throws an error to be caught
         } catch (IllegalArgumentException e) {
-          assertEquals("Malformed format: % must be followed by a special char",
-                  e.getMessage());
+          assertNotNull(e.getMessage());
         }
       }
     }
