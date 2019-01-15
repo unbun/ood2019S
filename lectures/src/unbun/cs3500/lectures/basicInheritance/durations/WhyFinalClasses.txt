@@ -1,0 +1,45 @@
+//If DurationImpl wasn't final, this could be a class:
+
+public class WickedGoodDuration extends DurationImpl{
+    private boolean isWicked;
+
+    public WickedGoodDuration(long inSeconds, boolean isWicked){
+        super(inSeconds);
+        this.isWicked = isWicked;
+    }
+
+    //need this for fromSeconds():
+    public WickedGoodDuration(long inSeconds){
+        super(inSeconds);
+        this.isWicked = false;
+    }
+
+    public void setWicked(boolean w){
+        this.isWicked = w;
+    }
+
+    public boolean getWicked(boolean w){
+        return this.isWicked;
+    }
+}
+
+
+/* Problem 1:
+HASHCODE does not take into account extra variables, so mulitple WickedGoods have the same hashcode.
+even if they aren't the same
+*/
+
+/* Problem 2:
+This is now MUTABLE, but we designed all other durations and test to be non-mutable.
+Defies Liskov's substitution principle
+*/
+
+"Value Objects":
+  -> immutable
+  -> equals & hashCode are based on 1 value
+  -> They behave like values:
+        x = 5, y = x; //no strange mutation errors
+        String x = "hello",  y =x; 
+        Duration x = 3600 sec, y = x;
+
+

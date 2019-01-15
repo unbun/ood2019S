@@ -4,11 +4,15 @@ package cs3500.hw01.duration;
  * Durations represented as hours, minutes, and seconds.
  */
 public final class HmsDuration extends AbstractDuration {
+
+  private final int hours;
+  private final int minutes;
+  private final int seconds;
+
   /**
-   * Constructs a duration in terms of its length in hours, minutes, and
-   * seconds.
+   * Constructs a duration in terms of its length in hours, minutes, and seconds.
    *
-   * @param hours the number of hours
+   * @param hours   the number of hours
    * @param minutes the number of minutes
    * @param seconds the number of seconds
    * @throws IllegalArgumentException if any argument is negative
@@ -16,6 +20,7 @@ public final class HmsDuration extends AbstractDuration {
   public HmsDuration(int hours, int minutes, int seconds) {
     this(inSeconds(hours, minutes, seconds));
     ensureHms(hours, minutes, seconds);
+
   }
 
   /**
@@ -31,12 +36,8 @@ public final class HmsDuration extends AbstractDuration {
 
     seconds = secondsOf(inSeconds);
     minutes = minutesOf(inSeconds);
-    hours   = hoursOf(inSeconds);
+    hours = hoursOf(inSeconds);
   }
-
-  private final int hours;
-  private final int minutes;
-  private final int seconds;
 
   @Override
   protected AbstractDuration fromSeconds(long seconds) {
@@ -51,5 +52,10 @@ public final class HmsDuration extends AbstractDuration {
   @Override
   public String asHms() {
     return asHms(hours, minutes, seconds);
+  }
+
+  @Override
+  public String format(String template) {
+    return formatWithSeconds(template, inSeconds());
   }
 }
