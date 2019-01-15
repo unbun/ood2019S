@@ -33,7 +33,7 @@ public abstract class AbstractDurationFormatTest {
   @Test
   public void testAllChars() {
     ArrayList specifiers = new ArrayList<>(Arrays.asList('%', 't', 's', 'S', 'm', 'M', 'h', 'H'));
-    for (char curr = 32; curr < 128; curr++) {
+    for (char curr = 32; curr < 127; curr++) {
       if (specifiers.contains(curr)) {
         //make sure specifiers are identified
         assertNotEquals("%" + curr, sec(123).format("%" + curr));
