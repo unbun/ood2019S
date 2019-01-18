@@ -5,6 +5,7 @@
 
 #InteliJ files
 *.idea
+*.iml
 
 #Output files
 target/
