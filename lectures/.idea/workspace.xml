@@ -1,33 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1b13ce8d-84f3-466f-9a5f-d88bde8a3aab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_4_13_beta_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/unbun/cs3500/lectures/basicInheritance/durations/AbstractDuration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/unbun/cs3500/lectures/basicInheritance/durations/CompactDuration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/unbun/cs3500/lectures/basicInheritance/durations/DurationImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/unbun/cs3500/lectures/basicInheritance/durations/WhyFinalClasses.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/unbun/cs3500/lectures/basicInheritance/durations/DurationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../homework01/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../homework01/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../homework01/my-submission.zip" beforeDir="false" afterPath="$PROJECT_DIR$/../homework01/my-submission.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../homework01/src/cs3500/hw01/duration/AbstractDuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../homework01/src/cs3500/hw01/duration/AbstractDuration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../homework01/target/classes/cs3500/hw01/duration/AbstractDuration.class" beforeDir="false" afterPath="$PROJECT_DIR$/../homework01/target/classes/cs3500/hw01/duration/AbstractDuration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../homework01/target/classes/cs3500/hw01/duration/CompactDuration.class" beforeDir="false" afterPath="$PROJECT_DIR$/../homework01/target/classes/cs3500/hw01/duration/CompactDuration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../homework01/target/classes/cs3500/hw01/duration/HmsDuration.class" beforeDir="false" afterPath="$PROJECT_DIR$/../homework01/target/classes/cs3500/hw01/duration/HmsDuration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../homework01/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest$CompactDurationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../homework01/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest$CompactDurationTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../homework01/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest$HmsDurationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../homework01/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest$HmsDurationTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../homework01/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../homework01/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../homework01/test/cs3500/hw01/duration/AbstractDurationFormatTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../homework01/test/cs3500/hw01/duration/AbstractDurationFormatTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_core_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/hamcrest_core_2_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LectureNotes.iml" beforeDir="false" afterPath="$PROJECT_DIR$/LectureNotes.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/unbun/cs3500/lectures/lecture2/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/unbun/cs3500/lectures/basicInheritance/publications/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/unbun/cs3500/lectures/lecture2/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/unbun/cs3500/lectures/basicInheritance/publications/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/unbun/cs3500/lectures/lecture2/Duration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/unbun/cs3500/lectures/basicInheritance/durations/Duration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/unbun/cs3500/lectures/lecture2/DurationImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/unbun/cs3500/lectures/lecture2/Publication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/unbun/cs3500/lectures/basicInheritance/publications/Publication.java" afterDir="false" />
-    </list>
+    <list default="true" id="1b13ce8d-84f3-466f-9a5f-d88bde8a3aab" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,6 +46,7 @@
     <session id="944241179">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -289,7 +264,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547490364261" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547490365406" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../hamcrest-core-2.1.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -358,7 +333,7 @@
       <workItem from="1547139276606" duration="1446000" />
       <workItem from="1547140854789" duration="396000" />
       <workItem from="1547141595961" duration="3849000" />
-      <workItem from="1547485089767" duration="5252000" />
+      <workItem from="1547485089767" duration="5337000" />
     </task>
     <servers />
   </component>
@@ -371,7 +346,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10943000" />
+    <option name="totallyTimeSpent" value="11028000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

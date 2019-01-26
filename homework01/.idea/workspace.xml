@@ -2,31 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f242860a-2c95-400c-8762-d5e12ac338c8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../lectures/.idea/libraries/junit_4_13_beta_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lectures/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/basicInheritance/durations/AbstractDuration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/basicInheritance/durations/CompactDuration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/basicInheritance/durations/DurationImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/basicInheritance/durations/WhyFinalClasses.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lectures/test/unbun/cs3500/lectures/basicInheritance/durations/DurationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw02/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw02/src/cs3500/marblesolitaire/model/hw02/BoardPosn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw02/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModelImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw02/src/cs3500/marblesolitaire/model/hw02/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw02/test/TestBoardSTuff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-submission.zip" beforeDir="false" afterPath="$PROJECT_DIR$/my-submission.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/hw01/duration/AbstractDuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/hw01/duration/AbstractDuration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cs3500/hw01/duration/AbstractDuration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cs3500/hw01/duration/AbstractDuration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cs3500/hw01/duration/CompactDuration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cs3500/hw01/duration/CompactDuration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cs3500/hw01/duration/HmsDuration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cs3500/hw01/duration/HmsDuration.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest$CompactDurationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest$CompactDurationTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest$HmsDurationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest$HmsDurationTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/cs3500/hw01/duration/AbstractDurationFormatTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/cs3500/hw01/duration/AbstractDurationFormatTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/cs3500/hw01/duration/AbstractDurationFormatTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lectures/.idea/libraries/hamcrest_core_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lectures/.idea/libraries/hamcrest_core_2_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lectures/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lectures/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lectures/LectureNotes.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../lectures/LectureNotes.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/lecture2/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/basicInheritance/publications/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/lecture2/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/basicInheritance/publications/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/lecture2/Duration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/basicInheritance/durations/Duration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/lecture2/DurationImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/lecture2/Publication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/basicInheritance/publications/Publication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/basicInheritance/durations/WhyFinalClasses.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../lectures/src/unbun/cs3500/lectures/basicInheritance/durations/WhyFinalClasses.txt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -69,29 +57,32 @@
     <session id="419052756">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.open.time.0" value="1" />
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.0" value="2" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="913" />
+          <entry key="java" value="931" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="913" />
+          <entry key="JAVA" value="931" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="1" />
+          <entry key="java" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="1" />
+          <entry key="JAVA" value="2" />
         </counts>
       </usages-collector>
     </session>
@@ -101,17 +92,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/Duration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
+            <state relative-caret-position="1326">
               <caret line="82" column="40" selection-start-line="82" selection-start-column="40" selection-end-line="82" selection-end-column="40" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/AbstractDuration.java">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="22" lean-forward="true" selection-end-line="1" />
+              <caret column="22" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/publication/Webpage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="50" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -119,32 +119,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/cs3500/hw01/duration/AbstractDurationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-340">
-              <caret line="99" selection-start-line="99" selection-end-line="99" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="17">
+              <caret line="4" selection-start-line="4" selection-end-line="5" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/cs3500/hw01/duration/AbstractDurationFormatTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+            <state relative-caret-position="119">
+              <caret line="7" selection-start-line="7" selection-end-line="9" selection-end-column="36" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3901#3902#0" expanded="true" />
                 <element signature="e#3947#3948#0" expanded="true" />
-                <element signature="e#4031#4032#0" expanded="true" />
-                <element signature="e#4082#4083#0" expanded="true" />
-                <element signature="e#4167#4168#0" expanded="true" />
-                <element signature="e#4222#4223#0" expanded="true" />
-                <element signature="e#4305#4306#0" expanded="true" />
-                <element signature="e#4350#4351#0" expanded="true" />
-                <element signature="e#4434#4435#0" expanded="true" />
-                <element signature="e#4477#4478#0" expanded="true" />
+                <element signature="e#3993#3994#0" expanded="true" />
+                <element signature="e#4213#4214#0" expanded="true" />
+                <element signature="e#4268#4269#0" expanded="true" />
+                <element signature="e#4352#4353#0" expanded="true" />
+                <element signature="e#4395#4396#0" expanded="true" />
+                <element signature="e#4478#4479#0" expanded="true" />
+                <element signature="e#4508#4509#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -153,7 +147,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/CompactDuration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
+            <state relative-caret-position="850">
               <caret line="55" column="50" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
               <folding>
                 <element signature="e#1469#1470#0" expanded="true" />
@@ -167,7 +161,7 @@
         <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/HmsDuration.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="714">
-              <caret line="43" column="36" lean-forward="true" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
+              <caret line="43" column="36" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
               <folding>
                 <element signature="e#1475#1476#0" expanded="true" />
                 <element signature="e#1532#1533#0" expanded="true" />
@@ -229,9 +223,9 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+    <option name="x" value="-10" />
+    <option name="width" value="1940" />
+    <option name="height" value="1100" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -241,6 +235,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -251,31 +247,6 @@
             <path>
               <item name="hw01" type="b2602c69:ProjectViewProjectNode" />
               <item name="homework01" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hw01" type="b2602c69:ProjectViewProjectNode" />
-              <item name="homework01" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="hw01" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hw01" type="b2602c69:ProjectViewProjectNode" />
-              <item name="homework01" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="hw01" type="462c0819:PsiDirectoryNode" />
-              <item name="duration" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hw01" type="b2602c69:ProjectViewProjectNode" />
-              <item name="homework01" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="hw01" type="462c0819:PsiDirectoryNode" />
-              <item name="publication" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hw01" type="b2602c69:ProjectViewProjectNode" />
-              <item name="homework01" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -290,26 +261,17 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="hw01" type="462c0819:PsiDirectoryNode" />
               <item name="duration" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hw01" type="b2602c69:ProjectViewProjectNode" />
-              <item name="homework01" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="hw01" type="462c0819:PsiDirectoryNode" />
-              <item name="publication" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547490364222" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547493198065" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../lectures" />
@@ -483,20 +445,14 @@
       <updated>1547164381022</updated>
       <workItem from="1547164383768" duration="27309000" />
       <workItem from="1547237582788" duration="4465000" />
-      <workItem from="1547484692903" duration="5271000" />
+      <workItem from="1547484692903" duration="6644000" />
+      <workItem from="1547595062228" duration="15000" />
+      <workItem from="1547598102153" duration="193000" />
+      <workItem from="1548200440079" duration="12000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AbstractDurationFormatTest$CompactDurationTest_and_1_more - 2019.01.11 at 16h 18m 38s.xml">
-      <configuration name="AbstractDurationFormatTest$CompactDurationTest and 1 more" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AbstractDurationFormatTest$CompactDurationTest_and_1_more - 2019.01.11 at 16h 33m 45s.xml">
-      <configuration name="AbstractDurationFormatTest$CompactDurationTest and 1 more" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AbstractDurationFormatTest$CompactDurationTest_and_1_more - 2019.01.11 at 16h 34m 01s.xml">
-      <configuration name="AbstractDurationFormatTest$CompactDurationTest and 1 more" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="AbstractDurationFormatTest$CompactDurationTest_and_1_more - 2019.01.11 at 16h 36m 18s.xml">
       <configuration name="AbstractDurationFormatTest$CompactDurationTest and 1 more" configurationId="JUnit" />
     </history-entry>
@@ -518,15 +474,24 @@
     <history-entry file="AbstractDurationFormatTest$CompactDurationTest_and_1_more - 2019.01.14 at 11h 57m 15s.xml">
       <configuration name="AbstractDurationFormatTest$CompactDurationTest and 1 more" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="AbstractDurationFormatTest$CompactDurationTest_and_1_more - 2019.01.14 at 14h 05m 35s.xml">
+      <configuration name="AbstractDurationFormatTest$CompactDurationTest and 1 more" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AbstractDurationFormatTest$CompactDurationTest_and_1_more - 2019.01.14 at 14h 05m 41s.xml">
+      <configuration name="AbstractDurationFormatTest$CompactDurationTest and 1 more" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AbstractDurationFormatTest$CompactDurationTest_and_1_more - 2019.01.14 at 14h 07m 24s.xml">
+      <configuration name="AbstractDurationFormatTest$CompactDurationTest and 1 more" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37045000" />
+    <option name="totallyTimeSpent" value="38638000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25479743" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26545843" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -535,7 +500,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.329718" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -590,16 +555,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="24" column="3" lean-forward="true" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/publication/Webpage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
@@ -610,27 +565,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/HmsDuration.java">
+    <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/Duration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="43" column="36" lean-forward="true" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
-          <folding>
-            <element signature="e#1475#1476#0" expanded="true" />
-            <element signature="e#1532#1533#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1326">
+          <caret line="82" column="40" selection-start-line="82" selection-start-column="40" selection-end-line="82" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/Duration.java">
+    <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/AbstractDuration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="111">
-          <caret line="82" column="40" selection-start-line="82" selection-start-column="40" selection-end-line="82" selection-end-column="40" />
+        <state>
+          <caret column="22" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/publication/Webpage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="50" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/CompactDuration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
+        <state relative-caret-position="850">
           <caret line="55" column="50" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
           <folding>
             <element signature="e#1469#1470#0" expanded="true" />
@@ -639,40 +597,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/cs3500/hw01/duration/AbstractDurationFormatTest.java">
+    <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/HmsDuration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+        <state relative-caret-position="714">
+          <caret line="43" column="36" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3901#3902#0" expanded="true" />
-            <element signature="e#3947#3948#0" expanded="true" />
-            <element signature="e#4031#4032#0" expanded="true" />
-            <element signature="e#4082#4083#0" expanded="true" />
-            <element signature="e#4167#4168#0" expanded="true" />
-            <element signature="e#4222#4223#0" expanded="true" />
-            <element signature="e#4305#4306#0" expanded="true" />
-            <element signature="e#4350#4351#0" expanded="true" />
-            <element signature="e#4434#4435#0" expanded="true" />
-            <element signature="e#4477#4478#0" expanded="true" />
+            <element signature="e#1475#1476#0" expanded="true" />
+            <element signature="e#1532#1533#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/cs3500/hw01/duration/AbstractDurationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340">
-          <caret line="99" selection-start-line="99" selection-end-line="99" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="17">
+          <caret line="4" selection-start-line="4" selection-end-line="5" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/hw01/duration/AbstractDuration.java">
+    <entry file="file://$PROJECT_DIR$/test/cs3500/hw01/duration/AbstractDurationFormatTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="22" lean-forward="true" selection-end-line="1" />
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="9" selection-end-column="36" />
+          <folding>
+            <element signature="e#3947#3948#0" expanded="true" />
+            <element signature="e#3993#3994#0" expanded="true" />
+            <element signature="e#4213#4214#0" expanded="true" />
+            <element signature="e#4268#4269#0" expanded="true" />
+            <element signature="e#4352#4353#0" expanded="true" />
+            <element signature="e#4395#4396#0" expanded="true" />
+            <element signature="e#4478#4479#0" expanded="true" />
+            <element signature="e#4508#4509#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
