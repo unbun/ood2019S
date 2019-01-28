@@ -1,19 +1,24 @@
 import org.junit.Test;
+import org.omg.CORBA.MARSHAL;
 
-import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
-import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
+import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl;
+
 public class TestMarbleSolitaireModel {
 
-  private MarbleSolitaireModel defBoard = new MarbleSolitaireModelImpl();
-  private MarbleSolitaireModel board3 = new MarbleSolitaireModelImpl(4, 6);
-  private MarbleSolitaireModel board5 = new MarbleSolitaireModelImpl(5, 5, 9);
-  private MarbleSolitaireModel board1 = new MarbleSolitaireModelImpl(1);
+  private MarbleSolitaireModel defBoard = MarbleSolitaireModelImpl.builder().build();
+  private MarbleSolitaireModel board3 = MarbleSolitaireModelImpl.builder().sRow(4).sCol(6).build();
+  private MarbleSolitaireModel board5 =
+          MarbleSolitaireModelImpl.builder().armThickness(5).sRow(5).sCol(9).build();
+  private MarbleSolitaireModel board1 =
+          MarbleSolitaireModelImpl.builder().armThickness(1).build();
 
   @Test
   public void boardGeneration() {
@@ -92,32 +97,33 @@ public class TestMarbleSolitaireModel {
                     + "[null ][null ][null ][null ]\n"
                     + "[null ][null ][null ][null ][12, 4 ][12, 5 ][12, 6 ][12, 7 ][12, 8 ]"
                     + "[null ][null ][null ][null ]",
-            new MarbleSolitaireModelImpl(5).toString());
+            MarbleSolitaireModelImpl.builder().armThickness(5).build().toString());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void evenArmThick() {
-    MarbleSolitaireModel b1 = new MarbleSolitaireModelImpl(6);
+    MarbleSolitaireModel b1 = MarbleSolitaireModelImpl.builder().armThickness(6).build();
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void negativeArmThick() {
-    MarbleSolitaireModel b1 = new MarbleSolitaireModelImpl(-3);
+    MarbleSolitaireModel b1 = MarbleSolitaireModelImpl.builder().armThickness(-3).build();
+
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void invalidEmpty1() {
-    MarbleSolitaireModel b1 = new MarbleSolitaireModelImpl(3, 1, 1); // a null posn
+    MarbleSolitaireModel b1 = MarbleSolitaireModelImpl.builder().sRow(1).sCol(1).build();
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void invalidEmpty2() {
-    MarbleSolitaireModel b1 = new MarbleSolitaireModelImpl(3, 7, 3);
+    MarbleSolitaireModel b1 = MarbleSolitaireModelImpl.builder().sRow(7).sCol(3).build();
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void invalidEmpty3() {
-    MarbleSolitaireModel b1 = new MarbleSolitaireModelImpl(2, 9);
+    MarbleSolitaireModel b1 = MarbleSolitaireModelImpl.builder().sRow(2).sCol(9).build();
   }
 
   @Test
@@ -324,7 +330,8 @@ public class TestMarbleSolitaireModel {
 
   @Test(expected = IllegalArgumentException.class)
   public void moveOffBoard2() {
-    MarbleSolitaireModel boardC = new MarbleSolitaireModelImpl(3, 2, 0);
+    MarbleSolitaireModel boardC =
+            MarbleSolitaireModelImpl.builder().armThickness(3).sCol(2).sCol(0).build();
     boardC.move(2, 1, 2, -1);
   }
 
@@ -449,7 +456,7 @@ public class TestMarbleSolitaireModel {
 
   /**
    * Run a list of valid moves on the default board and assert that they aren't changing the score
-   * or getState. Each array must be the same length.
+   * or state. Each array must be the same length.
    *
    * @param msm      the MarbleSolitarieModel with the board to move on
    * @param fRows    ordered list of fromRow values for invalid moves

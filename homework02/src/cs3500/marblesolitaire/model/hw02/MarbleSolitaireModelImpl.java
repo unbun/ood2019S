@@ -2,8 +2,6 @@ package cs3500.marblesolitaire.model.hw02;
 
 import java.util.ArrayList;
 
-import cs3500.marblesolitaire.model.hw02.posn.BoardPosn;
-import cs3500.marblesolitaire.model.hw02.posn.NullPosn;
 import cs3500.marblesolitaire.model.hw02.posn.Posn;
 import cs3500.marblesolitaire.model.hw02.posn.PosnState;
 
@@ -15,77 +13,25 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
   private final int armThickness;
   private ArrayList<ArrayList<Posn>> board;
 
-  /**
-   * Creates a MSM with an armThickness of 3 and the center slot empty to start.
-   */
-  public MarbleSolitaireModelImpl() {
-    this(3);
-  }
+  private static MSMBuilder builder = new MSMBuilder();
 
   /**
-   * Creates a MSM with an armThickness of 3 and the slot at the given place empty to start.
-   *
-   * @param sRow the row of the starting empty slot.
-   * @param sCol the column of the startimg empty slot.
+   * Package-private constructor for the model
+   * @param armThickness the armthickness of the game
+   * @param board the starting config of the game board
    */
-  public MarbleSolitaireModelImpl(int sRow, int sCol) {
-    this(3, sRow, sCol);
-  }
-
-  /**
-   * Creates a MSM with an armThickness set to the given value and the center slot empty to start.
-   *
-   * @param armThickness the armThickness of this MSM
-   */
-  public MarbleSolitaireModelImpl(int armThickness) {
-    this(armThickness, (3 * (armThickness - 1)) / 2,
-            (3 * (armThickness - 1)) / 2);
-  }
-
-  /**
-   * Creates a MSM with an armThickness set to the given value and the slot at the given place empty
-   * to start.
-   *
-   * @param armThickness the armThickness of this MSM
-   * @param sRow         the row of the starting empty slot.
-   * @param sCol         the column of the startimg empty slot.
-   */
-  public MarbleSolitaireModelImpl(int armThickness, int sRow, int sCol) {
+  MarbleSolitaireModelImpl(int armThickness, ArrayList<ArrayList<Posn>> board){
     this.armThickness = armThickness;
-    this.board = new ArrayList<>();
+    this.board = board;
+  }
 
-    if (armThickness % 2 != 1) {
-      throw new IllegalArgumentException("Arm Thicknesses must be odd");
-    }
 
-    //out of range
-    if (outOfRange(sRow, sCol)) {
-      throw new IllegalArgumentException(
-              String.format("Invalid empty cell position(%d,%d)", sRow, sCol));
-    }
-
-    for (int r = 0; r < realWidth(); r++) {
-      ArrayList<Posn> nthRow = new ArrayList<>();
-      for (int c = 0; c < realWidth(); c++) {
-
-        boolean isEmpty = r == sRow && c == sCol;
-        PosnState ps = (isEmpty ? PosnState.EMPTY : PosnState.FILLED);
-        int endOfArm = 2 * armThickness - 1;
-
-        if (c >= armThickness - 1 && c < endOfArm) {
-          nthRow.add(new BoardPosn(r, c, ps));
-        } else if (r >= armThickness - 1 && r < endOfArm) {
-          nthRow.add(new BoardPosn(r, c, ps));
-        } else {
-          if (isEmpty) { //isEmpty is null
-            throw new IllegalArgumentException(
-                    String.format("Invalid empty cell position(%d,%d)", sRow, sCol));
-          }
-          nthRow.add(new NullPosn(r, c));
-        }
-      }
-      this.board.add(nthRow);
-    }
+  /**
+   * Get the builder of the game
+   * @return the builder of the game
+   */
+  public static MSMBuilder builder(){
+    return MarbleSolitaireModelImpl.builder;
   }
 
   /**

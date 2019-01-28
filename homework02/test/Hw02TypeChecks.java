@@ -9,10 +9,17 @@ public class Hw02TypeChecks {
    * compiles properly.
    */
   public static void main(String[] args) {
+    /*
     helper(new cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl());
     helper(new cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl(2, 2));
     helper(new cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl(5));
     helper(new cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl(3, 0, 4));
+     */
+
+    helper(new cs3500.marblesolitaire.model.hw02.MSMBuilder().build());
+    helper(new cs3500.marblesolitaire.model.hw02.MSMBuilder().sRow(2).sCol(2).build());
+    helper(new cs3500.marblesolitaire.model.hw02.MSMBuilder().armThickness(3).build());
+    helper(new cs3500.marblesolitaire.model.hw02.MSMBuilder().armThickness(3).sRow(0).sCol(4).build());
   }
 
   private static void helper(cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel model) {
