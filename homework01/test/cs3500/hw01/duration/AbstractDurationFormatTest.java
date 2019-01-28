@@ -136,13 +136,13 @@ public abstract class AbstractDurationFormatTest {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void multipleBads() {
-    sec(25234).format("%t sec: %j%n%s");
+  public void wrongCaseForT() {
+    sec(123).format("%T sec: %j%n%s");
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void wrongCaseForT() {
-    sec(123).format("%T sec: %j%n%s");
+  public void justAPercent() {
+    sec(456).format("%");
   }
 
   /*

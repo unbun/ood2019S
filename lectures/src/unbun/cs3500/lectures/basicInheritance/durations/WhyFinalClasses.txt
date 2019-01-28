@@ -39,7 +39,7 @@ Defies Liskov's substitution principle
   -> equals & hashCode are based on 1 value
   -> They behave like values:
         x = 5, y = x; //no strange mutation errors
-        String x = "hello",  y =x; 
+        String x = "hello",  y =x;
         Duration x = 3600 sec, y = x;
 
 
