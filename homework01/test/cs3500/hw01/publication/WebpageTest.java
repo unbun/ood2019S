@@ -8,6 +8,8 @@ public class WebpageTest {
   Publication beansWP = new Webpage("The 9 Healthiest Beans and Legumes You Can Eat",
           "https://www.healthline.com/nutrition/healthiest-beans-legumes", "Thurs, 10 Jan 2019");
 
+  Publication emptyWP = new Webpage("", "", "");
+
   @Test
   public void testCiteAPA() {
     assertEquals("The 9 Healthiest Beans and Legumes You Can Eat. "
@@ -23,6 +25,22 @@ public class WebpageTest {
                     + "Web. Thurs, 10 Jan 2019 "
                     + "<https://www.healthline.com/nutrition/healthiest-beans-legumes>.",
             beansWP.citeMla());
+  }
+
+  @Test
+  public void testCiteAPAEmpty() {
+    assertEquals(". "
+                    + "(). "
+                    + "Retrieved from ",
+            emptyWP.citeApa());
+  }
+
+  @Test
+  public void testCiteMLAEmpty() {
+    assertEquals("\".\" "
+                    + "Web.  "
+                    + "<>.",
+            emptyWP.citeMla());
   }
 
 }

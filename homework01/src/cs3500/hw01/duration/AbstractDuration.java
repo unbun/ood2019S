@@ -134,6 +134,10 @@ abstract class AbstractDuration implements Duration {
    * @throws IllegalArgumentException if {@code template} is malformed
    */
   protected String formatWithSeconds(String template, long inSeconds) {
+    if(template == null){
+      throw new IllegalArgumentException("format cannot be null");
+    }
+
     char[] chars = template.toCharArray();
     String formatted = "";
 
