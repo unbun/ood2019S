@@ -1,12 +1,12 @@
 import org.junit.Test;
 
+import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
+import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
-import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
-import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl;
 
 public class TestMarbleSolitaireModel {
 
@@ -449,7 +449,7 @@ public class TestMarbleSolitaireModel {
 
   /**
    * Run a list of valid moves on the default board and assert that they aren't changing the score
-   * or state. Each array must be the same length.
+   * or getState. Each array must be the same length.
    *
    * @param msm      the MarbleSolitarieModel with the board to move on
    * @param fRows    ordered list of fromRow values for invalid moves

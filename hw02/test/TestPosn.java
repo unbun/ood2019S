@@ -1,22 +1,22 @@
 import org.junit.Test;
 
-import cs3500.marblesolitaire.model.hw02.BoardPosn;
-import cs3500.marblesolitaire.model.hw02.NullPosn;
-import cs3500.marblesolitaire.model.hw02.Posn;
-
 import cs3500.marblesolitaire.model.hw02.OrthogonalDir;
+import cs3500.marblesolitaire.model.hw02.posn.BoardPosn;
+import cs3500.marblesolitaire.model.hw02.posn.NullPosn;
+import cs3500.marblesolitaire.model.hw02.posn.Posn;
+import cs3500.marblesolitaire.model.hw02.posn.PosnState;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 public class TestPosn {
 
   @Test
   public void debugString() {
-    Posn p1 = new BoardPosn(0, 0, true);
-    Posn p2 = new BoardPosn(3, 4, false);
+    Posn p1 = new BoardPosn(0, 0, PosnState.FILLED);
+    Posn p2 = new BoardPosn(3, 4, PosnState.EMPTY);
     Posn pN = new NullPosn(4, 5);
 
     assertEquals("[0, 0 ]", p1.toString());
@@ -26,8 +26,8 @@ public class TestPosn {
 
   @Test
   public void stateChar() {
-    Posn p1 = new BoardPosn(0, 0, true);
-    Posn p2 = new BoardPosn(3, 4, false);
+    Posn p1 = new BoardPosn(0, 0, PosnState.FILLED);
+    Posn p2 = new BoardPosn(3, 4, PosnState.EMPTY);
     Posn pN = new NullPosn(4, 5);
 
     assertEquals('O', p1.getStateChar());
@@ -36,42 +36,33 @@ public class TestPosn {
   }
 
   @Test
-  public void nullMethod() {
-    Posn p2 = new BoardPosn(3, 4, false);
-    Posn pN = new NullPosn(4, 5);
-
-    assertTrue(pN.isNull());
-    assertFalse(p2.isNull());
-  }
-
-  @Test
   public void jumpableState() {
-    Posn start = new BoardPosn(0, 0, true);
-    Posn over = new BoardPosn(0, 1, true);
-    Posn land = new BoardPosn(0, 2, false);
+    Posn start = new BoardPosn(0, 0, PosnState.FILLED);
+    Posn over = new BoardPosn(0, 1, PosnState.FILLED);
+    Posn land = new BoardPosn(0, 2, PosnState.EMPTY);
 
     assertTrue(start.checkJumpStates(over, land));
-    land.setOccupied(true);
+    land.setState(PosnState.FILLED);
     assertFalse(start.checkJumpStates(over, land));
-    start.setOccupied(false);
+    start.setState(PosnState.EMPTY);
     assertTrue(land.checkJumpStates(over, start));
-    start.setOccupied(true);
+    start.setState(PosnState.FILLED);
 
-    //changing positions don't effect its state check
-    Posn overNotReally = new BoardPosn(12, 12, true);
-    Posn landNotReally = new BoardPosn(0, 7, false);
+    //changing positions don't effect its getState check
+    Posn overNotReally = new BoardPosn(12, 12, PosnState.FILLED);
+    Posn landNotReally = new BoardPosn(0, 7, PosnState.EMPTY);
     assertTrue(start.checkJumpStates(overNotReally, landNotReally));
 
     Posn pN = new NullPosn(0, 0);
     assertFalse(pN.checkJumpStates(over, land));
-    land.setOccupied(false);
+    land.setState(PosnState.EMPTY);
     assertFalse(pN.checkJumpStates(over, land));
   }
 
   @Test
   public void jumpableDirection() {
-    Posn p1 = new BoardPosn(0, 0, true);
-    Posn p2 = new BoardPosn(3, 4, false);
+    Posn p1 = new BoardPosn(0, 0, PosnState.FILLED);
+    Posn p2 = new BoardPosn(3, 4, PosnState.EMPTY);
 
     assertTrue(p1.checkJumpDirection(OrthogonalDir.DOWN, 5));
     assertFalse(p1.checkJumpDirection(OrthogonalDir.DOWN, 1));
@@ -94,33 +85,37 @@ public class TestPosn {
 
   @Test
   public void gettersAndSetters() {
-    Posn p1 = new BoardPosn(0, 0, true);
-    Posn p2 = new BoardPosn(3, 4, false);
+    Posn p1 = new BoardPosn(0, 0, PosnState.FILLED);
+    Posn p2 = new BoardPosn(3, 4, PosnState.EMPTY);
     Posn pN = new NullPosn(67, 89);
 
     assertEquals(p1.getColumn(), 0);
     assertEquals(p2.getRow(), 3);
     assertEquals(pN.getRow(), 67);
 
-    assertEquals(false, pN.isOccupied());
-    pN.setOccupied(false);
-    assertEquals(false, pN.isOccupied());
+    assertEquals(PosnState.NULL, pN.getState());
 
-    assertEquals(true, p1.isOccupied());
-    p1.setOccupied(false);
-    assertEquals(false, p1.isOccupied());
+    assertEquals(PosnState.FILLED, p1.getState());
+    p1.setState(PosnState.EMPTY);
+    assertEquals(PosnState.EMPTY, p1.getState());
 
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void occupyNull() {
     Posn nullp = new NullPosn(67, 89);
-    nullp.setOccupied(true);
+    nullp.setState(PosnState.FILLED);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void emptyNull() {
+    Posn nullp = new NullPosn(67, 89);
+    nullp.setState(PosnState.EMPTY);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void invalidPosn1() {
-    Posn negR = new BoardPosn(-4, 5, false);
+    Posn negR = new BoardPosn(-4, 5, PosnState.EMPTY);
   }
 
   @Test(expected = IllegalArgumentException.class)

@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c14021c7-6325-41d1-a4c7-e7006f479733" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/PosnState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MSMBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-submission.zip" beforeDir="false" afterPath="$PROJECT_DIR$/my-submission.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/AbstractPosn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/AbstractPosn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/BoardPosn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/BoardPosn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModelImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModelImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/OrthogonalDir.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/OrthogonalDir.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/AbstractPosn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/BoardPosn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/NullPosn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/Posn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/NullPosn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/NullPosn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/OrthogonalDir.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/utils/OrthogonalDir.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/Posn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/Posn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/TestMarbleSolitaireModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestMarbleSolitaireModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/TestPosn.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/TestPosn.java" afterDir="false" />
     </list>
@@ -66,22 +64,22 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="25" />
+          <entry key="java" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="25" />
+          <entry key="JAVA" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="5739" />
+          <entry key="java" value="3869" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="5739" />
+          <entry key="JAVA" value="3869" />
         </counts>
       </usages-collector>
     </session>
@@ -89,75 +87,75 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModelImpl.java">
+        <entry file="file://$PROJECT_DIR$/test/TestPosn.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="216" column="9" lean-forward="true" selection-start-line="216" selection-start-column="9" selection-end-line="216" selection-end-column="9" />
+            <state relative-caret-position="1263">
+              <caret line="116" column="38" selection-start-line="116" selection-start-column="38" selection-end-line="116" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#8152#8153#0" expanded="true" />
-                <element signature="e#8189#8190#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/OrthogonalDir.java">
+        <entry file="file://$PROJECT_DIR$/test/TestMarbleSolitaireModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="33" column="72" selection-start-line="33" selection-start-column="72" selection-end-line="33" selection-end-column="72" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/PosnState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+            <state relative-caret-position="285">
+              <caret line="97" column="63" selection-start-line="97" selection-start-column="63" selection-end-line="97" selection-end-column="63" />
               <folding>
-                <element signature="e#374#375#0" expanded="true" />
-                <element signature="e#410#411#0" expanded="true" />
-                <element signature="e#576#577#0" expanded="true" />
-                <element signature="e#607#608#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/Hw02TypeChecks.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/Posn.java">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModelImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="51" lean-forward="true" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
+            <state relative-caret-position="240">
+              <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
+              <folding>
+                <element signature="e#1844#1845#0" expanded="true" />
+                <element signature="e#1893#1894#0" expanded="true" />
+                <element signature="e#6305#6306#0" expanded="true" />
+                <element signature="e#6342#6343#0" expanded="true" />
+                <element signature="e#6501#6502#0" expanded="true" />
+                <element signature="e#6534#6535#0" expanded="true" />
+                <element signature="e#6691#6692#0" expanded="true" />
+                <element signature="e#6728#6729#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/NullPosn.java">
+        <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MSMBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/BoardPosn.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="24" column="53" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/AbstractPosn.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="42" column="11" lean-forward="true" selection-start-line="42" selection-start-column="11" selection-end-line="42" selection-end-column="11" />
+            <state relative-caret-position="1035">
+              <caret line="69" column="78" selection-start-line="69" selection-start-column="78" selection-end-line="69" selection-end-column="78" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#418#419#0" expanded="true" />
+                <element signature="e#439#440#0" expanded="true" />
+                <element signature="e#2376#2377#0" expanded="true" />
+                <element signature="e#2405#2406#0" expanded="true" />
+                <element signature="e#2454#2455#0" expanded="true" />
+                <element signature="e#2481#2482#0" expanded="true" />
+                <element signature="e#2491#2492#0" expanded="true" />
+                <element signature="e#2528#2529#0" expanded="true" />
+                <element signature="e#2686#2687#0" expanded="true" />
+                <element signature="e#2723#2724#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -176,19 +174,16 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>rowMove</find>
+      <find>AbstractPosn</find>
       <find>0</find>
+      <find>begOfArm</find>
       <find>endOfArm</find>
       <find>realWidth</find>
-      <find>false</find>
-      <find>AbstractPosn</find>
-      <find>begOfArm</find>
     </findStrings>
     <replaceStrings>
+      <replace>Posn</replace>
       <replace>O</replace>
       <replace>realWidth()</replace>
-      <replace>PosnState.FILLED</replace>
-      <replace>PosnState.EMPTY</replace>
-      <replace>Posn</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -202,24 +197,18 @@
         <option value="$PROJECT_DIR$/test/TestBoardSTuff.java" />
         <option value="$PROJECT_DIR$/test/TestBoardStuff.java" />
         <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/Direction.java" />
+        <option value="$PROJECT_DIR$/test/TestPosn.java" />
         <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/AbstractPosn.java" />
         <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/NullPosn.java" />
         <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/BoardPosn.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/OrthogonalDir.java" />
         <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/Posn.java" />
         <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/BoardPosn.java" />
         <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/NullPosn.java" />
         <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/utils/MSMBuilder.java" />
         <option value="$PROJECT_DIR$/test/Hw02TypeChecks.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MSMBuilder.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/OrthogonalDir.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/NullPosn.java" />
-        <option value="$PROJECT_DIR$/test/TestPosn.java" />
         <option value="$PROJECT_DIR$/test/TestMarbleSolitaireModel.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModel.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/PosnState.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/AbstractPosn.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/Posn.java" />
-        <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/BoardPosn.java" />
+        <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MSMBuilder.java" />
         <option value="$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModelImpl.java" />
       </list>
     </option>
@@ -231,8 +220,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="120" />
-    <option name="y" value="1496" />
+    <option name="x" value="47" />
+    <option name="y" value="-4" />
     <option name="width" value="1873" />
     <option name="height" value="1084" />
   </component>
@@ -264,13 +253,6 @@
             <path>
               <item name="hw02" type="b2602c69:ProjectViewProjectNode" />
               <item name="hw02" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="hw02" type="462c0819:PsiDirectoryNode" />
-              <item name="posn" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="hw02" type="b2602c69:ProjectViewProjectNode" />
-              <item name="hw02" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -286,7 +268,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548630437011" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548627106117" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -307,7 +289,18 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in hw02">
+  <component name="RunManager" selected="JUnit.TestMarbleSolitaireModel">
+    <configuration name="TestMarbleSolitaireModel.gameOver1" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hw02" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestMarbleSolitaireModel" />
+      <option name="METHOD_NAME" value="gameOver1" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TestMarbleSolitaireModel.gameOverWin" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="hw02" />
       <option name="PACKAGE_NAME" value="" />
@@ -315,14 +308,6 @@
       <option name="METHOD_NAME" value="gameOverWin" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in hw02" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="hw02" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -361,17 +346,17 @@
     <list>
       <item itemvalue="JUnit.TestMarbleSolitaireModel" />
       <item itemvalue="JUnit.TestMarbleSolitaireModel and 1 more" />
+      <item itemvalue="Android JUnit.TestMarbleSolitaireModel.gameOver1" />
       <item itemvalue="Android JUnit.TestMarbleSolitaireModel.gameOverWin" />
       <item itemvalue="JUnit.TestMarbleSolitaireModel.gameOverWin" />
-      <item itemvalue="JUnit.All in hw02" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in hw02" />
         <item itemvalue="JUnit.TestMarbleSolitaireModel" />
         <item itemvalue="JUnit.TestMarbleSolitaireModel and 1 more" />
         <item itemvalue="JUnit.TestMarbleSolitaireModel.gameOverWin" />
         <item itemvalue="Android JUnit.TestMarbleSolitaireModel.gameOverWin" />
+        <item itemvalue="Android JUnit.TestMarbleSolitaireModel.gameOver1" />
       </list>
     </recent_temporary>
   </component>
@@ -392,11 +377,32 @@
       <workItem from="1548518516729" duration="1593000" />
       <workItem from="1548520573930" duration="565000" />
       <workItem from="1548541955248" duration="326000" />
-      <workItem from="1548618084194" duration="12177000" />
+      <workItem from="1548618084194" duration="8244000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
+    <history-entry file="TestMarbleSolitaireModel - 2019.01.27 at 15h 44m 41s.xml">
+      <configuration name="TestMarbleSolitaireModel" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestMarbleSolitaireModel - 2019.01.27 at 15h 45m 27s.xml">
+      <configuration name="TestMarbleSolitaireModel" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestMarbleSolitaireModel - 2019.01.27 at 16h 52m 08s.xml">
+      <configuration name="TestMarbleSolitaireModel" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestMarbleSolitaireModel - 2019.01.27 at 16h 54m 47s.xml">
+      <configuration name="TestMarbleSolitaireModel" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestMarbleSolitaireModel - 2019.01.27 at 16h 55m 19s.xml">
+      <configuration name="TestMarbleSolitaireModel" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestMarbleSolitaireModel - 2019.01.27 at 16h 57m 09s.xml">
+      <configuration name="TestMarbleSolitaireModel" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestMarbleSolitaireModel - 2019.01.27 at 16h 57m 25s.xml">
+      <configuration name="TestMarbleSolitaireModel" configurationId="JUnit" />
+    </history-entry>
     <history-entry file="TestMarbleSolitaireModel - 2019.01.27 at 16h 59m 04s.xml">
       <configuration name="TestMarbleSolitaireModel" configurationId="JUnit" />
     </history-entry>
@@ -406,33 +412,12 @@
     <history-entry file="TestMarbleSolitaireModel - 2019.01.27 at 17h 02m 39s.xml">
       <configuration name="TestMarbleSolitaireModel" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="TestMarbleSolitaireModel - 2019.01.27 at 17h 13m 14s.xml">
-      <configuration name="TestMarbleSolitaireModel" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_hw02 - 2019.01.27 at 17h 13m 19s.xml">
-      <configuration name="All in hw02" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_hw02 - 2019.01.27 at 17h 32m 37s.xml">
-      <configuration name="All in hw02" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_hw02 - 2019.01.27 at 17h 34m 19s.xml">
-      <configuration name="All in hw02" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_hw02 - 2019.01.27 at 17h 44m 48s.xml">
-      <configuration name="All in hw02" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_hw02 - 2019.01.27 at 18h 01m 01s.xml">
-      <configuration name="All in hw02" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_hw02 - 2019.01.27 at 18h 03m 04s.xml">
-      <configuration name="All in hw02" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73109000" />
+    <option name="totallyTimeSpent" value="69176000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="47" y="1076" width="1873" height="1084" extended-state="6" />
+    <frame x="47" y="-4" width="1873" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26870564" />
@@ -443,7 +428,7 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32883817" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32883817" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3991323" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -483,8 +468,29 @@
     <entry file="file://$USER_HOME$/zzzOLD/FALL2018/CS2510/workspace/Homework3/src/Strings.java" />
     <entry file="file://$USER_HOME$/TA - Fundies2/hw2-p1-rubric.java" />
     <entry file="file://$USER_HOME$/TA - Fundies2/hw2-p2-rubric (1).java" />
+    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/lang/Object.java" />
     <entry file="file://$USER_HOME$/Desktop/hw2-p2-rubric.java" />
+    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/AbstractPosn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/Posn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -499,10 +505,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/utils/OrthogonalDir.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/TestPosn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1263">
+          <caret line="116" column="38" selection-start-line="116" selection-start-column="38" selection-end-line="116" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/BoardPosn.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Hw02TypeChecks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="5" lean-forward="true" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/TestMarbleSolitaireModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="97" column="63" selection-start-line="97" selection-start-column="63" selection-end-line="97" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -526,119 +566,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/Posn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posns/AbstractPosn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/TestPosn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1500">
-          <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/Hw02TypeChecks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/TestMarbleSolitaireModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4305">
-          <caret line="73" column="54" lean-forward="true" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="54" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5834#5835#0" expanded="true" />
-            <element signature="e#5901#5902#0" expanded="true" />
-            <element signature="e#5988#5989#0" expanded="true" />
-            <element signature="e#6056#6057#0" expanded="true" />
-            <element signature="e#6312#6313#0" expanded="true" />
-            <element signature="e#6385#6386#0" expanded="true" />
-            <element signature="e#6469#6470#0" expanded="true" />
-            <element signature="e#6539#6540#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="49" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/AbstractPosn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="42" column="11" lean-forward="true" selection-start-line="42" selection-start-column="11" selection-end-line="42" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/BoardPosn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="24" column="53" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/NullPosn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/PosnState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-          <folding>
-            <element signature="e#374#375#0" expanded="true" />
-            <element signature="e#410#411#0" expanded="true" />
-            <element signature="e#576#577#0" expanded="true" />
-            <element signature="e#607#608#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/OrthogonalDir.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="33" column="72" selection-start-line="33" selection-start-column="72" selection-end-line="33" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/MarbleSolitaireModelImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="216" column="9" lean-forward="true" selection-start-line="216" selection-start-column="9" selection-end-line="216" selection-end-column="9" />
+        <state relative-caret-position="240">
+          <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8152#8153#0" expanded="true" />
-            <element signature="e#8189#8190#0" expanded="true" />
+            <element signature="e#1844#1845#0" expanded="true" />
+            <element signature="e#1893#1894#0" expanded="true" />
+            <element signature="e#6305#6306#0" expanded="true" />
+            <element signature="e#6342#6343#0" expanded="true" />
+            <element signature="e#6501#6502#0" expanded="true" />
+            <element signature="e#6534#6535#0" expanded="true" />
+            <element signature="e#6691#6692#0" expanded="true" />
+            <element signature="e#6728#6729#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cs3500/marblesolitaire/model/hw02/posn/Posn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="51" lean-forward="true" selection-start-line="5" selection-start-column="51" selection-end-line="5" selection-end-column="51" />
         </state>
       </provider>
     </entry>

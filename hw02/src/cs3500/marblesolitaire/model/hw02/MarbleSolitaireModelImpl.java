@@ -2,13 +2,18 @@ package cs3500.marblesolitaire.model.hw02;
 
 import java.util.ArrayList;
 
+import cs3500.marblesolitaire.model.hw02.posn.BoardPosn;
+import cs3500.marblesolitaire.model.hw02.posn.NullPosn;
+import cs3500.marblesolitaire.model.hw02.posn.Posn;
+import cs3500.marblesolitaire.model.hw02.posn.PosnState;
+
 /**
  * Implementation of A MarbleSolitare Model (MSM) Game.
  */
 public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
 
   private final int armThickness;
-  private ArrayList<ArrayList<AbstractPosn>> board;
+  private ArrayList<ArrayList<Posn>> board;
 
   /**
    * Creates a MSM with an armThickness of 3 and the center slot empty to start.
@@ -60,13 +65,17 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
     }
 
     for (int r = 0; r < realWidth(); r++) {
-      ArrayList<AbstractPosn> nthRow = new ArrayList<>();
+      ArrayList<Posn> nthRow = new ArrayList<>();
       for (int c = 0; c < realWidth(); c++) {
+
         boolean isEmpty = r == sRow && c == sCol;
-        if (c >= armThickness - 1 && c < endOfArm()) {
-          nthRow.add(new BoardPosn(r, c, !isEmpty));
-        } else if (r >= armThickness - 1 && r < endOfArm()) {
-          nthRow.add(new BoardPosn(r, c, !isEmpty));
+        PosnState ps = (isEmpty ? PosnState.EMPTY : PosnState.FILLED);
+        int endOfArm = 2 * armThickness - 1;
+
+        if (c >= armThickness - 1 && c < endOfArm) {
+          nthRow.add(new BoardPosn(r, c, ps));
+        } else if (r >= armThickness - 1 && r < endOfArm) {
+          nthRow.add(new BoardPosn(r, c, ps));
         } else {
           if (isEmpty) { //isEmpty is null
             throw new IllegalArgumentException(
@@ -98,7 +107,7 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
    * @return the Posn of this board at r, c
    * @throws IllegalArgumentException if r or c are out of the range of the board
    */
-  private AbstractPosn getFromBoard(int r, int c) throws IllegalArgumentException {
+  private Posn getFromBoard(int r, int c) throws IllegalArgumentException {
     if (outOfRange(r, c)) {
       throw new IllegalArgumentException(String.format("Can't get (%d, %d): out of range", r, c));
     }
@@ -134,12 +143,12 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
 
     //3. states of slots are correct
     if (moveAvailable(d, from)) {
-      from.setOccupied(false);
-      to.setOccupied(true);
-      this.getFromBoard(fromRow + d.rowMove(), fromCol + d.columnMove()).setOccupied(false);
+      from.setState(PosnState.EMPTY);
+      to.setState(PosnState.FILLED);
+      this.getFromBoard(fromRow + d.rowMove(), fromCol + d.columnMove()).setState(PosnState.EMPTY);
     } else {
       throw new IllegalArgumentException(String.format("%s -> %s is not in the "
-              + "correct state or is in an invalid direction", from.toString(), to.toString()));
+              + "correct getState or is in an invalid direction", from.toString(), to.toString()));
     }
   }
 
@@ -193,13 +202,25 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
     StringBuilder sb = new StringBuilder();
 
     for (int r = 0; r < this.realWidth(); r++) {
-      boolean shortRow = (r < this.begOfArm() || r > this.endOfArm() - 1);
-      int endOfRow = (shortRow ? this.endOfArm() : this.realWidth());
-      for (int c = 0; c < endOfRow; c++) {
-        sb.append(getFromBoard(r, c).getStateChar());
-        if (c != endOfRow - 1) {
+
+      boolean startedRow = false; // started the non-NullPosns for a row
+
+      for (int c = 0; c < this.realWidth(); c++) {
+        Posn curr = getFromBoard(r, c);
+
+        //end a row after the non-Nulls have been drawn, and a NullPosn is hit
+        if (curr.getState() != PosnState.NULL) {
+          startedRow = true;
+        }
+        if (startedRow && curr.getState() == PosnState.NULL) {
+          break;
+        }
+
+        //put a space before the state char as long as it's not the first of a row
+        if (c != 0) { //not at the beginning or null
           sb.append(" ");
         }
+        sb.append(curr.getStateChar());
       }
       if (r != this.realWidth() - 1) {
         sb.append("\n");
@@ -213,9 +234,9 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
   @Override
   public int getScore() {
     int score = 0;
-    for (ArrayList<AbstractPosn> row : this.board) {
-      for (AbstractPosn p : row) {
-        if (p.isOccupied() && !p.isNull()) {
+    for (ArrayList<Posn> row : this.board) {
+      for (Posn p : row) {
+        if (p.getState() == PosnState.FILLED) {
           score++;
         }
       }
@@ -233,32 +254,14 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
     return 3 * armThickness - 2;
   }
 
-  /**
-   * The lowest column/row value that arms begin at.
-   *
-   * @return The lowest column/row value that arms begin at.
-   */
-  private int begOfArm() {
-    return armThickness - 1;
-  }
-
-  /**
-   * The highest column/row value that arms end at.
-   *
-   * @return The highest column/row value that arms end at.
-   */
-  private int endOfArm() {
-    return 2 * armThickness - 1;
-  }
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
 
     int rowCount = 0;
-    for (ArrayList<AbstractPosn> row : this.board) {
+    for (ArrayList<Posn> row : this.board) {
       rowCount++;
-      for (AbstractPosn p : row) {
+      for (Posn p : row) {
         sb.append(p.toString());
       }
       if (rowCount < this.realWidth()) {
