@@ -69,10 +69,8 @@ fabric.properties
 *.tar
 *.gz
 
-#InteliJ files
-*.idea
-
 #Output files
 target/
+docs/
 out/
 
