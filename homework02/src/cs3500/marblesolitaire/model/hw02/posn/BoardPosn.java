@@ -37,7 +37,7 @@ public class BoardPosn extends AbstractPosn {
       case RIGHT:
         return this.getColumn() < maxPosition - 1;
       default:
-        return false; // cannot jump in any direction except for the 4 orthogonal ones
+        return false; // required by style, cannot happen for enumerated OrthDir
     }
   }
 

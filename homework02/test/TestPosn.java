@@ -98,7 +98,8 @@ public class TestPosn {
     assertEquals(PosnState.FILLED, p1.getState());
     p1.setState(PosnState.EMPTY);
     assertEquals(PosnState.EMPTY, p1.getState());
-
+    pN.setState(PosnState.NULL);
+    assertEquals(PosnState.NULL, pN.getState());
   }
 
   @Test(expected = IllegalArgumentException.class)

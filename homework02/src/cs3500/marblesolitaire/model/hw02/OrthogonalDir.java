@@ -19,13 +19,13 @@ public enum OrthogonalDir {
    */
   OrthogonalDir(int rSign, int cSign) {
 
-    //code will not compile w/ non-orthogonal directions
+    //self-check: code will not compile w/ non-orthogonal directions
     if (rSign != 0 && cSign != 0) {
       throw new IllegalArgumentException("Marble Solitaire moves must only be in one direction");
     }
 
-    this.rSign = rSign / Math.max(Math.abs(rSign), 1);
-    this.cSign = cSign / Math.max(Math.abs(cSign), 1); //avoid division by 0
+    this.rSign = rSign / Math.max(Math.abs(rSign), 1); //avoid div by 0 w/o changing behavior
+    this.cSign = cSign / Math.max(Math.abs(cSign), 1); //avoid div by 0 w/o changing behavior
   }
 
   /**

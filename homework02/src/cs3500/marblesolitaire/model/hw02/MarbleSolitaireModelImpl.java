@@ -34,6 +34,8 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
 
   /**
    * Creates a MSM with an armThickness set to the given value and the center slot empty to start.
+   * The center is determined by the find int c = 3 * (armThickness - 1) / 2, where c is the
+   * value for sRow and sCol.
    *
    * @param armThickness the armThickness of this MSM
    */
@@ -160,6 +162,10 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
    * @return can you move from the origin in the direction
    */
   private boolean moveAvailable(OrthogonalDir d, Posn origin) {
+    if(d == null || origin == null){
+      throw new IllegalArgumentException("Cannot use null arguments for cmove");
+    }
+
     int oRow = origin.getRow();
     int oColumn = origin.getColumn();
 
