@@ -25,7 +25,6 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
     this.board = board;
   }
 
-
   /**
    * Get the builder of the game
    * @return the builder of the game
@@ -106,6 +105,10 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
    * @return can you move from the origin in the direction
    */
   private boolean moveAvailable(OrthogonalDir d, Posn origin) {
+    if(d == null || origin == null){
+      throw new IllegalArgumentException("Cannot use null arguments for cmove");
+    }
+
     int oRow = origin.getRow();
     int oColumn = origin.getColumn();
 
