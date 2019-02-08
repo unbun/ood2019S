@@ -1,7 +1,5 @@
 package cs3500.marblesolitaire.controller;
 
-import java.io.IOException;
-
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 
 public interface MarbleSolitaireController {
@@ -67,7 +65,11 @@ public interface MarbleSolitaireController {
    * move. Play again. X" where X is any informative message about why the move was invalid
    * (all on one line), and resume waiting for valid input.
    *
-   * Error handling: The playGame method should throw an IllegalArgumentException if a null model is passed to it. If the Appendable object is unable to transmit output or the Readable object is unable to provide inputs (for whatever reason), the playGame method should throw an  IllegalStateException to its caller. The playGame method must not throw any other exceptions, not should it propagate any exceptions thrown by the model.
+   * Error handling: The playGame method should throw an IllegalArgumentException if a null model
+   * is passed to it. If the Appendable object is unable to transmit output or the Readable object
+   * is unable to provide inputs (for whatever reason), the playGame method should throw an
+   * IllegalStateException to its caller. The playGame method must not throw any other exceptions,
+   * not should it propagate any exceptions thrown by the model.
    * @param model
    * @throws IllegalArgumentException
    */
