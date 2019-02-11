@@ -188,27 +188,28 @@ public class TestMarbleSolitaireModel {
 
   @Test(expected = IllegalArgumentException.class)
   public void evenArmThick() {
-    MarbleSolitaireModel b1 = new MarbleSolitaireModelImpl(6);
+    new MarbleSolitaireModelImpl(6);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void negativeArmThick() {
-    MarbleSolitaireModel b1 = new MarbleSolitaireModelImpl(-3);
+    new MarbleSolitaireModelImpl(-3);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void invalidEmpty1() {
-    MarbleSolitaireModel b1 = new MarbleSolitaireModelImpl(3, 1, 1); // a null posn
+    new MarbleSolitaireModelImpl(3, 1, 1); // a null posn
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void invalidEmpty2() {
-    MarbleSolitaireModel b1 = new MarbleSolitaireModelImpl(3, 7, 3);
+
+    new MarbleSolitaireModelImpl(3, 7, 3);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void invalidEmpty3() {
-    MarbleSolitaireModel b1 = new MarbleSolitaireModelImpl(2, 9);
+    new MarbleSolitaireModelImpl(2, 9);
   }
 
   @Test

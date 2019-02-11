@@ -1,7 +1,5 @@
 package cs3500.marblesolitaire.model.hw02.posn;
 
-import cs3500.marblesolitaire.model.hw02.OrthogonalDir;
-
 /**
  * A Spot on the Cartesian Square Board that is not a part of the center square or the arms. In
  * other words, the locations in the corners of a square board that are not slots. Having these
@@ -23,11 +21,6 @@ public class NullPosn extends AbstractPosn {
 
   @Override
   public boolean checkJumpStates(Posn neighbor, Posn landing) {
-    return false;
-  }
-
-  @Override
-  public boolean checkJumpDirection(OrthogonalDir d, int maxPosition) {
     return false;
   }
 

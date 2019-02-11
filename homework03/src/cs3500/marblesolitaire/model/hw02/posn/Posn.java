@@ -1,7 +1,5 @@
 package cs3500.marblesolitaire.model.hw02.posn;
 
-import cs3500.marblesolitaire.model.hw02.OrthogonalDir;
-
 /**
  * Any Cartisian Location on a square Marble Board.
  */
@@ -17,17 +15,6 @@ public interface Posn {
    * @return can this jump take place according to the occupance/empty-related rules of a move?
    */
   boolean checkJumpStates(Posn neighbor, Posn landing);
-
-  /**
-   * Can a piece from this position jump in the given direction without going out of range? The
-   * range is defined as the give maxPosition as the max, and 0 as the min (inclusive).
-   *
-   * @param d           the {@code OrthogonalDir} that the piece is trying to jump in
-   * @param maxPosition the maximum value any piece can be without being out of bounds (doesn't
-   *                    check if it's jumping into null)
-   * @return is this valid direction to jump into?
-   */
-  boolean checkJumpDirection(OrthogonalDir d, int maxPosition);
 
   /**
    * Get the row this {@code Posn} is in.

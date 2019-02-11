@@ -11,6 +11,7 @@ import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl;
 import testing.mocks.Interaction;
 import testing.mocks.MockModel;
+import testing.mocks.PoliteAppendable;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -383,79 +384,28 @@ public class TestMarbleSolitaireController {
     StringBuilder expected = new StringBuilder();
 
     testInput.append("1 2 3 4");
-    expected.append("this should throw an error");
+    expected.append("this isn't polite");
 
-    StringReader input = new StringReader(testInput.toString());
-
-
-    Appendable badStream = null;
+    StringReader inStream = new StringReader(testInput.toString());
+    PoliteAppendable outStream = new PoliteAppendable();
     try {
-      badStream = new FileWriter("not a file");
-    } catch (IOException e) {
-      fail(e.getMessage());
+      outStream.append("Please don't fail.");
+    } catch (IOException ie) {
+      fail("Test output stream was not created properly");
     }
 
-    MarbleSolitaireController controller = new MarbleSolitaireControllerImpl(input, badStream);
+    MarbleSolitaireController controller =
+            new MarbleSolitaireControllerImpl(inStream, outStream);
 
     try {
       controller.playGame(new MarbleSolitaireModelImpl());
       fail("playing the game (and trying to output) should fail");
-
     } catch (IllegalStateException se) {
       assertNotNull(se.getMessage());
     }
   }
 
-  //***************** Mock/Interaction runners *****************//
-
-  /**
-   * Create an {@code Interaction} for outputting a set of given lines with a new line at the end.
-   *
-   * @param lines a set of lines to print
-   * @return an {@code Interacttion} that will be able to append them to an {@code Appendable}
-   */
-  private static Interaction prints(String... lines) {
-    return (in, out) -> {
-      for (String line : lines) {
-        out.append(line).append('\n');
-      }
-    };
-  }
-
-  /**
-   * Create an {@code Interaction} for reading a given string.
-   *
-   * @param strIn a set of lines to read
-   * @return an {@code Interacttion} that will be able to append them to a {@code Readable}
-   */
-  private static Interaction inputs(String strIn) {
-    return (in, out) -> {
-      in.append(strIn);
-    };
-  }
-
-  private void runModelInteracts(MarbleSolitaireModel model, Interaction... interacts)
-          throws IOException {
-
-    StringBuilder testInput = new StringBuilder();
-    StringBuilder expected = new StringBuilder();
-
-    for (Interaction i : interacts) {
-      i.apply(testInput, expected);
-    }
-
-    StringReader input = new StringReader(testInput.toString());
-    StringBuilder actual = new StringBuilder();
-
-
-    MarbleSolitaireController controller = new MarbleSolitaireControllerImpl(input, actual);
-    controller.playGame(model);
-
-    assertEquals(expected.toString(), actual.toString());
-  }
-
-
-  //********************* Running a full MS Model *********************//
+  //********************* Running full MS Games *********************//
 
 
   @Test
@@ -1032,6 +982,61 @@ public class TestMarbleSolitaireController {
     }
   }
 
+
+  //***************** Mock/Interaction runners *****************//
+
+  /**
+   * Create an {@code Interaction} for outputting a set of given lines with a new line at the end.
+   *
+   * @param lines a set of lines to print
+   * @return an {@code Interacttion} that will be able to append them to an {@code Appendable}
+   */
+  private static Interaction prints(String... lines) {
+    return (in, out) -> {
+      for (String line : lines) {
+        out.append(line).append('\n');
+      }
+    };
+  }
+
+  /**
+   * Create an {@code Interaction} for reading a given string.
+   *
+   * @param strIn a set of lines to read
+   * @return an {@code Interacttion} that will be able to append them to a {@code Readable}
+   */
+  private static Interaction inputs(String strIn) {
+    return (in, out) -> {
+      in.append(strIn);
+    };
+  }
+
+  /**
+   * Runs a list of Interactions on the {@code MarbleSolitaireControllerImpl} with the given model
+   *
+   * @param model     model to use for the {@ode MarbleSolitaireControllerImpl}s' playGame
+   * @param interacts a set of interactions to run the playgame with
+   * @throws IOException if test streams fail
+   */
+  private void runModelInteracts(MarbleSolitaireModel model, Interaction... interacts)
+          throws IOException {
+
+    StringBuilder testInput = new StringBuilder();
+    StringBuilder expected = new StringBuilder();
+
+    for (Interaction i : interacts) {
+      i.apply(testInput, expected);
+    }
+
+    StringReader input = new StringReader(testInput.toString());
+    StringBuilder actual = new StringBuilder();
+
+
+    MarbleSolitaireController controller = new MarbleSolitaireControllerImpl(input, actual);
+    controller.playGame(model);
+
+    assertEquals(expected.toString(), actual.toString());
+  }
 
 }
 

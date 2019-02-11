@@ -1,6 +1,5 @@
 import org.junit.Test;
 
-import cs3500.marblesolitaire.model.hw02.OrthogonalDir;
 import cs3500.marblesolitaire.model.hw02.posn.BoardPosn;
 import cs3500.marblesolitaire.model.hw02.posn.NullPosn;
 import cs3500.marblesolitaire.model.hw02.posn.Posn;
@@ -57,30 +56,6 @@ public class TestPosn {
     assertFalse(pN.checkJumpStates(over, land));
     land.setState(PosnState.EMPTY);
     assertFalse(pN.checkJumpStates(over, land));
-  }
-
-  @Test
-  public void jumpableDirection() {
-    Posn p1 = new BoardPosn(0, 0, PosnState.FILLED);
-    Posn p2 = new BoardPosn(3, 4, PosnState.EMPTY);
-
-    assertTrue(p1.checkJumpDirection(OrthogonalDir.DOWN, 5));
-    assertFalse(p1.checkJumpDirection(OrthogonalDir.DOWN, 1));
-
-    assertFalse(p1.checkJumpDirection(OrthogonalDir.UP, 5));
-    assertTrue(p2.checkJumpDirection(OrthogonalDir.UP, 5));
-
-    assertFalse(p1.checkJumpDirection(OrthogonalDir.LEFT, 100));
-    assertTrue(p2.checkJumpDirection(OrthogonalDir.LEFT, 100));
-
-    assertTrue(p1.checkJumpDirection(OrthogonalDir.RIGHT, 2));
-    assertFalse(p2.checkJumpDirection(OrthogonalDir.RIGHT, 5));
-
-    Posn pN = new NullPosn(3, 4);
-    assertFalse(pN.checkJumpDirection(OrthogonalDir.UP, 5));
-    assertFalse(pN.checkJumpDirection(OrthogonalDir.LEFT, 100));
-    assertFalse(pN.checkJumpDirection(OrthogonalDir.RIGHT, 2));
-    assertFalse(pN.checkJumpDirection(OrthogonalDir.DOWN, 500));
   }
 
   @Test
