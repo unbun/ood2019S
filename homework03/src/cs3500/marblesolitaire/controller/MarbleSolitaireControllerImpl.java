@@ -2,146 +2,172 @@ package cs3500.marblesolitaire.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Scanner;
 
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 import cs3500.marblesolitaire.util.Utils;
 
+
+/**
+ * A Full Controller for the Marble Solitare Game.
+ */
 public class MarbleSolitaireControllerImpl implements MarbleSolitaireController {
 
-  Readable in;
-  Appendable out;
+  private final Readable in;
+  private final Appendable out;
+  private MarbleSolitaireModel activeModel;
 
-
+  /**
+   * Create a Controller for the MS Game that can read and right form differenet streams.
+   *
+   * @param rd the Readable input stream
+   * @param ap the Appendable output stream
+   * @throws IllegalArgumentException if any of the streams are null
+   */
   public MarbleSolitaireControllerImpl(Readable rd, Appendable ap) throws IllegalArgumentException {
     this.in = Utils.requireNonNull(rd);
     this.out = Utils.requireNonNull(ap);
+    this.activeModel = null;
   }
 
   @Override
   public void playGame(MarbleSolitaireModel model)
           throws IllegalArgumentException, IllegalStateException {
 
-    Utils.requireNonNull(model);
+    this.activeModel = Utils.requireNonNull(model);
+    stateTransmission();
 
-    boolean playerQuit = false;
-
-    //Game Loop
-    while(!model.isGameOver()) {
-
-      toOutStream(model.getGameState() + "\n");
-      toOutStream("Score: " + model.getScore() + "\n");
-
-
-      ArrayList<Integer> parsedInput = new ArrayList<>();
-
-      //Input Loop
-      while(true){
-        Scanner scan = new Scanner(this.in);
-        String userIn = scan.nextLine();
-        ArrayList<String> newInputs = parseInputString(userIn);
-
-        if (newInputs == null){ //need to get new more, these were invalid
-          continue;
-        } else if(newInputs.get(0).equals("q")){ //do a quit
-          playerQuit = true;
-          break;
-        } else { // do a input update
-          parsedInput = combine4Ints(parsedInput, newInputs);
-        }
-
-        if(parsedInput.size() == 4){
-          break;
-        }
-      }
-
-      if(playerQuit){
-        break;
-      }
-
-      try{
-        model.move(parsedInput.get(0), parsedInput.get(1), parsedInput.get(2), parsedInput.get(3));
-      } catch (IllegalArgumentException e){
-        toOutStream(String.format("Invalid Move. Play Again. %s", e.getMessage()));
-      }
-    }
-
-    if(playerQuit){
-      toOutStream("Game quit!\n");
-      toOutStream("State of qame when quit:\n");
-    } else{
-      toOutStream("Game over!");
-    }
-
-    toOutStream(model.getGameState() + "\n");
-    toOutStream("Score: " + model.getScore() + "\n");
-
+    Optional<String> endOfGame = gameLoop();
+    endGame(endOfGame.isPresent());
+    stateTransmission();
   }
 
   /**
-   * Return the given list of integers with the parsable integers in the String list.
-   * If the result is more than 4 integers, then it's invalid, returns an empty array.
-   * @param prevInts an Array of current Integers that have been inputted
-   * @param newIntStrings an Array of Strings to parsable Integers and add to the other array
-   * @return The parsable Integers added to the Integer array (or null if the resulting array is
-   * too large).
+   * Run the loop of retrieving and parsing inputs from {@code this} instance's. When it is done, it
+   * may return information about how the game ended.
+   *
+   * @return And optional string that can contain information about how the game ended.
    */
-  private ArrayList<Integer> combine4Ints(ArrayList<Integer> prevInts,
-                                          ArrayList<String> newIntStrings){
+  private Optional<String> gameLoop() throws IllegalStateException {
 
-    if(prevInts.size() + newIntStrings.size() > 4){
-      toOutStream(String.format("Invalid Move. Play Again. Too many Variables"));
-      return new ArrayList<>();
-    }
+    Scanner scan = new Scanner(this.in);
 
-    for(String str: newIntStrings){
-      prevInts.add(Integer.parseInt(str) - 1); //subtracting 1 for user-friendly inputs
-    }
+    ArrayList<Integer> inputs = new ArrayList<>();
+    Optional<String> possibleQuit = Optional.empty();
+    Optional<Integer> possibleMove = Optional.empty();
 
-    return prevInts;
-  }
+    while (!activeModel.isGameOver() && !possibleQuit.isPresent()) {
+      String userIn;
 
-  /**
-   * Parse the input String, return a list of relevant valid inputs that the string contains.
-   * If it contains invalid outputs, return null. If it contains a 'q' or 'Q' input, return just
-   * the 'q'
-   * @param in The line of input
-   * @return If the input has 'q', an Array of 'q'. If the input is of integers, return the
-   * integers, if the input is invalid, null.
-   */
-  private ArrayList<String> parseInputString(String in){
-    ArrayList<String> parsed = new ArrayList<>();
-
-    String[] tokens  = in.split("[ ]+");
-    for(String t: tokens){
       try {
-        Integer i = Integer.parseInt(t);
-        parsed.add(t);
-      } catch (NumberFormatException e) {
-        if(!t.toLowerCase().equals("q")){
-          String msg = String.format("'%s' is not valid", t);
-          toOutStream(String.format("Invalid Move. Play Again. %s", msg));
-          return null;
-        } else {
-          return new ArrayList<>(Arrays.asList("q"));
+        userIn = scan.next();
+      } catch (NoSuchElementException e) {
+        throw new IllegalStateException("Readable stream ran out of inputs to read");
+      }
+
+      try {
+        ValidInput vi = new ValidInput(userIn, 1);
+        possibleMove = vi.getNumberInput();
+        possibleQuit = vi.getStringInput();
+
+      } catch (IllegalArgumentException e) {
+        toOutStream(String.format("Invalid Move. Play Again. %s\n", e.getMessage()));
+        possibleMove = Optional.empty();
+        possibleQuit = Optional.empty();
+      }
+
+      if (possibleMove.isPresent()) {
+        inputs.add(possibleMove.get());
+      }
+
+      if (inputs.size() == 4) { //Move with the model since you have 4 inputs
+        try {
+          activeModel.move(inputs.get(0),
+                  inputs.get(1),
+                  inputs.get(2),
+                  inputs.get(3));
+
+          if (!activeModel.isGameOver()) {
+            stateTransmission();
+          }
+
+        } catch (IllegalArgumentException e) {
+          toOutStream(String.format("Invalid Move. Play Again. %s." +
+                  "\n(note that the error messages treat the board as zero-indexed and inputs " +
+                  "are one-indexed)\n", e.getMessage()));
+        }
+        //remove the used inputs
+        for (int i = 0; i < 4; i++) {
+          inputs.remove(0);
         }
       }
     }
-
-    return parsed;
+    return possibleQuit;
   }
 
   /**
-   * Transmit a given String to this controller's {@code Appendable}
-   * @param toSend    the String to transmit ("" to use default)
-   * @throws IllegalStateException
+   * Output the game state and score of {@code this}'s active {@code MarbleSolitaireModel} if the
+   * given {@code MarbleSolitaireModel}'s game isn't over.
+   *
+   * @return what was outputted
+   * @throws IllegalArgumentException if {code this}'s active model is null;
    */
-  private void toOutStream(String toSend) throws IllegalStateException{
+  @Override
+  public String stateTransmission() throws IllegalStateException {
+    try {
+      Utils.requireNonNull(this.activeModel);
+    } catch (IllegalArgumentException e) {
+      throw new IllegalStateException("Cannot transmit the state of a null game");
+    }
+    String toSend = activeModel.getGameState() +
+            "\nScore: " + activeModel.getScore() + "\n";
+    toOutStream(toSend);
+    return toSend;
+  }
+
+  /**
+   * The void endGame sequence is what happens when the game is over. Any wrap that needs to be done
+   * (i.e. outputs to the user) should happen here, explaining why the game ended.
+   *
+   * @param quit Did the user quit? (false would mean the game ended automatically).
+   */
+  @Override
+  public void endGame(boolean quit) {
+
+    if (quit) {
+      toOutStream("Game quit!\n");
+      toOutStream("State of game when quit:\n");
+    } else {
+      toOutStream("Game over!\n");
+    }
+  }
+
+  /**
+   * Transmit a given String to this controller's {@code Appendable}.
+   *
+   * @param toSend the String to transmit ("" to use default)
+   * @throws IllegalStateException if {@code this}'s output stream can't append
+   */
+  private void toOutStream(String toSend) throws IllegalStateException {
     try {
       out.append(toSend);
-    } catch (IOException ioe){
-        throw new IllegalStateException("Cannot use provided output stream.\n " + ioe.getMessage());
+    } catch (IOException ioe) {
+      throw new IllegalStateException("Cannot use provided output stream.\n " + ioe.getMessage());
     }
   }
+
+  /**
+   * Setter for the active model of {@code this}.
+   *
+   * @param model the model to set to the active model
+   * @throws IllegalArgumentException if the given model is nulla
+   */
+  @Override
+  public void setActiveModel(MarbleSolitaireModel model) throws IllegalArgumentException {
+    this.activeModel = Utils.requireNonNull(model);
+  }
 }
+
+

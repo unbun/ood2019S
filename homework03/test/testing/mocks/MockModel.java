@@ -1,16 +1,26 @@
+package testing.mocks;
+
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 
+/**
+ * A Mock MSM Game model that simply accepts positive intergers to move, and scores you based on the
+ * number of moves that were completed.
+ */
 public class MockModel implements MarbleSolitaireModel {
 
-  int myFromRow;
-  int myFromCol;
-  int myToRow;
-  int myToCol;
+  private int myFromRow;
+  private int myFromCol;
+  private int myToRow;
+  private int myToCol;
 
-  int moveCount;
+  private int moveCount;
 
-  final int maxMoves;
+  private final int maxMoves;
 
+  /**
+   * Create an instance of a MockModel.
+   * @param maxMoves the max amount of moves that will determine if the game is over.
+   */
   public MockModel(int maxMoves) {
     this.maxMoves = maxMoves;
 
@@ -23,16 +33,16 @@ public class MockModel implements MarbleSolitaireModel {
 
   @Override
   public void move(int fromRow, int fromCol, int toRow, int toCol) throws IllegalArgumentException {
-    if(fromRow < 0){
+    if (fromRow < 0) {
       throw new IllegalArgumentException("Can't have negative fromRow");
     }
-    if(fromCol < 0){
+    if (fromCol < 0) {
       throw new IllegalArgumentException("Can't have negative fromCol");
     }
-    if(toRow < 0){
+    if (toRow < 0) {
       throw new IllegalArgumentException("Can't have negative toRow");
     }
-    if(toCol < 0){
+    if (toCol < 0) {
       throw new IllegalArgumentException("Can't have negative toCol");
     }
 
@@ -45,7 +55,7 @@ public class MockModel implements MarbleSolitaireModel {
 
   @Override
   public boolean isGameOver() {
-    return this.moveCount > this.maxMoves;
+    return this.moveCount >= this.maxMoves;
   }
 
   @Override

@@ -6,9 +6,13 @@ import cs3500.marblesolitaire.model.hw02.posn.BoardPosn;
 import cs3500.marblesolitaire.model.hw02.posn.NullPosn;
 import cs3500.marblesolitaire.model.hw02.posn.Posn;
 import cs3500.marblesolitaire.model.hw02.posn.PosnState;
+import cs3500.marblesolitaire.util.Utils;
 
 /**
- * Implementation of A MarbleSolitare Model (MSM) Game.
+ * Implementation of A MarbleSolitare Model (MSM) Game. Keeps track of the state of an MSM Game as
+ * different moves (consisting of from column, from row, to column, and to row values) are attempted
+ * on a board of slots. Each move represents moving a game piece over another and into a previously
+ * empty slot, which results in the jumped-over piece being removed.
  */
 public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
 
@@ -34,8 +38,8 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
 
   /**
    * Creates a MSM with an armThickness set to the given value and the center slot empty to start.
-   * The center is determined by the find int c = 3 * (armThickness - 1) / 2, where c is the
-   * value for sRow and sCol.
+   * The center is determined by the find int c = 3 * (armThickness - 1) / 2, where c is the value
+   * for sRow and sCol.
    *
    * @param armThickness the armThickness of this MSM
    */
@@ -117,9 +121,25 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
   }
 
   @Override
+  /**
+   * Move a single marble from a given position to another given position. A move is valid only if
+   * the from and to positions are valid.
+   *
+   * A valid move satisfies 3 conditions:
+   *  1. the to and from coordinates are in the range of the board.
+   *  2. the movement is an orthogonal direction with a magnitude of 2 spaces in only 1 direction.
+   *  3. states of slots are correct (you can't move into an occupied or Null slot. You can't move
+   *  from an unoccupied or null spot).
+   *
+   * @param fromRow the row number of the position to be moved from (starts at 0)
+   * @param fromCol the column number of the position to be moved from (starts at 0)
+   * @param toRow   the row number of the position to be moved to (starts at 0)
+   * @param toCol   the column number of the position to be moved to (starts at 0)
+   * @throws IllegalArgumentException if the move is not possible
+   */
   public void move(int fromRow, int fromCol, int toRow, int toCol) throws IllegalArgumentException {
-    //1. in range of the board
-    // this may be tested multiple times in this function, but it needs to be done to guarantee
+    // Check cond #1.
+    // this may be tested multiple times in this function, but it needs to be done here to guarantee
     // that we can use getFromBoard() without an exception
     if (outOfRange(fromRow, fromCol) || outOfRange(toRow, toCol)) {
       throw new IllegalArgumentException(String.format("(%d, %d) -> (%d, %d) is out of range",
@@ -132,7 +152,7 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
     Posn from = getFromBoard(fromRow, fromCol);
     Posn to = getFromBoard(toRow, toCol);
 
-    //2. orthogonal movement
+    // Check cond 2.
     OrthogonalDir d;
     if (Math.abs(dRow) == 2 && Math.abs(dCol) == 0) {
       d = (dRow > 0 ? OrthogonalDir.DOWN : OrthogonalDir.UP);
@@ -143,7 +163,7 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
               + "move of 2 places", from.toString(), to.toString()));
     }
 
-    //3. states of slots are correct
+    // Check cond 3, and execute the move.
     if (moveAvailable(d, from)) {
       from.setState(PosnState.EMPTY);
       to.setState(PosnState.FILLED);
@@ -155,16 +175,16 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
   }
 
   /**
-   * Is it possible for a marble at the given origin to move in the given direction?.
+   * Is it possible for a marble at the given origin to move in the given direction according to the
+   * states and positions of the origin it's and destination?.
    *
    * @param d      the {@code OrthogonalDir} that you are trying to move in.
    * @param origin the {@code Posn}/slot that you are trying to move from
    * @return can you move from the origin in the direction
    */
   private boolean moveAvailable(OrthogonalDir d, Posn origin) {
-    if(d == null || origin == null){
-      throw new IllegalArgumentException("Cannot use null arguments for cmove");
-    }
+    Utils.requireNonNull(d);
+    Utils.requireNonNull(origin);
 
     int oRow = origin.getRow();
     int oColumn = origin.getColumn();

@@ -1,42 +1,47 @@
 package cs3500.marblesolitaire.util;
 
-import com.sun.deploy.util.StringUtils;
-
 public class Utils {
 
-  public static <T> T requireNonNull(T obj) throws IllegalArgumentException{
-    if(obj == null){
+  /**
+   * Version of the {@code Objects.requreNonNull()} that throws an Illegal Argument Object. Checks
+   * that the specified object reference is not {@code null}.
+   *
+   * @param obj the object reference to check for nullity
+   * @param <T> the type of the reference
+   * @return {@code obj} if not {@code null}
+   * @throws IllegalArgumentException if {@code obj} is {@code null}
+   */
+  public static <T> T requireNonNull(T obj) throws IllegalArgumentException {
+    if (obj == null) {
       throw new IllegalArgumentException("Cannot have Null Argument");
     }
     return obj;
   }
 
-  public static boolean containsPosNumberOnly(String str){
-    boolean foundDelim = true;
-    for(char c: str.toCharArray()){
-      if(!Utils.isNumeric("" + c)){
-
-      }
-
-
-      if(c == ','){
-        foundDelim = true;
-        continue;
-      } else {
-        foundDelim = false;
-        continue;
-      }
-    }
-
-    return false;
-  }
-
-  public static boolean isNumeric(String strNum) {
+  /**
+   * Look at the given string to see if there is an Integer in it that is higher than the given
+   * lower bound.
+   *
+   * @param toParse the string to look at
+   * @param low     the lower bound
+   * @return the String if it has a valid integer
+   * @throws IllegalArgumentException IllegalArgument if it doesn't have a valid String
+   */
+  public static String requireValidInteger(String toParse, int low)
+          throws IllegalArgumentException {
+    Integer i;
     try {
-      double d = Double.parseDouble(strNum);
-    } catch (NumberFormatException | NullPointerException nfe) {
-      return false;
+      i = Integer.parseInt(toParse);
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException(
+              String.format("Input '%s' does not contain a valid string", toParse));
     }
-    return true;
+
+    if (i < low) {
+      throw new IllegalArgumentException(
+              String.format("Input '%s' must be an int greater than %d", toParse, low));
+    }
+
+    return toParse;
   }
 }
