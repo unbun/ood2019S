@@ -1,6 +1,7 @@
 package testing.mocks;
 
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
+import cs3500.marblesolitaire.model.hw02.posn.Posn;
 
 /**
  * A Mock MSM Game model that simply accepts positive intergers to move, and scores you based on the
@@ -19,6 +20,7 @@ public class MockModel implements MarbleSolitaireModel {
 
   /**
    * Create an instance of a MockModel.
+   *
    * @param maxMoves the max amount of moves that will determine if the game is over.
    */
   public MockModel(int maxMoves) {
@@ -51,6 +53,12 @@ public class MockModel implements MarbleSolitaireModel {
     this.myToRow = toRow;
     this.myToCol = toCol;
     this.moveCount++;
+  }
+
+  @Override
+  public int[] getValidJumped(int fromRow, int fromCol, int toRow, int toCol) throws IllegalArgumentException {
+    int[] diffs = {toRow - fromRow, toCol - fromCol};
+    return diffs;
   }
 
   @Override

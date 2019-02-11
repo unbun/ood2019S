@@ -18,8 +18,6 @@ import static org.junit.Assert.fail;
 
 public class TestMarbleSolitaireController {
 
-  //TODO: more tests and stuff!!!!
-
   //***************** Helper Tests *****************//
 
   @Test
@@ -954,8 +952,8 @@ public class TestMarbleSolitaireController {
                       "    O O O\n" +
                       "Score: 31"),
               inputs("1 1 1 3\n"),
-              prints("Invalid Move. Play Again. [null ] -> [0, 2 ] is not in the correct" +
-                      " getState or is in an invalid direction.\n" +
+              prints("Invalid Move. Play Again. [null ] --([null ])--> [0, 2 ] contains" +
+                      " positions with incorrect states.\n" +
                       "(note that the error messages treat " +
                       "the board as zero-indexed and inputs are one-indexed)"),
               inputs("5 4 3 4\n"),
@@ -1006,7 +1004,7 @@ public class TestMarbleSolitaireController {
                       "    O O O\n" +
                       "Score: 31"),
               inputs("1 1 2 2\n"),
-              prints("Invalid Move. Play Again. [null ] -> [null ] is not a " +
+              prints("Invalid Move. Play Again. [null ] -> [null ] is not an " +
                       "orthogonal move of 2 places.\n(note that the error messages treat " +
                       "the board as zero-indexed and inputs are one-indexed)"),
               inputs("5 4 3 4\n"),

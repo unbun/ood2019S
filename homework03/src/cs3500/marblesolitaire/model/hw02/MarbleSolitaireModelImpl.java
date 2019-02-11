@@ -9,7 +9,7 @@ import cs3500.marblesolitaire.model.hw02.posn.PosnState;
 import cs3500.marblesolitaire.util.Utils;
 
 /**
- * Implementation of A MarbleSolitare Model (MSM) Game. Keeps track of the state of an MSM Game as
+ * Implementation of A MarbleSolitare(MS) Model Game. Keeps track of the state of an MS Game as
  * different moves (consisting of from column, from row, to column, and to row values) are attempted
  * on a board of slots. Each move represents moving a game piece over another and into a previously
  * empty slot, which results in the jumped-over piece being removed.
@@ -20,14 +20,14 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
   private ArrayList<ArrayList<Posn>> board;
 
   /**
-   * Creates a MSM with an armThickness of 3 and the center slot empty to start.
+   * Creates a MS Model with an armThickness of 3 and the center slot empty to start.
    */
   public MarbleSolitaireModelImpl() {
     this(3);
   }
 
   /**
-   * Creates a MSM with an armThickness of 3 and the slot at the given place empty to start.
+   * Creates a MS Model with an armThickness of 3 and the slot at the given place empty to start.
    *
    * @param sRow the row of the starting empty slot.
    * @param sCol the column of the startimg empty slot.
@@ -37,11 +37,11 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
   }
 
   /**
-   * Creates a MSM with an armThickness set to the given value and the center slot empty to start.
-   * The center is determined by the find int c = 3 * (armThickness - 1) / 2, where c is the value
-   * for sRow and sCol.
+   * Creates a MS Model with an armThickness set to the given value and the center slot empty to
+   * start. The center is determined by the find int c = 3 * (armThickness - 1) / 2, where c is the
+   * value for sRow and sCol.
    *
-   * @param armThickness the armThickness of this MSM
+   * @param armThickness the armThickness of this MS Model
    */
   public MarbleSolitaireModelImpl(int armThickness) {
     this(armThickness, (3 * (armThickness - 1)) / 2,
@@ -49,10 +49,10 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
   }
 
   /**
-   * Creates a MSM with an armThickness set to the given value and the slot at the given place empty
-   * to start.
+   * Creates a MS Model with an armThickness set to the given value and the slot at the given place
+   * empty to start.
    *
-   * @param armThickness the armThickness of this MSM
+   * @param armThickness the armThickness of this MS model
    * @param sRow         the row of the starting empty slot.
    * @param sCol         the column of the startimg empty slot.
    */
@@ -138,86 +138,91 @@ public class MarbleSolitaireModelImpl implements MarbleSolitaireModel {
    * @throws IllegalArgumentException if the move is not possible
    */
   public void move(int fromRow, int fromCol, int toRow, int toCol) throws IllegalArgumentException {
-    // Check cond #1.
-    // this may be tested multiple times in this function, but it needs to be done here to guarantee
-    // that we can use getFromBoard() without an exception
-    if (outOfRange(fromRow, fromCol) || outOfRange(toRow, toCol)) {
-      throw new IllegalArgumentException(String.format("(%d, %d) -> (%d, %d) is out of range",
-              fromRow, fromCol, toRow, toCol));
-    }
 
-    int dRow = toRow - fromRow;
-    int dCol = toCol - fromCol;
-
+    //getFromBoard checks for cond #1
     Posn from = getFromBoard(fromRow, fromCol);
     Posn to = getFromBoard(toRow, toCol);
 
-    // Check cond 2.
-    OrthogonalDir d;
-    if (Math.abs(dRow) == 2 && Math.abs(dCol) == 0) {
-      d = (dRow > 0 ? OrthogonalDir.DOWN : OrthogonalDir.UP);
-    } else if (Math.abs(dCol) == 2 && Math.abs(dRow) == 0) {
-      d = (dCol > 0 ? OrthogonalDir.RIGHT : OrthogonalDir.LEFT);
-    } else {
-      throw new IllegalArgumentException(String.format("%s -> %s is not a orthogonal "
-              + "move of 2 places", from.toString(), to.toString()));
-    }
+    //getValidJumped should check conds #2, #3
+    int[] betweenCoords = Utils.requireNonNull(getValidJumped(fromRow, fromCol, toRow, toCol));
 
-    // Check cond 3, and execute the move.
-    if (moveAvailable(d, from)) {
-      from.setState(PosnState.EMPTY);
-      to.setState(PosnState.FILLED);
-      this.getFromBoard(fromRow + d.rowMove(), fromCol + d.columnMove()).setState(PosnState.EMPTY);
+    Posn between = getFromBoard(betweenCoords[0], betweenCoords[1]);
+
+    from.setState(PosnState.EMPTY);
+    to.setState(PosnState.FILLED);
+    between.setState(PosnState.EMPTY);
+  }
+
+  @Override
+  public int[] getValidJumped(int fromRow, int fromCol, int toRow, int toCol)
+          throws IllegalArgumentException {
+
+    Posn origin = getFromBoard(fromRow, fromCol);
+    Posn dest = getFromBoard(toRow, toCol);
+
+    int diffs[] = validMoveOrthoBy2(origin, dest);
+    Posn between = this.getFromBoard(origin.getRow() + (int) (diffs[0] / 2.0),
+            origin.getColumn() + (int) (diffs[1] / 2.0));
+
+
+    if (origin.checkJumpStates(between, dest)) { //&& origin.checkJumpDirection(diffs, realWidth() - 1);/
+      int[] btwCoords = {between.getRow(), between.getColumn()};
+      return btwCoords;
     } else {
-      throw new IllegalArgumentException(String.format("%s -> %s is not in the "
-              + "correct getState or is in an invalid direction", from.toString(), to.toString()));
+      throw new IllegalArgumentException(String.format(
+              "%s --(%s)--> %s contains positions with incorrect states",
+              origin.toString(), between.toString(), dest.toString()));
     }
   }
 
   /**
-   * Is it possible for a marble at the given origin to move in the given direction according to the
-   * states and positions of the origin it's and destination?.
+   * Calculates the difference in the rows and columns between the origin and the dest {@code Posn}s
+   * if moving from origin to the destination is a valid moves
    *
-   * @param d      the {@code OrthogonalDir} that you are trying to move in.
-   * @param origin the {@code Posn}/slot that you are trying to move from
-   * @return can you move from the origin in the direction
+   * @param origin the posn where you are starting
+   * @param dest   the posn where you are landing
+   * @return an array of size = 2 where array[0] = rows moves and array[1] = column moves
+   * @throws IllegalArgumentException if the movement between the orign and destination is not a an
+   *                                  orthogonal move by 2
    */
-  private boolean moveAvailable(OrthogonalDir d, Posn origin) {
-    Utils.requireNonNull(d);
+  private int[] validMoveOrthoBy2(Posn origin, Posn dest) throws IllegalArgumentException {
     Utils.requireNonNull(origin);
+    Utils.requireNonNull(dest);
 
-    int oRow = origin.getRow();
-    int oColumn = origin.getColumn();
+    int[] moves = new int[2];
 
-    if (outOfRange(oRow + d.rowMove(), oColumn + d.columnMove())
-            || outOfRange(oRow + (2 * d.rowMove()), oColumn + (2 * d.columnMove()))) {
-      return false;
+    int dRow = dest.getRow() - origin.getRow();
+    int dCol = dest.getColumn() - origin.getColumn();
+
+    if (Math.abs(dRow) == 2 && Math.abs(dCol) == 0) {
+      moves[0] = dRow;
+    } else if (Math.abs(dCol) == 2 && Math.abs(dRow) == 0) {
+      moves[1] = dCol;
+    } else {
+      throw new IllegalArgumentException(String.format("%s -> %s is not an orthogonal "
+              + "move of 2 places", origin.toString(), dest.toString()));
     }
 
-    Posn between = this.getFromBoard(oRow + d.rowMove(), oColumn + d.columnMove());
-    Posn dest =
-            this.getFromBoard(oRow + (2 * d.rowMove()), oColumn + (2 * d.columnMove()));
-
-    boolean stateCheck = origin.checkJumpStates(between, dest);
-    boolean directionCheck = origin.checkJumpDirection(d, this.realWidth() - 1);
-
-    return directionCheck && stateCheck;
+    return moves;
   }
 
   @Override
   public boolean isGameOver() {
-    for (int r = 0; r < this.realWidth(); r++) {
-      for (int c = 0; c < this.realWidth(); c++) {
-        Posn origin = this.getFromBoard(r, c);
+    for (int originRow = 0; originRow < this.realWidth(); originRow++) {
+      for (int originCol = 0; originCol < this.realWidth(); originCol++) {
 
-        boolean playable = moveAvailable(OrthogonalDir.UP, origin)
-                || moveAvailable(OrthogonalDir.DOWN, origin)
-                || moveAvailable(OrthogonalDir.LEFT, origin)
-                || moveAvailable(OrthogonalDir.RIGHT, origin);
+        int destRows[] = {originRow - 2, originRow + 2, originRow, originRow};
+        int destCols[] = {originCol, originCol, originCol - 2, originCol + 1};
 
-        if (playable) {
-          return false;
+        for (int i = 0; i < 4; i++) {
+          try {
+            getValidJumped(originRow, originCol, destRows[i], destCols[i]);
+            return false;
+          } catch (IllegalArgumentException e) {
+            //do nothing
+          }
         }
+
       }
     }
     return true;

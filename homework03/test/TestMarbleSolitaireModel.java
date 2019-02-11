@@ -15,6 +15,97 @@ public class TestMarbleSolitaireModel {
   private MarbleSolitaireModel board5 = new MarbleSolitaireModelImpl(5, 5, 9);
   private MarbleSolitaireModel board1 = new MarbleSolitaireModelImpl(1);
 
+
+  @Test
+  public void getValidJump() {
+    //RIGHT
+    assertEquals(3, defBoard.getValidJumped(3, 1, 3, 3)[0]);
+    assertEquals(2, defBoard.getValidJumped(3, 1, 3, 3)[1]);
+    //LEFT
+    assertEquals(3, defBoard.getValidJumped(3, 5, 3, 3)[0]);
+    assertEquals(4, defBoard.getValidJumped(3, 5, 3, 3)[1]);
+    //DOWN
+    assertEquals(2, defBoard.getValidJumped(1, 3, 3, 3)[0]);
+    assertEquals(3, defBoard.getValidJumped(1, 3, 3, 3)[1]);
+    //UP
+    assertEquals(4, defBoard.getValidJumped(5, 3, 3, 3)[0]);
+    assertEquals(3, defBoard.getValidJumped(5, 3, 3, 3)[1]);
+  }
+
+  @Test
+  public void getValidJumpBadState1() {
+    MarbleSolitaireModel goodBoard = new MarbleSolitaireModelImpl(3, 6);
+    int[] expected = {-1, -1};
+    try {
+      expected = goodBoard.getValidJumped(5, 6, 3, 6);
+      fail("5,6 --(4,6)--> 3,6 should have been invalid b/c 5,6 is null");
+    } catch (IllegalArgumentException e) {
+      assertEquals(-1, expected[0]);
+      assertEquals(-1, expected[1]);
+    }
+  }
+
+  @Test
+  public void getValidJumpBadState2() {
+    MarbleSolitaireModel goodBoard = new MarbleSolitaireModelImpl(3, 6);
+    int[] expected = {-1, -1};
+    try {
+      expected = goodBoard.getValidJumped(3, 6, 3, 3);
+      fail("3,6 --(3,5)--> 3,3 should have been invalid b/c 3,6 is empty");
+    } catch (IllegalArgumentException e) {
+      assertEquals(-1, expected[0]);
+      assertEquals(-1, expected[1]);
+    }
+  }
+
+  @Test
+  public void getValidJumpBadState3() {
+    //in order to make sure it's the empty b/w that's throwing the error, the move
+    //has to create 2 empties right next to each other
+    defBoard.move(3, 1, 3, 3);
+    assertEquals(
+            "    O O O\n" +
+                    "    O O O\n" +
+                    "O O O O O O O\n" +
+                    "O _ _ O O O O\n" +
+                    "O O O O O O O\n" +
+                    "    O O O\n" +
+                    "    O O O", defBoard.getGameState());
+
+    int[] expected = {-1, -1};
+    try {
+      expected = defBoard.getValidJumped(3, 0, 3, 2);
+      fail("3,0 --(3,1)--> 3,2 should have been invalid b/c 3,1 is empty");
+    } catch (IllegalArgumentException e) {
+      assertEquals(-1, expected[0]);
+      assertEquals(-1, expected[1]);
+    }
+  }
+
+  @Test
+  public void getValidJumpBadState4() {
+    int[] expected = {-1, -1};
+    try {
+      expected = defBoard.getValidJumped(0, 3, 0, 1);
+      fail("0,3 --(0,2)--> 0,1 should have been invalid b/c 0,1 is null");
+    } catch (IllegalArgumentException e) {
+      assertEquals(-1, expected[0]);
+      assertEquals(-1, expected[1]);
+    }
+  }
+
+  @Test
+  public void getValidJumpBadState5() {
+    int[] expected = {-1, -1};
+    try {
+      expected = defBoard.getValidJumped(0, 2, 0, 0);
+      fail("0,2 --(0,1)--> 0,0 should have been invalid b/c 0,0 is null");
+    } catch (IllegalArgumentException e) {
+      assertEquals(-1, expected[0]);
+      assertEquals(-1, expected[1]);
+    }
+  }
+
   @Test
   public void boardGeneration() {
     assertEquals("[0, 0*]", board1.toString());

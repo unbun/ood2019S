@@ -42,4 +42,21 @@ public interface MarbleSolitaireModel {
    * @return the number of marbles currently on the board
    */
   int getScore();
+
+
+  /**
+   * Examine the movement described by the parameters and determine which piece would be removed by
+   * such a move (if it is valid) and return that piece's row and column coordinates
+   *
+   * @param fromRow the row number of the position to be moved from (starts at 0)
+   * @param fromCol the column number of the position to be moved from (starts at 0)
+   * @param toRow   the row number of the position to be moved to (starts at 0)
+   * @param toCol   the column number of the position to be moved to (starts at 0)
+   * @return array[0] is the row number of the position of the removed piece (starts at 0) array[1]
+   * is the column number of the position of the removed piece (starts at 0)
+   * @throws IllegalArgumentException if the move is not possible
+   */
+  int[] getValidJumped(int fromRow, int fromCol, int toRow, int toCol)
+          throws IllegalArgumentException;
+
 }
