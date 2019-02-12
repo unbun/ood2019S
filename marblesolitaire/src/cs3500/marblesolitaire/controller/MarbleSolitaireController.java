@@ -4,7 +4,7 @@ import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 
 public interface MarbleSolitaireController {
   /**
-   * The void playGame(MarbleSolitaireModel model) method should play a game. It should “run”
+   * The void playGame(MarbleSolitaireModel model) method should play a game. It should run
    * the game in the following sequence until the game is over.
    * NOTE: Each transmission described below should end with a newline.
    *
@@ -28,7 +28,8 @@ public interface MarbleSolitaireController {
    * by the final score. The method should then end.</p>
    * <p>For example:</p>
    *
-   * <p>Game over!
+   * <pre>
+   * Game over!
    *     _ _ _
    *     _ _ _
    * _ _ _ _ _ _ _
@@ -37,14 +38,17 @@ public interface MarbleSolitaireController {
    *     _ _ _
    *     _ _ _
    * Score: 1
-   * Key points:</p>
+   * Key points:
+   * </pre>
    *
    * <p>Quitting: If at any point, the next value is either the letter 'q' or the letter 'Q',
    * the controller should transmit the following in order: the message "Game quit!", the message
    * "State of game when quit:", the current game state, and the message "Score: N" with N replaced
    * by the final score. The method should then end.</p>
    *
-   * <p>For example:
+   * <p>For example:</p>
+   *
+   * <pre>
    * Game quit!
    * State of game when quit:
    *     O O O
@@ -54,7 +58,8 @@ public interface MarbleSolitaireController {
    * O O O O O O O
    *     O O O
    *     O O O
-   * Score: 31.</p>
+   * Score: 31.
+   * </pre>
    *
    * <p>Bad inputs: If any individual value is unexpected (i.e. something other than 'q',
    * 'Q' or a positive number) it should ask the user to re-enter that value again. If the user
