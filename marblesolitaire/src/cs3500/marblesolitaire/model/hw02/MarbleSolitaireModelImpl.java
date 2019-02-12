@@ -1,14 +1,6 @@
 package cs3500.marblesolitaire.model.hw02;
 
-import java.util.ArrayList;
-
 import cs3500.marblesolitaire.model.RowByColumnBoard;
-
-import cs3500.marblesolitaire.model.posn.BoardPosn;
-import cs3500.marblesolitaire.model.posn.NullPosn;
-import cs3500.marblesolitaire.model.posn.Posn;
-import cs3500.marblesolitaire.model.posn.PosnState;
-
 
 /**
  * Implementation of A MarbleSolitare(MS) Model Game. Keeps track of the state of an MS Game as
@@ -19,11 +11,11 @@ import cs3500.marblesolitaire.model.posn.PosnState;
 public class MarbleSolitaireModelImpl extends RowByColumnBoard {
 
 
-
   /**
    * Creates a MS Model with an size of 3 and the center slot empty to start.
    */
   public MarbleSolitaireModelImpl() {
+
     this(3);
   }
 
@@ -34,7 +26,7 @@ public class MarbleSolitaireModelImpl extends RowByColumnBoard {
    * @param sCol the column of the startimg empty slot.
    */
   public MarbleSolitaireModelImpl(int sRow, int sCol) {
-    this(3, sRow, sCol);
+    super(3, sRow, sCol);
   }
 
   /**
@@ -45,7 +37,7 @@ public class MarbleSolitaireModelImpl extends RowByColumnBoard {
    * @param size the size of this MS Model
    */
   public MarbleSolitaireModelImpl(int size) {
-    this(size, (3 * (size - 1)) / 2,
+    super(size, (3 * (size - 1)) / 2,
             (3 * (size - 1)) / 2);
   }
 
@@ -58,41 +50,16 @@ public class MarbleSolitaireModelImpl extends RowByColumnBoard {
    * @param sCol         the column of the startimg empty slot.
    */
   public MarbleSolitaireModelImpl(int size, int sRow, int sCol) {
-    this.size = size;
-    this.board = new ArrayList<>();
+    super(size, sRow, sCol);
+  }
 
-    if (size % 2 != 1) {
-      throw new IllegalArgumentException("Arm Thicknesses must be odd");
-    }
 
-    //out of range
-    if (outOfRange(sRow, sCol)) {
-      throw new IllegalArgumentException(
-              String.format("Invalid empty cell position(%d,%d)", sRow, sCol));
-    }
+  @Override
+  protected boolean nullSlotCheck(int r, int c) {
+    boolean rowCheck = (r >= size- 1 && r < 2 * size - 1);
+    boolean columnCheck = (c >= size - 1 && c < 2* size - 1);
 
-    for (int r = 0; r < realWidth(); r++) {
-      ArrayList<Posn> nthRow = new ArrayList<>();
-      for (int c = 0; c < realWidth(); c++) {
-
-        boolean isEmpty = r == sRow && c == sCol;
-        PosnState ps = (isEmpty ? PosnState.EMPTY : PosnState.FILLED);
-        int endOfArm = 2 * size - 1;
-
-        if (c >= size - 1 && c < endOfArm) {
-          nthRow.add(new BoardPosn(r, c, ps));
-        } else if (r >= size - 1 && r < endOfArm) {
-          nthRow.add(new BoardPosn(r, c, ps));
-        } else {
-          if (isEmpty) { //isEmpty is null
-            throw new IllegalArgumentException(
-                    String.format("Invalid empty cell position(%d,%d)", sRow, sCol));
-          }
-          nthRow.add(new NullPosn(r, c));
-        }
-      }
-      this.board.add(nthRow);
-    }
+    return columnCheck || rowCheck;
   }
 
 

@@ -3,6 +3,8 @@ package cs3500.marblesolitaire.model;
 import java.util.ArrayList;
 
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
+import cs3500.marblesolitaire.model.posn.BoardPosn;
+import cs3500.marblesolitaire.model.posn.NullPosn;
 import cs3500.marblesolitaire.model.posn.Posn;
 import cs3500.marblesolitaire.model.posn.PosnState;
 import cs3500.marblesolitaire.util.Utils;
@@ -11,6 +13,50 @@ public abstract class RowByColumnBoard implements MarbleSolitaireModel {
 
   protected ArrayList<ArrayList<Posn>> board;
   protected int size;
+
+  /**
+   * Creates a MS Model with an size set to the given value and the slot at the given place
+   * empty to start.
+   *
+   * @param size the size of this MS model
+   * @param sRow         the row of the starting empty slot.
+   * @param sCol         the column of the startimg empty slot.
+   */
+  public RowByColumnBoard(int size, int sRow, int sCol) {
+    this.size = size;
+    this.board = new ArrayList<>();
+
+    if (size % 2 != 1) {
+      throw new IllegalArgumentException("Arm Thicknesses must be odd");
+    }
+
+    //out of range
+    if (outOfRange(sRow, sCol)) {
+      throw new IllegalArgumentException(
+              String.format("Invalid empty cell position(%d,%d)", sRow, sCol));
+    }
+
+    for (int r = 0; r < realWidth(); r++) {
+      ArrayList<Posn> nthRow = new ArrayList<>();
+      for (int c = 0; c < realWidth(); c++) {
+
+        boolean isEmpty = r == sRow && c == sCol;
+        PosnState ps = (isEmpty ? PosnState.EMPTY : PosnState.FILLED);
+
+        if(nullSlotCheck(r, c)){
+          nthRow.add(new BoardPosn(r,c,ps));
+        } else if(isEmpty){
+          throw new IllegalArgumentException(
+                  String.format("Invalid empty cell position(%d,%d)", sRow, sCol));
+        } else{
+          nthRow.add(new NullPosn(r,c));
+        }
+      }
+      this.board.add(nthRow);
+    }
+  }
+
+  protected abstract boolean nullSlotCheck(int r, int c);
 
   /**
    * Get the Posn at the position at row = r, column = c.
