@@ -8,7 +8,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class TestMarbleSolitaireModel {
+public class TestEnglishMarbleSolitaireModel {
 
   private MarbleSolitaireModel defBoard = new MarbleSolitaireModelImpl();
   private MarbleSolitaireModel board3 = new MarbleSolitaireModelImpl(4, 6);
