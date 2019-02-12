@@ -2,10 +2,10 @@ package cs3500.marblesolitaire.model.hw02;
 
 import java.util.ArrayList;
 
-import cs3500.marblesolitaire.model.hw02.posn.BoardPosn;
-import cs3500.marblesolitaire.model.hw02.posn.NullPosn;
-import cs3500.marblesolitaire.model.hw02.posn.Posn;
-import cs3500.marblesolitaire.model.hw02.posn.PosnState;
+import cs3500.marblesolitaire.model.posn.BoardPosn;
+import cs3500.marblesolitaire.model.posn.NullPosn;
+import cs3500.marblesolitaire.model.posn.Posn;
+import cs3500.marblesolitaire.model.posn.PosnState;
 import cs3500.marblesolitaire.util.Utils;
 
 /**

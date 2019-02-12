@@ -1,4 +1,4 @@
-package cs3500.marblesolitaire.model.hw02.posn;
+package cs3500.marblesolitaire.model.posn;
 
 /**
  * An AbstractPosn class to repsent a cartesian Position on the Marble Solitaire board.

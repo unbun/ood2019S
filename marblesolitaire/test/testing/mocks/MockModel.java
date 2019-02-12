@@ -1,7 +1,6 @@
 package testing.mocks;
 
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
-import cs3500.marblesolitaire.model.hw02.posn.Posn;
 
 /**
  * A Mock MSM Game model that simply accepts positive intergers to move, and scores you based on the
