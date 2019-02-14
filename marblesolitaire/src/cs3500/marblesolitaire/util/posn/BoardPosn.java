@@ -1,4 +1,4 @@
-package cs3500.marblesolitaire.model.posn;
+package cs3500.marblesolitaire.util.posn;
 
 /**
  * A BoardPosn represents a valid slot on the Solitare Board.

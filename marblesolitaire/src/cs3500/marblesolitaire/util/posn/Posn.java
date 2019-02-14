@@ -1,4 +1,4 @@
-package cs3500.marblesolitaire.model.posn;
+package cs3500.marblesolitaire.util.posn;
 
 /**
  * Any Cartisian Location on a square Marble Board.

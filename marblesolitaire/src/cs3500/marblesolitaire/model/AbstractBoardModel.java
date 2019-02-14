@@ -3,10 +3,10 @@ package cs3500.marblesolitaire.model;
 import java.util.ArrayList;
 
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
-import cs3500.marblesolitaire.model.posn.BoardPosn;
-import cs3500.marblesolitaire.model.posn.NullPosn;
-import cs3500.marblesolitaire.model.posn.Posn;
-import cs3500.marblesolitaire.model.posn.PosnState;
+import cs3500.marblesolitaire.util.posn.BoardPosn;
+import cs3500.marblesolitaire.util.posn.NullPosn;
+import cs3500.marblesolitaire.util.posn.Posn;
+import cs3500.marblesolitaire.util.posn.PosnState;
 import cs3500.marblesolitaire.util.Utils;
 
 public abstract class AbstractBoardModel implements MarbleSolitaireModel {
@@ -160,7 +160,6 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
   }
 
 
-  @Override
   /**
    * Move a single marble from a given position to another given position. A move is valid only if
    * the from and to positions are valid.
@@ -177,6 +176,7 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
    * @param toCol   the column number of the position to be moved to (starts at 0)
    * @throws IllegalArgumentException if the move is not possible
    */
+  @Override
   public void move(int fromRow, int fromCol, int toRow, int toCol) throws IllegalArgumentException {
 
     //getFromBoard checks for cond #1
@@ -251,10 +251,10 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
     for (int originRow = 0; originRow < this.realWidth(); originRow++) {
       for (int originCol = 0; originCol < this.realWidth(); originCol++) {
 
-        int destRows[] = {originRow - 2, originRow + 2, originRow, originRow};
-        int destCols[] = {originCol, originCol, originCol - 2, originCol + 1};
+        int destRows[] = getJumpRows(originRow);
+        int destCols[] = getJumpColumns(originCol);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < destRows.length; i++) {
           try {
             getValidJumped(originRow, originCol, destRows[i], destCols[i]);
             return false;
@@ -262,11 +262,21 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
             //do nothing
           }
         }
-
       }
     }
     return true;
   }
+
+  protected int[] getJumpRows(int oRow){
+    int[] rows = {oRow - 2, oRow + 2, oRow, oRow};
+    return rows;
+  }
+
+  protected int[] getJumpColumns(int oCol){
+    int[] cols = {oCol, oCol, oCol - 2, oCol + 2};
+    return cols;
+  }
+
 
   /**
    * The real width of the board. (the width of the whole square that the center square and arms

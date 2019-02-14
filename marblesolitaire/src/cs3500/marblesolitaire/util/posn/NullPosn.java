@@ -1,4 +1,4 @@
-package cs3500.marblesolitaire.model.posn;
+package cs3500.marblesolitaire.util.posn;
 
 /**
  * A Spot on the Cartesian Square Board that is not a part of the center square or the arms. In

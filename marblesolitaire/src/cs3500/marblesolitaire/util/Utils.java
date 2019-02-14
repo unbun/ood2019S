@@ -46,8 +46,9 @@ public class Utils {
   }
 
   /**
+   * Get the sign of the given value (and a magnitude of 1). If zero is given, zero is returned.
    *
-   * @param value
+   * @param value the value to get the sign to
    * @return 1 or -1, with the result corresponding to
    *          the sign of the given value (if value == 0, returns 0)
    */
@@ -56,5 +57,20 @@ public class Utils {
       return value / Math.abs(value);
     }
     return 0;
+  }
+
+  public static int[] concat(int[] first, int[] second){
+    Utils.requireNonNull(first);
+    Utils.requireNonNull(second);
+
+    int[] both = new int[first.length + second.length];
+    for(int i = 0; i < first.length; i++){
+      both[i] = first[i];
+    }
+    for(int j = 0; j < second.length; j++){
+      both[j + first.length] = second[j];
+    }
+
+    return both;
   }
 }

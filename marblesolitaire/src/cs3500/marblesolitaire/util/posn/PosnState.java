@@ -1,4 +1,4 @@
-package cs3500.marblesolitaire.model.posn;
+package cs3500.marblesolitaire.util.posn;
 
 /**
  * Represents the state of a {@code Posn}/slot on the board.

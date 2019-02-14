@@ -1,9 +1,7 @@
 package cs3500.marblesolitaire.model.hw04;
 
-import cs3500.marblesolitaire.MarbleSolitaire;
 import cs3500.marblesolitaire.model.AbstractBoardModel;
-import cs3500.marblesolitaire.model.posn.Posn;
-import cs3500.marblesolitaire.model.posn.PosnState;
+import cs3500.marblesolitaire.util.posn.Posn;
 import cs3500.marblesolitaire.util.Utils;
 
 
@@ -62,11 +60,6 @@ public class TriangleSolitaireModelImpl extends AbstractBoardModel {
   }
 
   @Override
-  public int[] getValidJumped(int fromRow, int fromCol, int toRow, int toCol) throws IllegalArgumentException {
-    return super.getValidJumped(fromRow, fromCol, toRow, toCol);
-  }
-
-  @Override
   protected int[] validOrthoMoveBy2(Posn origin, Posn dest) throws IllegalArgumentException {
     Utils.requireNonNull(origin);
     Utils.requireNonNull(dest);
@@ -93,6 +86,19 @@ public class TriangleSolitaireModelImpl extends AbstractBoardModel {
       }
     }
   }
+
+  @Override
+  protected int[] getJumpRows(int oRow){
+    int[] extra = {oRow + 2, oRow - 2};
+    return Utils.concat(super.getJumpRows(oRow), extra);
+  }
+
+  @Override
+  protected int[] getJumpColumns(int oCol){
+    int[] extra = {oCol + 2, oCol - 2};
+    return Utils.concat(super.getJumpColumns(oCol), extra);
+  }
+
 
   @Override
   protected int realWidth() {
