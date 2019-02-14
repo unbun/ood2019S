@@ -1,26 +1,23 @@
 package cs3500.marblesolitaire.model.hw04;
 
-import javax.rmi.ssl.SslRMIClientSocketFactory;
+import cs3500.marblesolitaire.model.AbstractBoardModel;
 
-import cs3500.marblesolitaire.model.RowByColumnBoard;
-
-public class EuropeanSolitaireModelImpl extends RowByColumnBoard {
+public class EuropeanSolitaireModelImpl extends AbstractBoardModel {
 
   public EuropeanSolitaireModelImpl(){
     this(3);
   }
 
   public EuropeanSolitaireModelImpl(int size) {
-    super(size, (3 * (size - 1)) / 2,
-            (3 * (size - 1)) / 2);
+    this(size,(3 * (size - 1)) / 2, (3 * (size - 1)) / 2);
   }
 
   public EuropeanSolitaireModelImpl(int sRow, int sCol){
-    super(3,sRow, sCol);
+    this(3,sRow, sCol);
   }
 
   public EuropeanSolitaireModelImpl(int size, int sRow, int sCol){
-    super(size, sRow, sCol);
+    super(size, sRow, sCol, size % 2 == 0, "Side length must be odd");
   }
 
   @Override
@@ -30,6 +27,6 @@ public class EuropeanSolitaireModelImpl extends RowByColumnBoard {
                             Math.max((size - 1) - r, 0));
     boolean columnCheck = !(c < margin || c > (realWidth() - margin - 1));
 
-    return rowCheck || columnCheck;
+    return !(rowCheck || columnCheck);
   }
 }

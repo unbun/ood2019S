@@ -44,4 +44,17 @@ public class Utils {
 
     return toParse;
   }
+
+  /**
+   *
+   * @param value
+   * @return 1 or -1, with the result corresponding to
+   *          the sign of the given value (if value == 0, returns 0)
+   */
+  public static int getSign(int value){
+    if(value != 0){
+      return value / Math.abs(value);
+    }
+    return 0;
+  }
 }

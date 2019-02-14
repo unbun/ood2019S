@@ -1,6 +1,6 @@
 package cs3500.marblesolitaire.model.hw02;
 
-import cs3500.marblesolitaire.model.RowByColumnBoard;
+import cs3500.marblesolitaire.model.AbstractBoardModel;
 
 /**
  * Implementation of A MarbleSolitare(MS) Model Game. Keeps track of the state of an MS Game as
@@ -8,25 +8,14 @@ import cs3500.marblesolitaire.model.RowByColumnBoard;
  * on a board of slots. Each move represents moving a game piece over another and into a previously
  * empty slot, which results in the jumped-over piece being removed.
  */
-public class MarbleSolitaireModelImpl extends RowByColumnBoard {
+public class MarbleSolitaireModelImpl extends AbstractBoardModel {
 
 
   /**
    * Creates a MS Model with an size of 3 and the center slot empty to start.
    */
   public MarbleSolitaireModelImpl() {
-
     this(3);
-  }
-
-  /**
-   * Creates a MS Model with an size of 3 and the slot at the given place empty to start.
-   *
-   * @param sRow the row of the starting empty slot.
-   * @param sCol the column of the startimg empty slot.
-   */
-  public MarbleSolitaireModelImpl(int sRow, int sCol) {
-    super(3, sRow, sCol);
   }
 
   /**
@@ -37,9 +26,19 @@ public class MarbleSolitaireModelImpl extends RowByColumnBoard {
    * @param size the size of this MS Model
    */
   public MarbleSolitaireModelImpl(int size) {
-    super(size, (3 * (size - 1)) / 2,
-            (3 * (size - 1)) / 2);
+    this(size,(3 * (size - 1)) / 2, (3 * (size - 1)) / 2);
   }
+
+  /**
+   * Creates a MS Model with an size of 3 and the slot at the given place empty to start.
+   *
+   * @param sRow the row of the starting empty slot.
+   * @param sCol the column of the startimg empty slot.
+   */
+  public MarbleSolitaireModelImpl(int sRow, int sCol) {
+    this(3, sRow, sCol);
+  }
+
 
   /**
    * Creates a MS Model with an size set to the given value and the slot at the given place
@@ -50,7 +49,7 @@ public class MarbleSolitaireModelImpl extends RowByColumnBoard {
    * @param sCol         the column of the startimg empty slot.
    */
   public MarbleSolitaireModelImpl(int size, int sRow, int sCol) {
-    super(size, sRow, sCol);
+    super(size, sRow, sCol, size % 2 == 0, "Arm thickness must be odd");
   }
 
 
@@ -59,7 +58,7 @@ public class MarbleSolitaireModelImpl extends RowByColumnBoard {
     boolean rowCheck = (r >= size- 1 && r < 2 * size - 1);
     boolean columnCheck = (c >= size - 1 && c < 2* size - 1);
 
-    return columnCheck || rowCheck;
+    return !(columnCheck || rowCheck);
   }
 
 

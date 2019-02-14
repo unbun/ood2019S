@@ -14,7 +14,6 @@ public class TestEuropeanMarbleSolitaireModel {
   private MarbleSolitaireModel defBoard = new EuropeanSolitaireModelImpl();
   private MarbleSolitaireModel board3 = new EuropeanSolitaireModelImpl(4, 6);
   private MarbleSolitaireModel board3Corner = new EuropeanSolitaireModelImpl(5, 1);
-
   private MarbleSolitaireModel board5 = new EuropeanSolitaireModelImpl(5, 5, 9);
   private MarbleSolitaireModel board1 = new EuropeanSolitaireModelImpl(1);
 

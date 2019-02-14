@@ -9,7 +9,7 @@ import cs3500.marblesolitaire.model.posn.Posn;
 import cs3500.marblesolitaire.model.posn.PosnState;
 import cs3500.marblesolitaire.util.Utils;
 
-public abstract class RowByColumnBoard implements MarbleSolitaireModel {
+public abstract class AbstractBoardModel implements MarbleSolitaireModel {
 
   protected ArrayList<ArrayList<Posn>> board;
   protected int size;
@@ -22,12 +22,12 @@ public abstract class RowByColumnBoard implements MarbleSolitaireModel {
    * @param sRow         the row of the starting empty slot.
    * @param sCol         the column of the startimg empty slot.
    */
-  public RowByColumnBoard(int size, int sRow, int sCol) {
+  public AbstractBoardModel(int size, int sRow, int sCol, boolean invalid, String errMsg) {
     this.size = size;
     this.board = new ArrayList<>();
 
-    if (size % 2 != 1) {
-      throw new IllegalArgumentException("Arm Thicknesses must be odd");
+    if (invalid) {
+      throw new IllegalArgumentException(errMsg);
     }
 
     //out of range
@@ -35,15 +35,21 @@ public abstract class RowByColumnBoard implements MarbleSolitaireModel {
       throw new IllegalArgumentException(
               String.format("Invalid empty cell position(%d,%d)", sRow, sCol));
     }
+    this.board = generateBoard(realWidth(), sRow, sCol);
 
-    for (int r = 0; r < realWidth(); r++) {
+  }
+
+  protected ArrayList<ArrayList<Posn>> generateBoard(int size, int sRow, int sCol){
+    ArrayList<ArrayList<Posn>> toBuild = new ArrayList<>();
+
+    for (int r = 0; r < size; r++) {
       ArrayList<Posn> nthRow = new ArrayList<>();
-      for (int c = 0; c < realWidth(); c++) {
+      for (int c = 0; c < size; c++) {
 
         boolean isEmpty = r == sRow && c == sCol;
         PosnState ps = (isEmpty ? PosnState.EMPTY : PosnState.FILLED);
 
-        if(nullSlotCheck(r, c)){
+        if(!nullSlotCheck(r, c)){
           nthRow.add(new BoardPosn(r,c,ps));
         } else if(isEmpty){
           throw new IllegalArgumentException(
@@ -52,8 +58,10 @@ public abstract class RowByColumnBoard implements MarbleSolitaireModel {
           nthRow.add(new NullPosn(r,c));
         }
       }
-      this.board.add(nthRow);
+      toBuild.add(nthRow);
     }
+
+    return toBuild;
   }
 
   protected abstract boolean nullSlotCheck(int r, int c);
@@ -66,9 +74,14 @@ public abstract class RowByColumnBoard implements MarbleSolitaireModel {
    * @return the Posn of this board at r, c
    * @throws IllegalArgumentException if r or c are out of the range of the board
    */
-  protected Posn getFromBoard(int r, int c) throws IllegalArgumentException {
+  protected Posn getFromBoard(int r, int c) throws IllegalArgumentException, IllegalStateException{
     if (outOfRange(r, c)) {
       throw new IllegalArgumentException(String.format("Can't get (%d, %d): out of range", r, c));
+    }
+
+    if(this.board.size() == 0){
+      System.out.println("\tDEBUG: " + r + ", " + c);
+      throw new IllegalStateException("Board has not been created yet");
     }
     return this.board.get(r).get(c);
   }
@@ -187,7 +200,7 @@ public abstract class RowByColumnBoard implements MarbleSolitaireModel {
     Posn origin = getFromBoard(fromRow, fromCol);
     Posn dest = getFromBoard(toRow, toCol);
 
-    int diffs[] = validMoveOrthoBy2(origin, dest);
+    int diffs[] = validOrthoMoveBy2(origin, dest);
     Posn between = this.getFromBoard(origin.getRow() + (int) (diffs[0] / 2.0),
             origin.getColumn() + (int) (diffs[1] / 2.0));
 
@@ -212,7 +225,7 @@ public abstract class RowByColumnBoard implements MarbleSolitaireModel {
    * @throws IllegalArgumentException if the movement between the orign and destination is not a an
    *                                  orthogonal move by 2
    */
-  private int[] validMoveOrthoBy2(Posn origin, Posn dest) throws IllegalArgumentException {
+  protected int[] validOrthoMoveBy2(Posn origin, Posn dest) throws IllegalArgumentException {
     Utils.requireNonNull(origin);
     Utils.requireNonNull(dest);
 
