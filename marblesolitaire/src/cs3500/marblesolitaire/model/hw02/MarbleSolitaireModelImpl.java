@@ -55,8 +55,8 @@ public class MarbleSolitaireModelImpl extends AbstractBoardModel {
 
   @Override
   protected boolean nullSlotCheck(int r, int c) {
-    boolean rowCheck = (r >= size- 1 && r < 2 * size - 1);
-    boolean columnCheck = (c >= size - 1 && c < 2* size - 1);
+    boolean rowCheck = r >= size- 1 && r < 2 * size - 1;
+    boolean columnCheck = c >= size - 1 && c < 2* size - 1;
 
     return !(columnCheck || rowCheck);
   }

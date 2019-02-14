@@ -1,5 +1,7 @@
 package testing.mocks;
 
+import java.util.Optional;
+
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 
 /**
@@ -55,9 +57,9 @@ public class MockModel implements MarbleSolitaireModel {
   }
 
   @Override
-  public int[] getValidJumped(int fromRow, int fromCol, int toRow, int toCol) throws IllegalArgumentException {
+  public Optional<int[]> getValidJumped(int fromRow, int fromCol, int toRow, int toCol) throws IllegalArgumentException {
     int[] diffs = {toRow - fromRow, toCol - fromCol};
-    return diffs;
+    return Optional.of(diffs);
   }
 
   @Override

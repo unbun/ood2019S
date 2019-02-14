@@ -1,5 +1,7 @@
 package cs3500.marblesolitaire.model.hw02;
 
+import java.util.Optional;
+
 /**
  * This interface represents the operations offered by the marble solitaire model. One object of the
  * model represents one game of marble solitaire.
@@ -56,7 +58,7 @@ public interface MarbleSolitaireModel {
    * is the column number of the position of the removed piece (starts at 0)
    * @throws IllegalArgumentException if the move is not possible
    */
-  int[] getValidJumped(int fromRow, int fromCol, int toRow, int toCol)
+  Optional<int[]> getValidJumped(int fromRow, int fromCol, int toRow, int toCol)
           throws IllegalArgumentException;
 
 }

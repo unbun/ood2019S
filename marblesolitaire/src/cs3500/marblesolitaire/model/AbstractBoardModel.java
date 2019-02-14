@@ -1,6 +1,7 @@
 package cs3500.marblesolitaire.model;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 import cs3500.marblesolitaire.util.posn.BoardPosn;
@@ -15,12 +16,12 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
   protected int size;
 
   /**
-   * Creates a MS Model with an size set to the given value and the slot at the given place
-   * empty to start.
+   * Creates a MS Model with an size set to the given value and the slot at the given place empty to
+   * start.
    *
    * @param size the size of this MS model
-   * @param sRow         the row of the starting empty slot.
-   * @param sCol         the column of the startimg empty slot.
+   * @param sRow the row of the starting empty slot.
+   * @param sCol the column of the startimg empty slot.
    */
   public AbstractBoardModel(int size, int sRow, int sCol, boolean invalid, String errMsg) {
     this.size = size;
@@ -39,7 +40,7 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
 
   }
 
-  protected ArrayList<ArrayList<Posn>> generateBoard(int size, int sRow, int sCol){
+  protected ArrayList<ArrayList<Posn>> generateBoard(int size, int sRow, int sCol) {
     ArrayList<ArrayList<Posn>> toBuild = new ArrayList<>();
 
     for (int r = 0; r < size; r++) {
@@ -49,13 +50,13 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
         boolean isEmpty = r == sRow && c == sCol;
         PosnState ps = (isEmpty ? PosnState.EMPTY : PosnState.FILLED);
 
-        if(!nullSlotCheck(r, c)){
-          nthRow.add(new BoardPosn(r,c,ps));
-        } else if(isEmpty){
+        if (!nullSlotCheck(r, c)) {
+          nthRow.add(new BoardPosn(r, c, ps));
+        } else if (isEmpty) {
           throw new IllegalArgumentException(
                   String.format("Invalid empty cell position(%d,%d)", sRow, sCol));
-        } else{
-          nthRow.add(new NullPosn(r,c));
+        } else {
+          nthRow.add(new NullPosn(r, c));
         }
       }
       toBuild.add(nthRow);
@@ -74,12 +75,12 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
    * @return the Posn of this board at r, c
    * @throws IllegalArgumentException if r or c are out of the range of the board
    */
-  protected Posn getFromBoard(int r, int c) throws IllegalArgumentException, IllegalStateException{
+  protected Posn getFromBoard(int r, int c) throws IllegalArgumentException, IllegalStateException {
     if (outOfRange(r, c)) {
       throw new IllegalArgumentException(String.format("Can't get (%d, %d): out of range", r, c));
     }
 
-    if(this.board.size() == 0){
+    if (this.board.size() == 0) {
       System.out.println("\tDEBUG: " + r + ", " + c);
       throw new IllegalStateException("Board has not been created yet");
     }
@@ -164,11 +165,10 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
    * Move a single marble from a given position to another given position. A move is valid only if
    * the from and to positions are valid.
    *
-   * A valid move satisfies 3 conditions:
-   *  1. the to and from coordinates are in the range of the board.
-   *  2. the movement is an orthogonal direction with a magnitude of 2 spaces in only 1 direction.
-   *  3. states of slots are correct (you can't move into an occupied or Null slot. You can't move
-   *  from an unoccupied or null spot).
+   * A valid move satisfies 3 conditions: 1. the to and from coordinates are in the range of the
+   * board. 2. the movement is an orthogonal direction with a magnitude of 2 spaces in only 1
+   * direction. 3. states of slots are correct (you can't move into an occupied or Null slot. You
+   * can't move from an unoccupied or null spot).
    *
    * @param fromRow the row number of the position to be moved from (starts at 0)
    * @param fromCol the column number of the position to be moved from (starts at 0)
@@ -184,7 +184,15 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
     Posn to = getFromBoard(toRow, toCol);
 
     //getValidJumped should check conds #2, #3
-    int[] betweenCoords = Utils.requireNonNull(getValidJumped(fromRow, fromCol, toRow, toCol));
+    Optional<int[]> maybeCoords = getValidJumped(fromRow, fromCol, toRow, toCol);
+    if(!maybeCoords.isPresent()){
+      throw new IllegalArgumentException(String.format(
+              "%s ----> %s involves positions with incorrect states or is not" +
+                      " an orthogonal move by 2 spaces",
+              from.toString(),to.toString()));
+    }
+
+    int[] betweenCoords = maybeCoords.get();
 
     Posn between = getFromBoard(betweenCoords[0], betweenCoords[1]);
 
@@ -194,24 +202,30 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
   }
 
   @Override
-  public int[] getValidJumped(int fromRow, int fromCol, int toRow, int toCol)
-          throws IllegalArgumentException {
+  public Optional<int[]> getValidJumped(int fromRow, int fromCol, int toRow, int toCol){
+
+    if(outOfRange(fromRow, fromCol) || outOfRange(toRow, toCol)){
+      return Optional.empty();
+    }
 
     Posn origin = getFromBoard(fromRow, fromCol);
     Posn dest = getFromBoard(toRow, toCol);
 
-    int diffs[] = validOrthoMoveBy2(origin, dest);
+    Optional<int[]> maybeDiffs = validOrthoMoveBy2(origin, dest);
+    if(!maybeDiffs.isPresent()){
+      return Optional.empty();
+    }
+
+    int diffs[] = maybeDiffs.get();
     Posn between = this.getFromBoard(origin.getRow() + (int) (diffs[0] / 2.0),
             origin.getColumn() + (int) (diffs[1] / 2.0));
 
 
     if (origin.checkJumpStates(between, dest)) { //&& origin.checkJumpDirection(diffs, realWidth() - 1);/
       int[] btwCoords = {between.getRow(), between.getColumn()};
-      return btwCoords;
+      return Optional.of(btwCoords);
     } else {
-      throw new IllegalArgumentException(String.format(
-              "%s --(%s)--> %s contains positions with incorrect states",
-              origin.toString(), between.toString(), dest.toString()));
+      return Optional.empty();
     }
   }
 
@@ -222,10 +236,9 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
    * @param origin the posn where you are starting
    * @param dest   the posn where you are landing
    * @return an array of size = 2 where array[0] = rows moves and array[1] = column moves
-   * @throws IllegalArgumentException if the movement between the orign and destination is not a an
-   *                                  orthogonal move by 2
+   * @throws IllegalArgumentException if the given {@code Posn}'s are null
    */
-  protected int[] validOrthoMoveBy2(Posn origin, Posn dest) throws IllegalArgumentException {
+  protected Optional<int[]> validOrthoMoveBy2(Posn origin, Posn dest) throws IllegalArgumentException {
     Utils.requireNonNull(origin);
     Utils.requireNonNull(dest);
 
@@ -239,11 +252,10 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
     } else if (Math.abs(dCol) == 2 && Math.abs(dRow) == 0) {
       moves[1] = dCol;
     } else {
-      throw new IllegalArgumentException(String.format("%s -> %s is not an orthogonal "
-              + "move of 2 places", origin.toString(), dest.toString()));
+      return Optional.empty();
     }
 
-    return moves;
+    return Optional.of(moves);
   }
 
   @Override
@@ -251,15 +263,13 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
     for (int originRow = 0; originRow < this.realWidth(); originRow++) {
       for (int originCol = 0; originCol < this.realWidth(); originCol++) {
 
-        int destRows[] = getJumpRows(originRow);
-        int destCols[] = getJumpColumns(originCol);
+        int destRows[] = getOrthoJumpRows(originRow);
+        int destCols[] = getOrthoJumpColumns(originCol);
 
         for (int i = 0; i < destRows.length; i++) {
-          try {
-            getValidJumped(originRow, originCol, destRows[i], destCols[i]);
+          Optional<int[]> test = getValidJumped(originRow, originCol, destRows[i], destCols[i]);
+          if(test.isPresent()){
             return false;
-          } catch (IllegalArgumentException e) {
-            //do nothing
           }
         }
       }
@@ -267,12 +277,34 @@ public abstract class AbstractBoardModel implements MarbleSolitaireModel {
     return true;
   }
 
-  protected int[] getJumpRows(int oRow){
+  /**
+   * Get the rows that could be reached by jumping orthogonally by 2 from the given row in any valid
+   * direction.<br>
+   * <strong>THE ARRAY HAS VALUES FOR EACH DIRECTION THAT ARE SPECIFICALLY ORDERED IN THE FOLLOWING
+   * WAY:</strong><br> {UP, DOWN, LEFT, RIGHT}
+   *
+   * @param oRow the row that you are originating from
+   * @return an array of rows that you can get in the <strong>THE ARRAY HAS VALUES FOR EACH
+   * DIRECTION THAT ARE SPECIFICALLY ORDERED IN THE FOLLOWING WAY:</strong><br> {UP, DOWN, LEFT,
+   * RIGHT}
+   */
+  protected int[] getOrthoJumpRows(int oRow) {
     int[] rows = {oRow - 2, oRow + 2, oRow, oRow};
     return rows;
   }
 
-  protected int[] getJumpColumns(int oCol){
+  /**
+   * Get the columns that could be reached by jumping orthogonally by 2 from the given columns in
+   * any valid direction.<br>
+   * <strong>THE ARRAY HAS VALUES FOR EACH DIRECTION THAT ARE SPECIFICALLY ORDERED IN THE FOLLOWING
+   * WAY:</strong><br> {UP, DOWN, LEFT, RIGHT}
+   *
+   * @param oCol the columns that you are originating from
+   * @return an array of columns that you can get in the <strong>THE ARRAY HAS VALUES FOR EACH
+   * DIRECTION THAT ARE SPECIFICALLY ORDERED IN THE FOLLOWING WAY:</strong><br> {UP, DOWN, LEFT,
+   * RIGHT}
+   */
+  protected int[] getOrthoJumpColumns(int oCol) {
     int[] cols = {oCol, oCol, oCol - 2, oCol + 2};
     return cols;
   }

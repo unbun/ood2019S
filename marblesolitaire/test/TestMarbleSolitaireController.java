@@ -902,10 +902,10 @@ public class TestMarbleSolitaireController {
                       "    O O O\n" +
                       "Score: 31"),
               inputs("1 1 1 3\n"),
-              prints("Invalid Move. Play Again. [null ] --([null ])--> [0, 2 ] contains" +
-                      " positions with incorrect states.\n" +
-                      "(note that the error messages treat " +
-                      "the board as zero-indexed and inputs are one-indexed)"),
+              prints("Invalid Move. Play Again. [null ] ----> [0, 2 ] involves positions " +
+                      "with incorrect states or is not an orthogonal move by 2 spaces.\n" +
+                      "(note that the error messages treat the board as zero-indexed and inputs" +
+                      " are one-indexed)"),
               inputs("5 4 3 4\n"),
               prints("    O O O\n" +
                       "    O _ O\n" +
@@ -954,9 +954,10 @@ public class TestMarbleSolitaireController {
                       "    O O O\n" +
                       "Score: 31"),
               inputs("1 1 2 2\n"),
-              prints("Invalid Move. Play Again. [null ] -> [null ] is not an " +
-                      "orthogonal move of 2 places.\n(note that the error messages treat " +
-                      "the board as zero-indexed and inputs are one-indexed)"),
+              prints("Invalid Move. Play Again. [null ] ----> [null ] involves positions" +
+                      " with incorrect states or is not an orthogonal move by 2 spaces." +
+                      "\n(note that the error messages treat the board as zero-indexed and " +
+                      "inputs are one-indexed)"),
               inputs("5 4 3 4\n"),
               prints("    O O O\n" +
                       "    O _ O\n" +

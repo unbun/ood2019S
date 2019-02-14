@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.Optional;
+
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl;
 
@@ -19,43 +21,31 @@ public class TestEnglishMarbleSolitaireModel extends AbstractTestMarbleSolitaire
   @Test
   public void getValidJump() {
     //RIGHT
-    assertEquals(3, defBoard.getValidJumped(3, 1, 3, 3)[0]);
-    assertEquals(2, defBoard.getValidJumped(3, 1, 3, 3)[1]);
+    assertEquals(3, defBoard.getValidJumped(3, 1, 3, 3).get()[0]);
+    assertEquals(2, defBoard.getValidJumped(3, 1, 3, 3).get()[1]);
     //LEFT
-    assertEquals(3, defBoard.getValidJumped(3, 5, 3, 3)[0]);
-    assertEquals(4, defBoard.getValidJumped(3, 5, 3, 3)[1]);
+    assertEquals(3, defBoard.getValidJumped(3, 5, 3, 3).get()[0]);
+    assertEquals(4, defBoard.getValidJumped(3, 5, 3, 3).get()[1]);
     //DOWN
-    assertEquals(2, defBoard.getValidJumped(1, 3, 3, 3)[0]);
-    assertEquals(3, defBoard.getValidJumped(1, 3, 3, 3)[1]);
+    assertEquals(2, defBoard.getValidJumped(1, 3, 3, 3).get()[0]);
+    assertEquals(3, defBoard.getValidJumped(1, 3, 3, 3).get()[1]);
     //UP
-    assertEquals(4, defBoard.getValidJumped(5, 3, 3, 3)[0]);
-    assertEquals(3, defBoard.getValidJumped(5, 3, 3, 3)[1]);
+    assertEquals(4, defBoard.getValidJumped(5, 3, 3, 3).get()[0]);
+    assertEquals(3, defBoard.getValidJumped(5, 3, 3, 3).get()[1]);
   }
 
   @Test
   public void getValidJumpBadState1() {
     MarbleSolitaireModel goodBoard = new MarbleSolitaireModelImpl(3, 6);
-    int[] expected = {-1, -1};
-    try {
-      expected = goodBoard.getValidJumped(5, 6, 3, 6);
-      fail("5,6 --(4,6)--> 3,6 should have been invalid b/c 5,6 is null");
-    } catch (IllegalArgumentException e) {
-      assertEquals(-1, expected[0]);
-      assertEquals(-1, expected[1]);
-    }
+    Optional<int[]> expected = goodBoard.getValidJumped(5, 6, 3, 6);
+    assertFalse(expected.isPresent()); // origin is null
   }
 
   @Test
   public void getValidJumpBadState2() {
     MarbleSolitaireModel goodBoard = new MarbleSolitaireModelImpl(3, 6);
-    int[] expected = {-1, -1};
-    try {
-      expected = goodBoard.getValidJumped(3, 6, 3, 3);
-      fail("3,6 --(3,5)--> 3,3 should have been invalid b/c 3,6 is empty");
-    } catch (IllegalArgumentException e) {
-      assertEquals(-1, expected[0]);
-      assertEquals(-1, expected[1]);
-    }
+    Optional<int[]> expected = goodBoard.getValidJumped(3, 6, 3, 3);
+    assertFalse(expected.isPresent()); // origin is empty
   }
 
   @Test
@@ -72,38 +62,20 @@ public class TestEnglishMarbleSolitaireModel extends AbstractTestMarbleSolitaire
                     "    O O O\n" +
                     "    O O O", defBoard.getGameState());
 
-    int[] expected = {-1, -1};
-    try {
-      expected = defBoard.getValidJumped(3, 0, 3, 2);
-      fail("3,0 --(3,1)--> 3,2 should have been invalid b/c 3,1 is empty");
-    } catch (IllegalArgumentException e) {
-      assertEquals(-1, expected[0]);
-      assertEquals(-1, expected[1]);
-    }
+    Optional<int[]> expected = defBoard.getValidJumped(3, 0, 3, 2);
+    assertFalse(expected.isPresent()); //between was empty
   }
 
   @Test
   public void getValidJumpBadState4() {
-    int[] expected = {-1, -1};
-    try {
-      expected = defBoard.getValidJumped(0, 3, 0, 1);
-      fail("0,3 --(0,2)--> 0,1 should have been invalid b/c 0,1 is null");
-    } catch (IllegalArgumentException e) {
-      assertEquals(-1, expected[0]);
-      assertEquals(-1, expected[1]);
-    }
+    Optional<int[]> expected = defBoard.getValidJumped(0, 3, 0, 1);
+    assertFalse(expected.isPresent()); //dest was null
   }
 
   @Test
   public void getValidJumpBadState5() {
-    int[] expected = {-1, -1};
-    try {
-      expected = defBoard.getValidJumped(0, 2, 0, 0);
-      fail("0,2 --(0,1)--> 0,0 should have been invalid b/c 0,0 is null");
-    } catch (IllegalArgumentException e) {
-      assertEquals(-1, expected[0]);
-      assertEquals(-1, expected[1]);
-    }
+    Optional<int[]> expected = defBoard.getValidJumped(0, 2, 0, 0);
+    assertFalse(expected.isPresent()); // between is null
   }
 
   @Test

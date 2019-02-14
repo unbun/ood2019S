@@ -109,23 +109,23 @@ public class TestTriangleSolitaireModel extends AbstractTestMarbleSolitaireModel
   @Test
   public void getValidJump() {
     //RIGHT
-    assertEquals(4, board7.getValidJumped(4, 4, 4, 2)[0]);
-    assertEquals(3, board7.getValidJumped(4, 4, 4, 2)[1]);
+    assertEquals(4, board7.getValidJumped(4, 4, 4, 2).get()[0]);
+    assertEquals(3, board7.getValidJumped(4, 4, 4, 2).get()[1]);
     //LEFT
-    assertEquals(4, board7.getValidJumped(4, 0, 4, 2)[0]);
-    assertEquals(1, board7.getValidJumped(4, 0, 4, 2)[1]);
+    assertEquals(4, board7.getValidJumped(4, 0, 4, 2).get()[0]);
+    assertEquals(1, board7.getValidJumped(4, 0, 4, 2).get()[1]);
     //UP-LEFT
-    assertEquals(3, board7.getValidJumped(2, 2, 4, 2)[0]);
-    assertEquals(2, board7.getValidJumped(2, 2, 4, 2)[1]);
+    assertEquals(3, board7.getValidJumped(2, 2, 4, 2).get()[0]);
+    assertEquals(2, board7.getValidJumped(2, 2, 4, 2).get()[1]);
     //DOWN-LEFT
-    assertEquals(5, board7.getValidJumped(6, 4, 4, 2)[0]);
-    assertEquals(3, board7.getValidJumped(6, 4, 4, 2)[1]);
+    assertEquals(5, board7.getValidJumped(6, 4, 4, 2).get()[0]);
+    assertEquals(3, board7.getValidJumped(6, 4, 4, 2).get()[1]);
     //UP-RIGHT
-    assertEquals(3, board7.getValidJumped(2, 0, 4, 2)[0]);
-    assertEquals(1, board7.getValidJumped(2, 0, 4, 2)[1]);
+    assertEquals(3, board7.getValidJumped(2, 0, 4, 2).get()[0]);
+    assertEquals(1, board7.getValidJumped(2, 0, 4, 2).get()[1]);
     //DOWN-RIGHT
-    assertEquals(5, board7.getValidJumped(6, 2, 4, 2)[0]);
-    assertEquals(2, board7.getValidJumped(6, 2, 4, 2)[1]);
+    assertEquals(5, board7.getValidJumped(6, 2, 4, 2).get()[0]);
+    assertEquals(2, board7.getValidJumped(6, 2, 4, 2).get()[1]);
   }
 
   @Test
