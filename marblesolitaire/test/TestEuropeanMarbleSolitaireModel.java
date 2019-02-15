@@ -1,21 +1,30 @@
 import org.junit.Test;
 
+import java.util.Optional;
+
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 import cs3500.marblesolitaire.model.hw04.EuropeanSolitaireModelImpl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class TestEuropeanMarbleSolitaireModel extends AbstractTestMarbleSolitaireModel {
 
+  private MarbleSolitaireModel board3Corner;
 
-  private MarbleSolitaireModel defBoard = new EuropeanSolitaireModelImpl();
-  private MarbleSolitaireModel board3 = new EuropeanSolitaireModelImpl(4, 6);
-  private MarbleSolitaireModel board3Corner = new EuropeanSolitaireModelImpl(5, 1);
-  private MarbleSolitaireModel board5 = new EuropeanSolitaireModelImpl(5, 5, 9);
-  private MarbleSolitaireModel board1 = new EuropeanSolitaireModelImpl(1);
+  public TestEuropeanMarbleSolitaireModel() {
+    initData();
+  }
+
+  void initData(){
+    super.initData(new EuropeanSolitaireModelImpl(), new EuropeanSolitaireModelImpl(4, 6),
+            new EuropeanSolitaireModelImpl(5, 5, 9),new EuropeanSolitaireModelImpl(1),
+            new EuropeanSolitaireModelImpl(3, 6));
+    this.board3Corner = new EuropeanSolitaireModelImpl(5, 1);
+  }
 
 
   @Test
@@ -112,25 +121,7 @@ public class TestEuropeanMarbleSolitaireModel extends AbstractTestMarbleSolitair
     new EuropeanSolitaireModelImpl(6);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void negativeArmThick() {
-    new EuropeanSolitaireModelImpl(-3);
-  }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void invalidEmpty1() {
-    new EuropeanSolitaireModelImpl(3, 0, 1); // a null posn
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void invalidEmpty2() {
-    new EuropeanSolitaireModelImpl(3, 7, 3);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void invalidEmpty3() {
-    new EuropeanSolitaireModelImpl(2, 9);
-  }
 
   @Test
   public void stateString() {
@@ -178,6 +169,251 @@ public class TestEuropeanMarbleSolitaireModel extends AbstractTestMarbleSolitair
                     "    O O O O O O O O O\n" +
                     "      O O O O O O O\n" +
                     "        O O O O O", board5.getGameState());
+  }
+
+  @Test
+  public void getValidJump() {
+    super.getValidJump();
+
+    //LEFT to corner
+    assertEquals(5, board3Corner.getValidJumped(5, 3, 5, 1).get()[0]);
+    assertEquals(2, board3Corner.getValidJumped(5, 3, 5, 1).get()[1]);
+
+    //DOWN to corner
+    assertEquals(4, board3Corner.getValidJumped(3, 1, 5, 1).get()[0]);
+    assertEquals(1, board3Corner.getValidJumped(3, 1, 5, 1).get()[1]);
+
+    MarbleSolitaireModel board3OtherCorner = new EuropeanSolitaireModelImpl(1, 5);
+    //RIGHT to corner
+    assertEquals(1, board3OtherCorner.getValidJumped(1, 3, 1, 5).get()[0]);
+    assertEquals(4, board3OtherCorner.getValidJumped(1, 3, 1, 5).get()[1]);
+
+    //UP to corner
+    assertEquals(2, board3OtherCorner.getValidJumped(3, 5, 1, 5).get()[0]);
+    assertEquals(5, board3OtherCorner.getValidJumped(3, 5, 1, 5).get()[1]);
+  }
+
+  @Test
+  public void getValidJumpBadState3() {
+    super.getValidJumpBadState3(
+            "    O O O\n" +
+                    "  O O O O O\n" +
+                    "O O O O O O O\n" +
+                    "O _ _ O O O O\n" +
+                    "O O O O O O O\n" +
+                    "  O O O O O\n" +
+                    "    O O O");
+  }
+
+
+  /**
+   * Game Play, Scoring, game over, etc.
+   **/
+
+
+  @Test
+  public void testMove1() {
+    assertEquals(
+            "    O O O\n"
+                    + "  O O O O O\n"
+                    + "O O O O O O O\n"
+                    + "O O O _ O O O\n"
+                    + "O O O O O O O\n"
+                    + "  O O O O O\n"
+                    + "    O O O", defBoard.getGameState());
+    //UP
+    defBoard.move(3, 5, 3, 3);
+    assertEquals(
+            "    O O O\n"
+                    + "  O O O O O\n"
+                    + "O O O O O O O\n"
+                    + "O O O O _ _ O\n"
+                    + "O O O O O O O\n"
+                    + "  O O O O O\n"
+                    + "    O O O", defBoard.getGameState());
+    //DOWN
+    defBoard.move(1, 4, 3, 4);
+    assertEquals(
+            "    O O O\n"
+                    + "  O O O _ O\n"
+                    + "O O O O _ O O\n"
+                    + "O O O O O _ O\n"
+                    + "O O O O O O O\n"
+                    + "  O O O O O\n"
+                    + "    O O O", defBoard.getGameState());
+    //LEFT
+    defBoard.move(2, 6, 2, 4);
+    assertEquals(
+            "    O O O\n"
+                    + "  O O O _ O\n"
+                    + "O O O O O _ _\n"
+                    + "O O O O O _ O\n"
+                    + "O O O O O O O\n"
+                    + "  O O O O O\n"
+                    + "    O O O", defBoard.getGameState());
+    //RIGHT
+    defBoard.move(2, 3, 2, 5);
+    assertEquals(
+            "    O O O\n"
+                    + "  O O O _ O\n"
+                    + "O O O _ _ O _\n"
+                    + "O O O O O _ O\n"
+                    + "O O O O O O O\n"
+                    + "  O O O O O\n"
+                    + "    O O O", defBoard.getGameState());
+    //Jump to edge/corner
+    defBoard.move(4, 6, 2, 6);
+    assertEquals(
+            "    O O O\n"
+                    + "  O O O _ O\n"
+                    + "O O O _ _ O O\n"
+                    + "O O O O O _ _\n"
+                    + "O O O O O O _\n"
+                    + "  O O O O O\n"
+                    + "    O O O", defBoard.getGameState());
+
+    defBoard.move(5, 5, 3, 5);
+    assertEquals(
+            "    O O O\n"
+                    + "  O O O _ O\n"
+                    + "O O O _ _ O O\n"
+                    + "O O O O O O _\n"
+                    + "O O O O O _ _\n"
+                    + "  O O O O _\n"
+                    + "    O O O", defBoard.getGameState());
+
+    defBoard.move(5, 3, 5, 5);
+    assertEquals(
+            "    O O O\n"
+                    + "  O O O _ O\n"
+                    + "O O O _ _ O O\n"
+                    + "O O O O O O _\n"
+                    + "O O O O O _ _\n"
+                    + "  O O _ _ O\n"
+                    + "    O O O", defBoard.getGameState());
+  }
+
+  @Test
+  public void testMoveAndScoreOn5() {
+    super.testMoveAndScoreOn5(128);
+  }
+
+
+  /**
+   * Invalid Movements.
+   **/
+
+  @Test
+  public void moveToOccupied() {
+    super.moveToOccupied(
+            "    O O O\n"
+                    + "  O O O O O\n"
+                    + "O O O O O O O\n"
+                    + "O O O _ O O O\n"
+                    + "O O O O O O O\n"
+                    + "  O O O O O\n"
+                    + "    O O O");
+  }
+
+  @Test
+  public void multipleBadMoves1() {
+    super.multipleBadMoves(
+            "    O O O\n"
+                    + "  O O O O O\n"
+                    + "O O O O O O O\n"
+                    + "O O O _ O O O\n"
+                    + "O O O O O O O\n"
+                    + "  O O O O O\n"
+                    + "    O O O");
+  }
+
+  @Test
+  public void multipleBadMoves2() {
+    super.multipleBadMoves2(
+            "    O O O\n"
+                    + "  O O O O O\n"
+                    + "O O O O O O O\n"
+                    + "O O O O O O O\n"
+                    + "O O O O O O _\n"
+                    + "  O O O O O\n"
+                    + "    O O O");
+  }
+
+
+  @Test(expected = IllegalArgumentException.class)
+  public void moveOffBoard1() {
+    super.moveOffBoard1(
+            "    O O O\n"
+                    + "  O O O O O\n"
+                    + "O O O O O O O\n"
+                    + "O O O O O O O\n"
+                    + "O O O O O O _\n"
+                    + "  O O O O O\n"
+                    + "    O O O");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void moveIntoNull() {
+    super.moveIntoNull(
+            "    O O O\n"
+                    + "  O O O O O\n"
+                    + "O O O O O O O\n"
+                    + "O O O O O O O\n"
+                    + "O O O O O O _\n"
+                    + "  O O O O O\n"
+                    + "    O O O");
+  }
+
+  @Test
+  public void winGame() {
+
+    MarbleSolitaireModel cornerStart = new EuropeanSolitaireModelImpl(0, 2);
+
+    // @formatter:off
+    int[] fRows = {2, 2, 1, 3, 3, 2, 5, 3, 5, 4, 5, 0, 2, 2, 5, 3, 1, 2, 0, 3, 3, 6, 3, 4,
+            4, 6, 6, 4, 4, 4, 5, 3, 1, 2, 0};
+    int[] fColumns = {2, 0, 4, 4, 2, 3, 3, 0, 1, 5, 5, 4, 1, 4, 2, 6, 1, 6, 3, 2, 4, 2, 2,
+            0, 3, 4, 2, 1, 3, 6, 4, 4, 5, 3, 2};
+    int[] tRows = {0, 2, 1, 1, 3, 2, 3, 3, 3, 4, 5, 2, 4, 4, 5, 3, 1, 2, 2, 5, 3, 4, 5, 4,
+            4, 6, 4, 4, 4, 4, 3, 1, 1, 0, 0};
+    int[] tColumns = {2, 2, 2, 4, 4, 1, 3, 2, 1, 3, 3, 4, 1, 4, 4, 4, 3, 4, 3, 2, 2, 2, 2,
+            2, 1, 2, 2, 3, 5, 4, 4, 4, 3, 3, 4};
+    // @formatter:on
+
+    runValidMoves(cornerStart, fRows, fColumns, tRows, tColumns);
+
+    assertTrue(cornerStart.isGameOver());
+    assertEquals(1, cornerStart.getScore());
+    assertEquals(
+            "    _ _ O\n" +
+            "  _ _ _ _ _\n" +
+            "_ _ _ _ _ _ _\n" +
+            "_ _ _ _ _ _ _\n" +
+            "_ _ _ _ _ _ _\n" +
+            "  _ _ _ _ _\n" +
+            "    _ _ _", cornerStart.getGameState());
+  }
+
+  @Test
+  public void loseGame() {
+
+    MarbleSolitaireModel cornerStart = new EuropeanSolitaireModelImpl(0, 2);
+
+    // @formatter:off
+    int[] fRows = {2, 2, 1, 3, 3, 2, 5, 3, 5, 4, 5, 0, 2, 2, 5, 3, 1, 2, 0, 3, 3, 6, 3, 5,
+                    4, 5, 2, 3, 6, 0};
+    int[] fColumns = {2, 0, 4, 4, 2, 3, 3, 0, 1, 5, 5, 4, 1, 4, 2, 6, 1, 6, 3, 2, 4, 2, 2,
+                        4, 0, 2, 4, 2, 4, 2};
+    int[] tRows = {0, 2, 1, 1, 3, 2, 3, 3, 3, 4, 5, 2, 4, 4, 5, 3, 1, 2, 2, 5, 3, 4, 5, 3,
+                    4, 3, 2, 1, 6, 2};
+    int[] tColumns = {2, 2, 2, 4, 4, 1, 3, 2, 1, 3, 3, 4, 1, 4, 4, 4, 3, 4, 3, 2, 2, 2, 2,
+                        4, 2, 2, 2, 2, 2, 2};
+    // @formatter:on
+
+    runValidMoves(cornerStart, fRows, fColumns, tRows, tColumns);
+
+    assertTrue(cornerStart.isGameOver());
+    assertNotEquals(1, cornerStart.getScore());
   }
 
 }

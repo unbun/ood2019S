@@ -65,7 +65,6 @@ public class TriangleSolitaireModelImpl extends AbstractBoardModel {
     Utils.requireNonNull(origin);
     Utils.requireNonNull(dest);
 
-
     Optional<int[]> maybeMoves = super.validOrthoMoveBy2(origin, dest);
     if (maybeMoves.isPresent()) { // move is a cartesian orthogonal direction
       return maybeMoves;

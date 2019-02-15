@@ -60,6 +60,4 @@ public class MarbleSolitaireModelImpl extends AbstractBoardModel {
 
     return !(columnCheck || rowCheck);
   }
-
-
 }

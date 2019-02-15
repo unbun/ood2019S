@@ -73,7 +73,7 @@ public class MarbleSolitaireControllerImpl implements MarbleSolitaireController 
         possibleQuit = vi.getStringInput();
 
       } catch (IllegalArgumentException e) {
-        toOutStream(String.format("Invalid Move. Play Again. %s\n", e.getMessage()));
+        toOutStreamln(String.format("Invalid Move. Play Again. %s", e.getMessage()));
         possibleMove = Optional.empty();
         possibleQuit = Optional.empty();
       }
@@ -94,11 +94,12 @@ public class MarbleSolitaireControllerImpl implements MarbleSolitaireController 
           }
 
         } catch (IllegalArgumentException e) {
-          toOutStream(String.format("Invalid Move. Play Again. %s." +
+          toOutStreamln(String.format("Invalid Move. Play Again. %s." +
                   "\n(note that the error messages treat the board as zero-indexed and inputs " +
-                  "are one-indexed)\n", e.getMessage()));
+                  "are one-indexed)", e.getMessage()));
         }
-        //remove the used inputs
+
+        //remove the used inputs (only remove the first 4 in case there is a queue of other inputs
         for (int i = 0; i < 4; i++) {
           inputs.remove(0);
         }
@@ -122,8 +123,8 @@ public class MarbleSolitaireControllerImpl implements MarbleSolitaireController 
       throw new IllegalStateException("Cannot transmit the state of a null game");
     }
     String toSend = activeModel.getGameState() +
-            "\nScore: " + activeModel.getScore() + "\n";
-    toOutStream(toSend);
+            "\nScore: " + activeModel.getScore() + "";
+    toOutStreamln(toSend);
     return toSend;
   }
 
@@ -137,27 +138,27 @@ public class MarbleSolitaireControllerImpl implements MarbleSolitaireController 
   public void endGame(boolean quit) {
 
     if (quit) {
-      toOutStream("Game quit!\n");
-      toOutStream("State of game when quit:\n");
+      toOutStreamln("Game quit!");
+      toOutStreamln("State of game when quit:");
     } else {
-      toOutStream("Game over!\n");
+      toOutStreamln("Game over!");
     }
   }
 
   /**
-   * Transmit a given String to this controller's {@code Appendable}.
+   * Transmit a given String to this controller's {@code Appendable}. Also outputs a new line at
+   * the end of the message.
    *
-   * @param toSend the String to transmit ("" to use default)
+   * @param toSend the String to transmit with {@code this}'s output stream.
    * @throws IllegalStateException if {@code this}'s output stream can't append
    */
-  private void toOutStream(String toSend) throws IllegalStateException {
+  private void toOutStreamln(String toSend) throws IllegalStateException {
     try {
-      out.append(toSend);
+      out.append(toSend + "\n");
     } catch (IOException ioe) {
       throw new IllegalStateException("Cannot use provided output stream.\n " + ioe.getMessage());
     }
   }
-
   /**
    * Setter for the active model of {@code this}.
    *

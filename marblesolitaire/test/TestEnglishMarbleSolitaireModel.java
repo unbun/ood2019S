@@ -12,71 +12,17 @@ import static org.junit.Assert.fail;
 
 public class TestEnglishMarbleSolitaireModel extends AbstractTestMarbleSolitaireModel {
 
-  private MarbleSolitaireModel defBoard = new MarbleSolitaireModelImpl();
-  private MarbleSolitaireModel board3 = new MarbleSolitaireModelImpl(4, 6);
-  private MarbleSolitaireModel board5 = new MarbleSolitaireModelImpl(5, 5, 9);
-  private MarbleSolitaireModel board1 = new MarbleSolitaireModelImpl(1);
-
-
-  @Test
-  public void getValidJump() {
-    //RIGHT
-    assertEquals(3, defBoard.getValidJumped(3, 1, 3, 3).get()[0]);
-    assertEquals(2, defBoard.getValidJumped(3, 1, 3, 3).get()[1]);
-    //LEFT
-    assertEquals(3, defBoard.getValidJumped(3, 5, 3, 3).get()[0]);
-    assertEquals(4, defBoard.getValidJumped(3, 5, 3, 3).get()[1]);
-    //DOWN
-    assertEquals(2, defBoard.getValidJumped(1, 3, 3, 3).get()[0]);
-    assertEquals(3, defBoard.getValidJumped(1, 3, 3, 3).get()[1]);
-    //UP
-    assertEquals(4, defBoard.getValidJumped(5, 3, 3, 3).get()[0]);
-    assertEquals(3, defBoard.getValidJumped(5, 3, 3, 3).get()[1]);
+  public TestEnglishMarbleSolitaireModel() {
+    initData();
   }
 
-  @Test
-  public void getValidJumpBadState1() {
-    MarbleSolitaireModel goodBoard = new MarbleSolitaireModelImpl(3, 6);
-    Optional<int[]> expected = goodBoard.getValidJumped(5, 6, 3, 6);
-    assertFalse(expected.isPresent()); // origin is null
+  void initData(){
+    super.initData(new MarbleSolitaireModelImpl(), new MarbleSolitaireModelImpl(4, 6),
+            new MarbleSolitaireModelImpl(5, 5, 9), new MarbleSolitaireModelImpl(1),
+            new MarbleSolitaireModelImpl(3, 6));
   }
 
-  @Test
-  public void getValidJumpBadState2() {
-    MarbleSolitaireModel goodBoard = new MarbleSolitaireModelImpl(3, 6);
-    Optional<int[]> expected = goodBoard.getValidJumped(3, 6, 3, 3);
-    assertFalse(expected.isPresent()); // origin is empty
-  }
 
-  @Test
-  public void getValidJumpBadState3() {
-    //in order to make sure it's the empty b/w that's throwing the error, the move
-    //has to create 2 empties right next to each other
-    defBoard.move(3, 1, 3, 3);
-    assertEquals(
-            "    O O O\n" +
-                    "    O O O\n" +
-                    "O O O O O O O\n" +
-                    "O _ _ O O O O\n" +
-                    "O O O O O O O\n" +
-                    "    O O O\n" +
-                    "    O O O", defBoard.getGameState());
-
-    Optional<int[]> expected = defBoard.getValidJumped(3, 0, 3, 2);
-    assertFalse(expected.isPresent()); //between was empty
-  }
-
-  @Test
-  public void getValidJumpBadState4() {
-    Optional<int[]> expected = defBoard.getValidJumped(0, 3, 0, 1);
-    assertFalse(expected.isPresent()); //dest was null
-  }
-
-  @Test
-  public void getValidJumpBadState5() {
-    Optional<int[]> expected = defBoard.getValidJumped(0, 2, 0, 0);
-    assertFalse(expected.isPresent()); // between is null
-  }
 
   @Test
   public void boardGeneration() {
@@ -163,27 +109,6 @@ public class TestEnglishMarbleSolitaireModel extends AbstractTestMarbleSolitaire
     new MarbleSolitaireModelImpl(6);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void negativeArmThick() {
-    new MarbleSolitaireModelImpl(-3);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void invalidEmpty1() {
-    new MarbleSolitaireModelImpl(3, 1, 1); // a null posn
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void invalidEmpty2() {
-
-    new MarbleSolitaireModelImpl(3, 7, 3);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void invalidEmpty3() {
-    new MarbleSolitaireModelImpl(2, 9);
-  }
-
   @Test
   public void stateString() {
     assertEquals("_", board1.getGameState());
@@ -221,6 +146,19 @@ public class TestEnglishMarbleSolitaireModel extends AbstractTestMarbleSolitaire
                     + "        O O O O O\n"
                     + "        O O O O O", board5.getGameState());
   }
+
+
+  @Test
+  public void getValidJumpBadState3() {
+    super.getValidJumpBadState3("    O O O\n" +
+            "    O O O\n" +
+            "O O O O O O O\n" +
+            "O _ _ O O O O\n" +
+            "O O O O O O O\n" +
+            "    O O O\n" +
+            "    O O O");
+  }
+
 
   @Test
   public void testMove1() {
@@ -286,15 +224,7 @@ public class TestEnglishMarbleSolitaireModel extends AbstractTestMarbleSolitaire
 
   @Test
   public void testMoveAndScoreOn5() {
-    assertEquals(board5.getScore(), 104);
-    board5.move(7, 9, 5, 9); //UP
-    assertEquals(board5.getScore(), 103);
-    board5.move(7, 7, 7, 9); // RIGHT
-    assertEquals(board5.getScore(), 102);
-    board5.move(7, 10, 7, 8); // LEFT
-    assertEquals(board5.getScore(), 101);
-    board5.move(4, 9, 6, 9); // DOWN
-    assertEquals(board5.getScore(), 100);
+    super.testMoveAndScoreOn5(104);
   }
 
   /**
@@ -303,147 +233,67 @@ public class TestEnglishMarbleSolitaireModel extends AbstractTestMarbleSolitaire
 
   @Test
   public void moveToOccupied() {
-    assertEquals(
+    super.moveToOccupied(
             "    O O O\n"
                     + "    O O O\n"
                     + "O O O O O O O\n"
                     + "O O O _ O O O\n"
                     + "O O O O O O O\n"
                     + "    O O O\n"
-                    + "    O O O", defBoard.getGameState());
-
-    try {
-      defBoard.move(3, 0, 3, 2);
-      fail("Invalid move did not throw an error");
-    } catch (IllegalArgumentException e) {
-      assertEquals(
-              "    O O O\n"
-                      + "    O O O\n"
-                      + "O O O O O O O\n"
-                      + "O O O _ O O O\n"
-                      + "O O O O O O O\n"
-                      + "    O O O\n"
-                      + "    O O O", defBoard.getGameState());
-    }
+                    + "    O O O");
   }
 
   @Test
   public void multipleBadMoves1() {
-    // O over _
-    // 0 -> null
-    // null -> anything
-    // _ -> anything
-
-    assertEquals(
+    super.multipleBadMoves(
             "    O O O\n"
                     + "    O O O\n"
                     + "O O O O O O O\n"
                     + "O O O _ O O O\n"
                     + "O O O O O O O\n"
                     + "    O O O\n"
-                    + "    O O O", defBoard.getGameState());
-
-    int[] fRows = {3, 0, 0, 6, 3};
-    int[] fColumns = {2, 3, 1, 0, 3};
-    int[] tRows = {3, 0, 2, 6, 3};
-    int[] tColumns = {4, 1, 1, 1, 2};
-    runInvalidMoves(defBoard, fRows, fColumns, tRows, tColumns);
+                    + "    O O O");
   }
 
   @Test
   public void multipleBadMoves2() {
-    // O over _
-    // 0 -> null
-    // null -> anything
-    // _ -> anything
-
-    assertEquals(
+    super.multipleBadMoves2(
             "    O O O\n"
                     + "    O O O\n"
                     + "O O O O O O O\n"
                     + "O O O O O O O\n"
                     + "O O O O O O _\n"
                     + "    O O O\n"
-                    + "    O O O", board3.getGameState());
-
-    int[] fRows = {4, 2, 3};
-    int[] fColumns = {6, 6, 6};
-    int[] tRows = {4, 6, 5};
-    int[] tColumns = {6, 1, 6};
-    runInvalidMoves(board3, fRows, fColumns, tRows, tColumns);
+                    + "    O O O");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void moveOffBoard1() {
-    assertEquals(
+    super.moveOffBoard1(
             "    O O O\n"
                     + "    O O O\n"
                     + "O O O O O O O\n"
                     + "O O O O O O O\n"
                     + "O O O O O O _\n"
                     + "    O O O\n"
-                    + "    O O O", board3.getGameState());
-    board3.move(4, 5, 4, 7);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void moveOffBoard2() {
-    MarbleSolitaireModel boardC = new MarbleSolitaireModelImpl(3, 2, 0);
-    boardC.move(2, 1, 2, -1);
+                    + "    O O O");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void moveIntoNull() {
-    assertEquals(
+    super.moveIntoNull(
             "    O O O\n"
                     + "    O O O\n"
                     + "O O O O O O O\n"
                     + "O O O O O O O\n"
                     + "O O O O O O _\n"
                     + "    O O O\n"
-                    + "    O O O", board3.getGameState());
-    board3.move(3, 6, 5, 6);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void moveMoreThanTwo() {
-    defBoard.move(3, 2, 3, 5);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void moveMoreThanTwo2() {
-    board5.move(3, 7, 6, 7);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void moveDiagonally() {
-    defBoard.move(2, 2, 4, 4);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void moveOn1Board() {
-    board1.move(0, 0, 0, 2);
+                    + "    O O O");
   }
 
   /**
    * Game Play, Scoring, game over, etc.
    **/
-
-  @Test
-  public void testGameOver() {
-    assertFalse(defBoard.isGameOver());
-    assertTrue(board1.isGameOver());
-  }
-
-  @Test
-  public void testScore() {
-    assertEquals(0, board1.getScore());
-    assertEquals(32, defBoard.getScore());
-    defBoard.move(3, 5, 3, 3);
-    assertEquals(31, defBoard.getScore());
-    defBoard.move(5, 4, 3, 4);
-    assertEquals(30, defBoard.getScore());
-  }
 
   @Test
   public void winGame() {

@@ -6,6 +6,7 @@ import cs3500.marblesolitaire.controller.MarbleSolitaireController;
 import cs3500.marblesolitaire.controller.MarbleSolitaireControllerImpl;
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl;
+import cs3500.marblesolitaire.model.hw04.EuropeanSolitaireModelImpl;
 import cs3500.marblesolitaire.model.hw04.TriangleSolitaireModelImpl;
 
 
@@ -21,7 +22,7 @@ public class DefaultBoardRunner {
    * @param args arguments ro run the main
    */
   public static void main(String[] args) {
-    MarbleSolitaireModel defaultModel = new TriangleSolitaireModelImpl();
+    MarbleSolitaireModel defaultModel = new EuropeanSolitaireModelImpl();
     MarbleSolitaireController controller =
             new MarbleSolitaireControllerImpl(new InputStreamReader(System.in), System.out);
     controller.playGame(defaultModel);

@@ -74,6 +74,7 @@ public class Utils {
     for (int i = 0; i < first.length; i++) {
       both[i] = first[i];
     }
+
     for (int j = 0; j < second.length; j++) {
       both[j + first.length] = second[j];
     }
