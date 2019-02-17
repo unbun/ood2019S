@@ -1,15 +1,11 @@
 import org.junit.Test;
 
-import java.util.Optional;
-
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 import cs3500.marblesolitaire.model.hw04.EuropeanSolitaireModelImpl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 public class TestEuropeanMarbleSolitaireModel extends AbstractTestMarbleSolitaireModel {
 
