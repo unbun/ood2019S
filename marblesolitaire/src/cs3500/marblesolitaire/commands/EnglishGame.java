@@ -5,7 +5,7 @@ import cs3500.marblesolitaire.MarbleSolitaire;
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl;
 
-public class EnglishGame implements Command{
+public class EnglishGame implements ModelCommand {
 
     final private int size;
     final private int sRow;

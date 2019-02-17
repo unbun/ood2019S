@@ -3,10 +3,9 @@ package cs3500.marblesolitaire.commands;
 
 import cs3500.marblesolitaire.MarbleSolitaire;
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
-import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl;
 import cs3500.marblesolitaire.model.hw04.EuropeanSolitaireModelImpl;
 
-public class EuropeanGame implements Command{
+public class EuropeanGame implements ModelCommand {
 
     final private int size;
     final private int sRow;
