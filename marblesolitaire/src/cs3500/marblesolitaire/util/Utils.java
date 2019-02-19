@@ -23,23 +23,23 @@ public class Utils {
    * lower bound.
    *
    * @param toParse the string to look at
-   * @param low     the lower bound
+   * @param low the lower bound
    * @return the String if it has a valid integer
    * @throws IllegalArgumentException IllegalArgument if it doesn't have a valid String
    */
   public static String requireValidInteger(String toParse, int low)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     Integer i;
     try {
       i = Integer.parseInt(toParse);
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException(
-              String.format("Input '%s' does not contain a valid string", toParse));
+          String.format("Input '%s' does not contain a valid string", toParse));
     }
 
     if (i < low) {
       throw new IllegalArgumentException(
-              String.format("Input '%s' must be an int greater than %d", toParse, low));
+          String.format("Input '%s' must be an int greater than %d", toParse, low));
     }
 
     return toParse;
@@ -50,7 +50,7 @@ public class Utils {
    *
    * @param value the value to get the sign to
    * @return 1 or -1, with the result corresponding to the sign of the given value (if value == 0,
-   * returns 0)
+   *         returns 0)
    */
   public static int getSign(int value) {
     if (value != 0) {
@@ -62,7 +62,7 @@ public class Utils {
   /**
    * Concatenate 2 int (primitive) arrays.
    *
-   * @param first  the first array
+   * @param first the first array
    * @param second the second array to concatenate onto the end of the first array
    * @return the first array values followed by the second array values
    */

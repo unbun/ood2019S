@@ -1,9 +1,9 @@
+import cs3500.marblesolitaire.model.AbstractBoardModel;
 import org.junit.Test;
 
 import java.util.Optional;
 
 import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
-import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModelImpl;
 import cs3500.marblesolitaire.model.hw04.EuropeanSolitaireModelImpl;
 
 import static org.junit.Assert.assertEquals;
@@ -13,16 +13,25 @@ import static org.junit.Assert.fail;
 
 public abstract class AbstractTestMarbleSolitaireModel {
 
-  protected MarbleSolitaireModel defBoard;
+  protected AbstractBoardModel defBoard;
   protected MarbleSolitaireModel board3;
   protected MarbleSolitaireModel board5;
   protected MarbleSolitaireModel board1;
-  protected MarbleSolitaireModel board3b;
+  protected AbstractBoardModel board3b;
 
 
-  void initData(MarbleSolitaireModel defBoard, MarbleSolitaireModel board3,
-                    MarbleSolitaireModel board5, MarbleSolitaireModel board1,
-                    MarbleSolitaireModel board3b) {
+  /**
+   * Initate {@code this}'s boards.
+   *
+   * @param defBoard the default board
+   * @param board3 a board with size 3
+   * @param board5 a board with size 5
+   * @param board1 a board with size 1
+   * @param board3b another board with size 3
+   */
+  void initData(AbstractBoardModel defBoard, MarbleSolitaireModel board3,
+      MarbleSolitaireModel board5, MarbleSolitaireModel board1,
+      AbstractBoardModel board3b) {
     this.defBoard = defBoard;
     this.board3 = board3;
     this.board5 = board5;
@@ -52,7 +61,7 @@ public abstract class AbstractTestMarbleSolitaireModel {
 
 
   @Test
-  public void getValidJump(){
+  public void getValidJump() {
     //RIGHT
     assertEquals(3, defBoard.getValidJumped(3, 1, 3, 3).get()[0]);
     assertEquals(2, defBoard.getValidJumped(3, 1, 3, 3).get()[1]);
@@ -79,6 +88,11 @@ public abstract class AbstractTestMarbleSolitaireModel {
     assertFalse(expected.isPresent()); // origin is empty
   }
 
+  /**
+   * Try to jump over an empty posn with {@code this.defBoard}.
+   *
+   * @param expectState the state that {@code defBoard} should be after this move is attempted
+   */
   public void getValidJumpBadState3(String expectState) {
     //in order to make sure it's the empty b/w that's throwing the error, the move
     //has to create 2 empties right next to each other
@@ -113,7 +127,12 @@ public abstract class AbstractTestMarbleSolitaireModel {
     assertTrue(board1.isGameOver());
   }
 
-  public void testMoveAndScoreOn5(int initScore){
+  /**
+   * Try to move and change the score of {@code this.board5}.
+   *
+   * @param initScore the score that {@code board5} should start off with.
+   */
+  public void testMoveAndScoreOn5(int initScore) {
     assertEquals(board5.getScore(), initScore);
     board5.move(7, 9, 5, 9); //UP
     assertEquals(board5.getScore(), initScore - 1);
@@ -125,7 +144,12 @@ public abstract class AbstractTestMarbleSolitaireModel {
     assertEquals(board5.getScore(), initScore - 4);
   }
 
-  public void moveToOccupied(String initState){
+  /**
+   * Try to move and change the state of {@code this.defBoard}.
+   *
+   * @param initState the state that {@code defBoard} should start off with.
+   */
+  public void moveToOccupied(String initState) {
     assertEquals(initState, defBoard.getGameState());
 
     try {
@@ -136,7 +160,12 @@ public abstract class AbstractTestMarbleSolitaireModel {
     }
   }
 
-  public void multipleBadMoves(String initState){
+  /**
+   * Try to move {@code this.defBoard} invalid-ly multiple times.
+   *
+   * @param initState the statate that {@code defBoard} should start at.
+   */
+  public void multipleBadMoves(String initState) {
     // O over _
     // 0 -> null
     // null -> anything
@@ -150,7 +179,6 @@ public abstract class AbstractTestMarbleSolitaireModel {
     int[] tColumns = {4, 1, 1, 1, 2};
     runInvalidMoves(defBoard, fRows, fColumns, tRows, tColumns);
   }
-
 
 
   @Test(expected = IllegalArgumentException.class)
@@ -173,7 +201,12 @@ public abstract class AbstractTestMarbleSolitaireModel {
     board1.move(0, 0, 0, 2);
   }
 
-  public void multipleBadMoves2(String initState){
+  /**
+   * Test multiple bad moves in a row with {@code this.board3}.
+   *
+   * @param initState the state that {@code board3} should start in.
+   */
+  public void multipleBadMoves2(String initState) {
     // O over _
     // 0 -> null
     // null -> anything
@@ -189,11 +222,21 @@ public abstract class AbstractTestMarbleSolitaireModel {
     runInvalidMoves(board3, fRows, fColumns, tRows, tColumns);
   }
 
-  public void moveOffBoard1(String initState){
+  /**
+   * Test moving off the board with {@code this.board3}.
+   *
+   * @param initState the state that {@code board3} should start in.
+   */
+  public void moveOffBoard1(String initState) {
     assertEquals(initState, board3.getGameState());
     board3.move(4, 5, 4, 7);
   }
 
+  /**
+   * Test moving into a null posn of the board with {@code this.board3}.
+   *
+   * @param initState the state that {@code board3} should start in.
+   */
   public void moveIntoNull(String initState) {
     assertEquals(initState, board3.getGameState());
     board3.move(3, 6, 5, 6);
@@ -215,39 +258,24 @@ public abstract class AbstractTestMarbleSolitaireModel {
   public abstract void loseGame();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /**
    * Run a list of valid moves on the default board and assert that they are changing the score
    * properly. Each array must be the same length.
    *
-   * @param msm      the MarbleSolitarieModel with the board to move on
-   * @param fRows    ordered list of fromRow values for valid moves
+   * @param msm the MarbleSolitarieModel with the board to move on
+   * @param fRows ordered list of fromRow values for valid moves
    * @param fColumns ordered list of fromCol values for valid moves
-   * @param tRows    ordered list of toRow values for valid moves
+   * @param tRows ordered list of toRow values for valid moves
    * @param tColumns ordered list of toCol values for valid moves
    */
   protected void runValidMoves(MarbleSolitaireModel msm,
-                             int[] fRows, int[] fColumns,
-                             int[] tRows, int[] tColumns) {
+      int[] fRows, int[] fColumns,
+      int[] tRows, int[] tColumns) {
     int initScore = msm.getScore();
 
     if (fRows.length != fColumns.length
-            && fColumns.length != tRows.length
-            && tRows.length != tColumns.length) {
+        && fColumns.length != tRows.length
+        && tRows.length != tColumns.length) {
       fail("Invalid test: movement arrays must be the same length!");
     }
 
@@ -263,21 +291,21 @@ public abstract class AbstractTestMarbleSolitaireModel {
    * Run a list of valid moves on the default board and assert that they aren't changing the score
    * or getState. Each array must be the same length.
    *
-   * @param msm      the MarbleSolitarieModel with the board to move on
-   * @param fRows    ordered list of fromRow values for invalid moves
+   * @param msm the MarbleSolitarieModel with the board to move on
+   * @param fRows ordered list of fromRow values for invalid moves
    * @param fColumns ordered list of fromCol values for invalid moves
-   * @param tRows    ordered list of toRow values for invalid moves
+   * @param tRows ordered list of toRow values for invalid moves
    * @param tColumns ordered list of toCol values for invalid moves
    */
   protected void runInvalidMoves(MarbleSolitaireModel msm,
-                               int[] fRows, int[] fColumns,
-                               int[] tRows, int[] tColumns) {
+      int[] fRows, int[] fColumns,
+      int[] tRows, int[] tColumns) {
     int initScore = msm.getScore();
     String initState = msm.getGameState();
 
     if (fRows.length != fColumns.length
-            && fColumns.length != tRows.length
-            && tRows.length != tColumns.length) {
+        && fColumns.length != tRows.length
+        && tRows.length != tColumns.length) {
       fail("Invalid test: movement arrays must be the same length!");
     }
 
@@ -286,7 +314,7 @@ public abstract class AbstractTestMarbleSolitaireModel {
       try {
         msm.move(fRows[i], fColumns[i], tRows[i], tColumns[i]);
         fail(String.format("Invalid move #%d (%d, %d) -> (%d, %d) was not caught",
-                i, fRows[i], fColumns[i], tRows[i], tColumns[i]));
+            i, fRows[i], fColumns[i], tRows[i], tColumns[i]));
       } catch (IllegalArgumentException e) {
         assertEquals(initState, msm.getGameState());
         assertEquals(initScore, msm.getScore());

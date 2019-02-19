@@ -19,14 +19,14 @@ public class MarbleSolitaireModelImpl extends AbstractBoardModel {
   }
 
   /**
-   * Creates a MS Model with an size set to the given value and the center slot empty to
-   * start. The center is determined by the find int c = 3 * (size - 1) / 2, where c is the
-   * value for sRow and sCol.
+   * Creates a MS Model with an size set to the given value and the center slot empty to start. The
+   * center is determined by the find int c = 3 * (size - 1) / 2, where c is the value for sRow and
+   * sCol.
    *
    * @param size the size of this MS Model
    */
   public MarbleSolitaireModelImpl(int size) {
-    this(size,(3 * (size - 1)) / 2, (3 * (size - 1)) / 2);
+    this(size, (3 * (size - 1)) / 2, (3 * (size - 1)) / 2);
   }
 
   /**
@@ -41,12 +41,12 @@ public class MarbleSolitaireModelImpl extends AbstractBoardModel {
 
 
   /**
-   * Creates a MS Model with an size set to the given value and the slot at the given place
-   * empty to start.
+   * Creates a MS Model with an size set to the given value and the slot at the given place empty to
+   * start.
    *
    * @param size the size of this MS model
-   * @param sRow         the row of the starting empty slot.
-   * @param sCol         the column of the startimg empty slot.
+   * @param sRow the row of the starting empty slot.
+   * @param sCol the column of the startimg empty slot.
    */
   public MarbleSolitaireModelImpl(int size, int sRow, int sCol) {
     super(size, sRow, sCol, size % 2 == 0, "Arm thickness must be odd");
@@ -55,8 +55,8 @@ public class MarbleSolitaireModelImpl extends AbstractBoardModel {
 
   @Override
   protected boolean nullSlotCheck(int r, int c) {
-    boolean rowCheck = r >= size- 1 && r < 2 * size - 1;
-    boolean columnCheck = c >= size - 1 && c < 2* size - 1;
+    boolean rowCheck = r >= size - 1 && r < 2 * size - 1;
+    boolean columnCheck = c >= size - 1 && c < 2 * size - 1;
 
     return !(columnCheck || rowCheck);
   }

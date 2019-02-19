@@ -94,13 +94,5 @@ public interface MarbleSolitaireController {
    * @return what was outputted
    * @throws IllegalArgumentException if {code this}'s active model is null;
    */
-  String stateTransmission() throws IllegalStateException;
-
-
-  /**
-   * Setter for the active model of {@code this}.
-   * @param model the model to set to the active model
-   * @throws IllegalArgumentException if the given model is null
-   */
-  void setActiveModel(MarbleSolitaireModel model) throws IllegalArgumentException;
+  String stateTransmission(MarbleSolitaireModel activeModel) throws IllegalStateException;
 }
