@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BadDesignButFunctional/BadDesignButFunctional.iml" filepath="$PROJECT_DIR$/BadDesignButFunctional/BadDesignButFunctional.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BasicMVC/BasicMVC.iml" filepath="$PROJECT_DIR$/BasicMVC/BasicMVC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GeneralCommandCallbacks/GeneralCommandCallbacks.iml" filepath="$PROJECT_DIR$/GeneralCommandCallbacks/GeneralCommandCallbacks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KeyboardEvents/KeyboardEvents.iml" filepath="$PROJECT_DIR$/KeyboardEvents/KeyboardEvents.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KeyboardMaps/KeyboardMaps.iml" filepath="$PROJECT_DIR$/KeyboardMaps/KeyboardMaps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KeyboardMapsWithLambdaJava8/KeyboardMapsWithLambdaJava8.iml" filepath="$PROJECT_DIR$/KeyboardMapsWithLambdaJava8/KeyboardMapsWithLambdaJava8.iml" />
+    </modules>
+  </component>
+</project>

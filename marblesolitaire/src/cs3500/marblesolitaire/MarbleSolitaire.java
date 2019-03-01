@@ -115,7 +115,8 @@ public final class MarbleSolitaire {
 
 
   /**
-   * Parse the given arguments for a specified hole coordinate.
+   * Parse the given arguments for a specified hole coordinate. Use of an Optional here makes the
+   * logic cleaner since we aren't sure whether we need to calculate that hole values.
    *
    * @param fullArgs the given arguments
    * @return the specified hole coordinates (with {@code list.index(0)} being the row and {@code
@@ -123,7 +124,8 @@ public final class MarbleSolitaire {
    * @throws IllegalArgumentException if the specified hole coordinates aren't integers or aren't
    *                                  there but are expected to be
    */
-  private static Optional<List<Integer>> parseForHole(String[] fullArgs)
+
+  static Optional<List<Integer>> parseForHole(String[] fullArgs)
       throws IllegalArgumentException {
 
     for (int i = 1; i < fullArgs.length; i++) {
@@ -139,10 +141,9 @@ public final class MarbleSolitaire {
           return Optional.of(Arrays.asList(row, column));
 
         } catch (ArrayIndexOutOfBoundsException idxe) {
-          throw new IllegalArgumentException("Invalid size argument");
-
+          throw new IllegalArgumentException("Invalid hole argument");
         } catch (NumberFormatException nfe) {
-          throw new IllegalArgumentException(String.format("Invalid string arguments: %s, %s",
+          throw new IllegalArgumentException(String.format("Invalid hole arguments: %s, %s",
               rowStr, columnStr));
 
         }
