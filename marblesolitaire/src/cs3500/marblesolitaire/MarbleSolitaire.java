@@ -92,7 +92,7 @@ public final class MarbleSolitaire {
    * @throws IllegalArgumentException if the specified size is not an integer or isn't there but is
    *                                  expected to be
    */
-  static int parseForSize(String[] fullArgs, Integer def) throws IllegalArgumentException {
+  private static int parseForSize(String[] fullArgs, Integer def) throws IllegalArgumentException {
     for (int i = 1; i < fullArgs.length; i++) {
       if (fullArgs[i].equalsIgnoreCase("-size")) {
         String sizeStr = "";
@@ -124,6 +124,7 @@ public final class MarbleSolitaire {
    * @throws IllegalArgumentException if the specified hole coordinates aren't integers or aren't
    *                                  there but are expected to be
    */
+
   static Optional<List<Integer>> parseForHole(String[] fullArgs)
       throws IllegalArgumentException {
 
@@ -141,7 +142,6 @@ public final class MarbleSolitaire {
 
         } catch (ArrayIndexOutOfBoundsException idxe) {
           throw new IllegalArgumentException("Invalid hole argument");
-
         } catch (NumberFormatException nfe) {
           throw new IllegalArgumentException(String.format("Invalid hole arguments: %s, %s",
               rowStr, columnStr));
