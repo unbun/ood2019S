@@ -1,9 +1,9 @@
 import org.junit.Test;
 
-import cs3500.marblesolitaire.model.hw02.posn.BoardPosn;
-import cs3500.marblesolitaire.model.hw02.posn.NullPosn;
-import cs3500.marblesolitaire.model.hw02.posn.Posn;
-import cs3500.marblesolitaire.model.hw02.posn.PosnState;
+import cs3500.marblesolitaire.util.posn.BoardPosn;
+import cs3500.marblesolitaire.util.posn.NullPosn;
+import cs3500.marblesolitaire.util.posn.Posn;
+import cs3500.marblesolitaire.util.posn.PosnState;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

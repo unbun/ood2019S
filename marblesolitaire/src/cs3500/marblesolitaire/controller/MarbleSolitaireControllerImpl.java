@@ -11,16 +11,19 @@ import cs3500.marblesolitaire.util.Utils;
 
 
 /**
- * A Full Controller for the Marble Solitare Game.
+ * A Full Controller for the Marble Solitare Game. Given a MS model, this will run the game by
+ * asking for 4 inputs at a time from the user (via {@code Readable} stream) and make a move on the
+ * model. It will output the move, or any messages, via an {@code Appendable} stream.
  */
 public class MarbleSolitaireControllerImpl implements MarbleSolitaireController {
 
   private final Readable in;
   private final Appendable out;
-  private MarbleSolitaireModel activeModel;
 
   /**
-   * Create a Controller for the MS Game that can read and right form differenet streams.
+   * A Full Controller for the Marble Solitare Game. Given a MS model, this will run the game by
+   * asking for 4 inputs at a time from the user (via {@code Readable} stream) and make a move on
+   * the model. It will output the move, or any messages, via an {@code Appendable} stream.
    *
    * @param rd the Readable input stream
    * @param ap the Appendable output stream
@@ -29,19 +32,18 @@ public class MarbleSolitaireControllerImpl implements MarbleSolitaireController 
   public MarbleSolitaireControllerImpl(Readable rd, Appendable ap) throws IllegalArgumentException {
     this.in = Utils.requireNonNull(rd);
     this.out = Utils.requireNonNull(ap);
-    this.activeModel = null;
   }
 
   @Override
   public void playGame(MarbleSolitaireModel model)
-          throws IllegalArgumentException, IllegalStateException {
+      throws IllegalArgumentException, IllegalStateException {
 
-    this.activeModel = Utils.requireNonNull(model);
-    stateTransmission();
+    Utils.requireNonNull(model);
+    stateTransmission(model);
 
-    Optional<String> endOfGame = gameLoop();
+    Optional<String> endOfGame = gameLoop(model);
     endGame(endOfGame.isPresent());
-    stateTransmission();
+    stateTransmission(model);
   }
 
   /**
@@ -50,7 +52,7 @@ public class MarbleSolitaireControllerImpl implements MarbleSolitaireController 
    *
    * @return And optional string that can contain information about how the game ended.
    */
-  private Optional<String> gameLoop() throws IllegalStateException {
+  private Optional<String> gameLoop(MarbleSolitaireModel activeModel) throws IllegalStateException {
 
     Scanner scan = new Scanner(this.in);
 
@@ -73,7 +75,7 @@ public class MarbleSolitaireControllerImpl implements MarbleSolitaireController 
         possibleQuit = vi.getStringInput();
 
       } catch (IllegalArgumentException e) {
-        toOutStream(String.format("Invalid Move. Play Again. %s\n", e.getMessage()));
+        toOutStreamln(String.format("Invalid Move. Play Again. %s", e.getMessage()));
         possibleMove = Optional.empty();
         possibleQuit = Optional.empty();
       }
@@ -85,20 +87,21 @@ public class MarbleSolitaireControllerImpl implements MarbleSolitaireController 
       if (inputs.size() == 4) { //Move with the model since you have 4 inputs
         try {
           activeModel.move(inputs.get(0),
-                  inputs.get(1),
-                  inputs.get(2),
-                  inputs.get(3));
+              inputs.get(1),
+              inputs.get(2),
+              inputs.get(3));
 
           if (!activeModel.isGameOver()) {
-            stateTransmission();
+            stateTransmission(activeModel);
           }
 
         } catch (IllegalArgumentException e) {
-          toOutStream(String.format("Invalid Move. Play Again. %s." +
-                  "\n(note that the error messages treat the board as zero-indexed and inputs " +
-                  "are one-indexed)\n", e.getMessage()));
+          toOutStreamln(String.format("Invalid Move. Play Again. %s." +
+              "\n(note that the error messages treat the board as zero-indexed and inputs " +
+              "are one-indexed)", e.getMessage()));
         }
-        //remove the used inputs
+
+        //remove the used inputs (only remove the first 4 in case there is a queue of other inputs
         for (int i = 0; i < 4; i++) {
           inputs.remove(0);
         }
@@ -115,15 +118,15 @@ public class MarbleSolitaireControllerImpl implements MarbleSolitaireController 
    * @throws IllegalArgumentException if {code this}'s active model is null;
    */
   @Override
-  public String stateTransmission() throws IllegalStateException {
+  public String stateTransmission(MarbleSolitaireModel activeModel) throws IllegalStateException {
     try {
-      Utils.requireNonNull(this.activeModel);
+      Utils.requireNonNull(activeModel);
     } catch (IllegalArgumentException e) {
       throw new IllegalStateException("Cannot transmit the state of a null game");
     }
     String toSend = activeModel.getGameState() +
-            "\nScore: " + activeModel.getScore() + "\n";
-    toOutStream(toSend);
+        "\nScore: " + activeModel.getScore() + "";
+    toOutStreamln(toSend);
     return toSend;
   }
 
@@ -137,36 +140,26 @@ public class MarbleSolitaireControllerImpl implements MarbleSolitaireController 
   public void endGame(boolean quit) {
 
     if (quit) {
-      toOutStream("Game quit!\n");
-      toOutStream("State of game when quit:\n");
+      toOutStreamln("Game quit!");
+      toOutStreamln("State of game when quit:");
     } else {
-      toOutStream("Game over!\n");
+      toOutStreamln("Game over!");
     }
   }
 
   /**
-   * Transmit a given String to this controller's {@code Appendable}.
+   * Transmit a given String to this controller's {@code Appendable}. Also outputs a new line at the
+   * end of the message.
    *
-   * @param toSend the String to transmit ("" to use default)
+   * @param toSend the String to transmit with {@code this}'s output stream.
    * @throws IllegalStateException if {@code this}'s output stream can't append
    */
-  private void toOutStream(String toSend) throws IllegalStateException {
+  private void toOutStreamln(String toSend) throws IllegalStateException {
     try {
-      out.append(toSend);
+      out.append(toSend + "\n");
     } catch (IOException ioe) {
       throw new IllegalStateException("Cannot use provided output stream.\n " + ioe.getMessage());
     }
-  }
-
-  /**
-   * Setter for the active model of {@code this}.
-   *
-   * @param model the model to set to the active model
-   * @throws IllegalArgumentException if the given model is nulla
-   */
-  @Override
-  public void setActiveModel(MarbleSolitaireModel model) throws IllegalArgumentException {
-    this.activeModel = Utils.requireNonNull(model);
   }
 }
 

@@ -1,13 +1,14 @@
 package testing.mocks;
 
-import cs3500.marblesolitaire.model.hw02.MarbleSolitaireModel;
-import cs3500.marblesolitaire.model.hw02.posn.Posn;
+import cs3500.marblesolitaire.model.AbstractBoardModel;
+import java.util.Optional;
+
 
 /**
  * A Mock MSM Game model that simply accepts positive intergers to move, and scores you based on the
  * number of moves that were completed.
  */
-public class MockModel implements MarbleSolitaireModel {
+public class MockModel extends AbstractBoardModel {
 
   private int myFromRow;
   private int myFromCol;
@@ -24,6 +25,7 @@ public class MockModel implements MarbleSolitaireModel {
    * @param maxMoves the max amount of moves that will determine if the game is over.
    */
   public MockModel(int maxMoves) {
+    super(0, 0, 0, false, "this is a mock model");
     this.maxMoves = maxMoves;
 
     this.myFromRow = 0;
@@ -31,6 +33,11 @@ public class MockModel implements MarbleSolitaireModel {
     this.myToRow = 0;
     this.myToCol = 0;
     this.moveCount = 0;
+  }
+
+  @Override
+  protected boolean outOfRange(int r, int c) {
+    return r < 0 || c < 0;
   }
 
   @Override
@@ -56,9 +63,15 @@ public class MockModel implements MarbleSolitaireModel {
   }
 
   @Override
-  public int[] getValidJumped(int fromRow, int fromCol, int toRow, int toCol) throws IllegalArgumentException {
+  protected boolean nullSlotCheck(int r, int c) {
+    return false;
+  }
+
+  @Override
+  public Optional<int[]> getValidJumped(int fromRow, int fromCol, int toRow, int toCol)
+      throws IllegalArgumentException {
     int[] diffs = {toRow - fromRow, toCol - fromCol};
-    return diffs;
+    return Optional.of(diffs);
   }
 
   @Override
@@ -69,7 +82,7 @@ public class MockModel implements MarbleSolitaireModel {
   @Override
   public String getGameState() {
     return String.format("(r=%d,c=%d) -> (r=%d, c=%d)",
-            this.myFromRow, this.myFromCol, this.myToRow, this.myToCol);
+        this.myFromRow, this.myFromCol, this.myToRow, this.myToCol);
   }
 
   @Override
