@@ -141,7 +141,6 @@ public final class MarbleSolitaire {
 
         } catch (ArrayIndexOutOfBoundsException idxe) {
           throw new IllegalArgumentException("Invalid hole argument");
-
         } catch (NumberFormatException nfe) {
           throw new IllegalArgumentException(String.format("Invalid hole arguments: %s, %s",
               rowStr, columnStr));
