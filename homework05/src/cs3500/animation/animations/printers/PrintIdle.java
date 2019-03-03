@@ -8,6 +8,14 @@ import cs3500.animation.shapes.LiveShape;
  */
 public class PrintIdle extends AbstractPrint {
 
+  /**
+   * Represents a period of time in which no fields of the shape will change.
+   *
+   * @param output an appendable output stream to print to.
+   * @param shape the shape this action does.
+   * @param startTime the time this action should start
+   * @param endTime the time this action should end
+   */
   public PrintIdle(Appendable output,
       LiveShape shape, int startTime, int endTime) {
     super(output, ActionType.IDLE, shape, startTime, endTime);

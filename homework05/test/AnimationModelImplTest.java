@@ -1,4 +1,5 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import cs3500.animation.animations.ShapeAction;
 import cs3500.animation.animations.printers.PrintCreate;
@@ -17,7 +18,9 @@ import java.awt.Color;
 
 import org.junit.Test;
 
-
+/**
+ * Test the model.
+ */
 public class AnimationModelImplTest {
 
   private static final int TEST_RATE = 50;
@@ -25,7 +28,7 @@ public class AnimationModelImplTest {
 
   @Test
   public void testAnimationState() {
-    AnimationModelImpl m = new AnimationModelImpl(500, 500, Color.WHITE, TEST_RATE);
+    AnimationModelImpl m = new AnimationModelImpl(TEST_RATE);
 
     LiveShape r = new Rectangle(100, 50, 0, new Posn(200, 200), Color.RED,
         "R");
@@ -34,27 +37,27 @@ public class AnimationModelImplTest {
 
     Appendable actualOut = new StringBuilder();
 
-    ShapeAction r0 = new PrintCreate(actualOut, r,0);
+    ShapeAction r0 = new PrintCreate(actualOut, r, 0);
     ShapeAction r1 = new PrintMove(actualOut, r, 1, 10, new Posn(10, 200));
     ShapeAction r2 = new PrintMove(actualOut, r, 10, 50, new Posn(300, 300));
     ShapeAction r3 = new PrintIdle(actualOut, r, 50, 51);
     ShapeAction r4 = new PrintScale(actualOut, r, 51, 70, 0.5, 1);
     ShapeAction r5 = new PrintMove(actualOut, r, 70, 100, new Posn(200, 200));
 
-    ShapeAction c0 = new PrintCreate(actualOut, c,0);
+    ShapeAction c0 = new PrintCreate(actualOut, c, 0);
     ShapeAction c1 = new PrintIdle(actualOut, c, 6, 20);
-    ShapeAction c2 = new PrintMove(actualOut, c,20, 50, new Posn(440, 250));
+    ShapeAction c2 = new PrintMove(actualOut, c, 20, 50, new Posn(440, 250));
     ShapeAction c3 = new PrintMove(actualOut, c, 50, 70, new Posn(440, 370));
-    ShapeAction c4 = new PrintRecolor(actualOut, c,50, 70, new Color(0, 170, 85));
-    ShapeAction c5 = new PrintRecolor(actualOut, c, 70, 80,Color.GREEN);
-    ShapeAction c6 = new PrintIdle(actualOut, c,80, 100);
+    ShapeAction c4 = new PrintRecolor(actualOut, c, 50, 70, new Color(0, 170, 85));
+    ShapeAction c5 = new PrintRecolor(actualOut, c, 70, 80, Color.GREEN);
+    ShapeAction c6 = new PrintIdle(actualOut, c, 80, 100);
     ShapeAction c7 = new PrintTurn(actualOut, c, 100, 120, 270);
 
-    m.addMotions(r0,r1,r2,r3,r4,r5);
-    m.addMotions(c0,c1,c2,c3,c4,c5,c6,c7);
+    m.addMotions(r0, r1, r2, r3, r4, r5);
+    m.addMotions(c0, c1, c2, c3, c4, c5, c6, c7);
 
     m.start();
-    wait(TEST_WAIT);
+    testWait(TEST_WAIT);
     m.stop();
 
     StringBuilder expectedOut = new StringBuilder();
@@ -78,7 +81,7 @@ public class AnimationModelImplTest {
 
   @Test
   public void testAnimationState2() {
-    AnimationModelImpl m = new AnimationModelImpl(500, 500, Color.WHITE, TEST_RATE);
+    AnimationModelImpl m = new AnimationModelImpl(TEST_RATE);
 
     LiveShape r = new Rectangle(100, 50, 0, new Posn(200, 200), Color.RED,
         "R");
@@ -87,16 +90,16 @@ public class AnimationModelImplTest {
 
     Appendable actualOut = new StringBuilder();
 
-    ShapeAction r0 = new PrintCreate(actualOut, r,0);
+    ShapeAction r0 = new PrintCreate(actualOut, r, 0);
     ShapeAction r1 = new PrintMove(actualOut, r, 1, 10, new Posn(10, 200));
     ShapeAction r2 = new PrintMove(actualOut, r, 10, 50, new Posn(300, 300));
     ShapeAction r3 = new PrintIdle(actualOut, r, 50, 51);
     ShapeAction r4 = new PrintScale(actualOut, r, 51, 70, 0.5, 1);
     ShapeAction r5 = new PrintMove(actualOut, r, 70, 100, new Posn(200, 200));
 
-    m.addMotions(r0,r1,r2,r3,r4,r5);
+    m.addMotions(r0, r1, r2, r3, r4, r5);
     m.start();
-    wait(TEST_WAIT);
+    testWait(TEST_WAIT);
 
     StringBuilder expectedOut = new StringBuilder();
     expectedOut.append("shape R rectangle\n");
@@ -108,19 +111,19 @@ public class AnimationModelImplTest {
 
     assertEquals(expectedOut.toString(), actualOut.toString());
 
-    ShapeAction c0 = new PrintCreate(actualOut, c,0);
+    ShapeAction c0 = new PrintCreate(actualOut, c, 0);
     ShapeAction c1 = new PrintIdle(actualOut, c, 6, 20);
-    ShapeAction c2 = new PrintMove(actualOut, c,20, 50, new Posn(440, 250));
+    ShapeAction c2 = new PrintMove(actualOut, c, 20, 50, new Posn(440, 250));
     ShapeAction c3 = new PrintMove(actualOut, c, 50, 70, new Posn(440, 370));
-    ShapeAction c4 = new PrintRecolor(actualOut, c,50, 70, new Color(0, 170, 85));
-    ShapeAction c5 = new PrintRecolor(actualOut, c, 70, 80,Color.GREEN);
-    ShapeAction c6 = new PrintIdle(actualOut, c,80, 100);
+    ShapeAction c4 = new PrintRecolor(actualOut, c, 50, 70, new Color(0, 170, 85));
+    ShapeAction c5 = new PrintRecolor(actualOut, c, 70, 80, Color.GREEN);
+    ShapeAction c6 = new PrintIdle(actualOut, c, 80, 100);
     ShapeAction c7 = new PrintTurn(actualOut, c, 100, 120, 270);
 
-    m.addMotions(c0,c1,c2,c3,c4,c5,c6,c7);
+    m.addMotions(c0, c1, c2, c3, c4, c5, c6, c7);
 
-    m.restart();
-    wait(TEST_WAIT);
+    m.reset();
+    testWait(TEST_WAIT);
     m.stop();
 
     expectedOut.append("shape C oval\n");
@@ -135,12 +138,87 @@ public class AnimationModelImplTest {
     assertEquals(expectedOut.toString(), actualOut.toString());
   }
 
+  @Test
+  public void timerStuff() {
+    AnimationModelImpl m = new AnimationModelImpl(1000);
 
-  private void wait(int secs){
-    System.out.println("[INFO]\tTest is running in 'real' time....");
+    assertEquals(-1, m.currTime());
+    testWait(2);
+    assertEquals(-1, m.currTime()); //timer hasn't started
+
+    m.start();
+    testWait(3);
+    assertEquals(3, m.currTime());
+
+    testWait(1);
+    assertEquals(4, m.currTime());
+
+    m.reset();
+    assertEquals(0, m.currTime());
+    testWait(1);
+    assertEquals(1, m.currTime());
+    testWait(1);
+    m.stop();
+    assertEquals(2, m.currTime());
+    testWait(4);
+    assertEquals(2, m.currTime());
+  }
+
+  //Timer Tests
+
+  @Test
+  public void startedTimer() {
+    AnimationModelImpl m = new AnimationModelImpl(1000);
+    m.start();
+    testWait(1);
+    assertEquals(1, m.currTime());
+
     try {
-      Thread.sleep(secs * 1000);
-    } catch (InterruptedException e){
+      m.start();
+      fail("Shouldn't start an already started timer");
+    } catch (IllegalStateException se) {
+      assertEquals(1, m.currTime());
+    }
+  }
+
+  @Test
+  public void stoppedTimer() {
+    AnimationModelImpl m = new AnimationModelImpl(1000);
+    m.start();
+    testWait(1);
+    assertEquals(1, m.currTime());
+    m.stop();
+
+    try {
+      m.start();
+      fail("Shouldn't start a stopped a timer");
+    } catch (IllegalStateException se) {
+      assertEquals(1, m.currTime());
+    }
+  }
+
+  @Test
+  public void resetTimer() {
+    AnimationModelImpl m = new AnimationModelImpl(1000);
+    m.start();
+    testWait(1);
+    assertEquals(1, m.currTime());
+    m.reset();
+
+    try {
+      m.start();
+      fail("Shouldn't start an already started timer");
+    } catch (IllegalStateException se) {
+      assertEquals(0, m.currTime());
+    }
+  }
+
+
+  private void testWait(double secs) {
+    System.out.println("[INFO]\tTest is running for " + secs + " seconds...");
+    try {
+      Thread.sleep((int) (secs * 1000));
+    } catch (InterruptedException e) {
       e.printStackTrace();
     }
     System.out.println("[INFO]\t...Test is over.");

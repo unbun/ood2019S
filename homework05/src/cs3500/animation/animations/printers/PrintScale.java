@@ -11,6 +11,16 @@ public class PrintScale extends AbstractPrint {
   private double xFactor;
   private double yFactor;
 
+  /**
+   * Represents the change in size of a given shape in a given model between given times.
+   *
+   * @param output an appendable output stream to print to.
+   * @param shape the shape this action does.
+   * @param startTime the time this action should start
+   * @param endTime the time this action should end
+   * @param xFactor how much to scale the width
+   * @parma yFactor how much to scale the height
+   */
   public PrintScale(Appendable output,
       LiveShape shape, int startTime, int endTime, double xFactor, double yFactor) {
     super(output, ActionType.SCALE, shape, startTime, endTime);

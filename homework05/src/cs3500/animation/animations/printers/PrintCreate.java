@@ -5,10 +5,20 @@ import cs3500.animation.animations.InstantShapeAction;
 import cs3500.animation.animations.ShapeAction;
 import cs3500.animation.shapes.LiveShape;
 
-public class PrintCreate extends AbstractPrint implements InstantShapeAction {
+/**
+ * Create a LiveShape within an action and set it to initalized.
+ */
+public final class PrintCreate extends AbstractPrint implements InstantShapeAction {
 
-  boolean occured;
+  private boolean occured;
 
+  /**
+   * Create a LiveShape within an action and set it to initalized.
+   *
+   * @param output the Appendable stream to print to.
+   * @param shape the LiveShape to initalize
+   * @param startTime the to initalize it at
+   */
   public PrintCreate(Appendable output,
       LiveShape shape, int startTime) {
     super(output, ActionType.CREATE, shape, startTime, startTime + 1);
@@ -17,25 +27,24 @@ public class PrintCreate extends AbstractPrint implements InstantShapeAction {
 
   @Override
   public void alterShape() {
-    return;
-  }
-
-  @Override
-  public void apply(int currTime) {
-    if(!occured && currTime >= startTime){
-      println(String.format("shape %s", this.shape.shapeToString()));
+    if (!occured()) {
+      this.shape.init();
       this.occured = true;
+      //invariant: once occured is true, it says true
+      // (enforced b/c occured is only set to false in the constructor
     }
   }
 
   @Override
-  public boolean finished(int currTime) {
-    return occured();
-  }
+  public void apply(int currTime) {
+    if (started(currTime) && !finished(currTime) && !occured()) {
 
-  @Override
-  public boolean started(int currTime) {
-    return currTime >= startTime;
+      System.out.println("HELLO");
+
+      println(String.format("shape %s", this.shape.shapeToString()));
+      this.alterShape();
+      this.occured = true;
+    }
   }
 
   @Override

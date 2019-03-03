@@ -6,32 +6,71 @@ import java.awt.Color;
 import java.util.Objects;
 
 /**
- * Represents a Shape that can move/be animated. (In other words a Shape with built-in,
- * trackable mutation).
- *
+ * Represents a Shape that can move/be animated. (In other words a Shape with built-in, trackable
+ * mutation).
  */
-public abstract class LiveShape extends AbstractShape{
+public abstract class LiveShape extends AbstractShape {
+
+  private boolean initalized;
 
   public LiveShape(int height, int width, int heading, Posn posn, Color color,
       String name) {
     super(height, width, heading, posn, color, name);
+    initalized = true;
   }
 
-  public void moveTo(Posn endPoint){
+  /**
+   * Move the shape to the given positoin.
+   *
+   * @param endPoint the position to move through
+   */
+  public void moveTo(Posn endPoint) {
     this.posn = Objects.requireNonNull(endPoint);
   }
 
-  public void turnTo(int endHeading){
+  /**
+   * Turn the shape to head in the given angle.
+   *
+   * @param endHeading the angle to turn to
+   */
+  public void turnTo(int endHeading) {
     this.heading = endHeading;
   }
 
-  public void recolor(Color c){
+  /**
+   * Change the color of the shape to the given color.
+   *
+   * @param c the color to change to
+   */
+  public void recolor(Color c) {
     this.color = c;
   }
 
-  public void scale(double xFactor, double yFactor){
-    this.height *= (Double)Utils.requireNonNegative(yFactor, "yFactor");
-    this.width *= (Double)Utils.requireNonNegative(xFactor, "xFactor");
+  /**
+   * Change the size of the shape by the given factors.
+   *
+   * @param xFactor the factor to change the width by
+   * @param yFactor the factor to change the height by
+   */
+  public void scale(double xFactor, double yFactor) {
+    this.height *= (Double) Utils.requireNonNegative(yFactor, "yFactor");
+    this.width *= (Double) Utils.requireNonNegative(xFactor, "xFactor");
+  }
+
+  /**
+   * Change the initalization boolean.
+   */
+  public void init() {
+    this.initalized = true;
+  }
+
+  /**
+   * Is this live shape initalized.
+   *
+   * @return if the shape is init-ed
+   */
+  public boolean isInitalized() {
+    return this.initalized;
   }
 
   @Override
