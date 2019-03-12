@@ -5,8 +5,7 @@ import cs3500.animation.actions.ActionType;
 import cs3500.animation.shapes.LiveShape;
 
 /**
- * Print to the output that a LiveShape has been created (only needed for assignment 5), and ends
- * (which is noted by the overridden started and finished method).
+ * Print to the output that a LiveShape has been created (only really needed for assignment 5).
  */
 public final class PrintCreate extends AbstractPrint {
 
@@ -19,7 +18,7 @@ public final class PrintCreate extends AbstractPrint {
    */
   public PrintCreate(Appendable output,
       LiveShape shape, int startTime) {
-    super(output, ActionType.CREATE, shape, startTime, startTime);
+    super(output, ActionType.CREATE, shape, startTime, startTime + 1);
   }
 
   @Override
@@ -33,16 +32,6 @@ public final class PrintCreate extends AbstractPrint {
       println(String.format("shape %s", this.shape.getID()));
       this.printed = true;
     }
-  }
-
-  @Override
-  public boolean started(int currTime) {
-    return printed || super.started(currTime);
-  }
-
-  @Override
-  public boolean finished(int currTime) {
-    return printed;
   }
 
   @Override

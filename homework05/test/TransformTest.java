@@ -144,25 +144,6 @@ public class TransformTest {
   }
 
   @Test
-  public void printCreateTest() { //tests instant action
-    StringBuilder output = new StringBuilder();
-    LiveShape r = new Rectangle(100, 50, 0, new Posn(200, 200),
-        Color.RED, "R");
-    Transform create = new PrintCreate(output, r, 10);
-    create.apply(9);
-    assertEquals("", output.toString());
-    assertFalse(((PrintCreate) create).started(0));
-    assertFalse(((PrintCreate) create).finished(0));
-    create.apply(10);
-    assertTrue(((PrintCreate) create).started(0));
-    assertTrue(((PrintCreate) create).finished(0));
-    assertTrue(create.finished(10));
-    assertEquals("shape R rectangle\n", output.toString());
-    create.apply(12);
-    assertEquals("shape R rectangle\n", output.toString()); //nothing new happened
-  }
-
-  @Test
   public void testStateString(){
     LiveShape r = new Rectangle(100, 50, 0, new Posn(200, 200),
         Color.RED, "R");

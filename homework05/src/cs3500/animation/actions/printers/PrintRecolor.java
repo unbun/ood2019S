@@ -39,6 +39,6 @@ public class PrintRecolor extends AbstractPrint {
     return "Recolor " + shape.getID() + " to " +
         String.format("[r=%d, g=%d, b=%d]",
             newColor.getRed(), newColor.getGreen(), newColor.getBlue())
-        + " " + super.stateString(currTime);
+             + super.stateString(currTime);
   }
 }

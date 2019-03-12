@@ -2,40 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="057df119-6c9e-4671-aafc-7ea078e71d67" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../homework05/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/AbstractTransform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/ActionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/Transform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/homework05.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/homework05.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/AbstractShapeAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/ActionType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/InstantShapeAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/ShapeAction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/printers/AbstractPrint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/AbstractPrint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/printers/PrintCreate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/printers/PrintIdle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintIdle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/printers/PrintMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/printers/PrintRecolor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintRecolor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/printers/PrintScale.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintScale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/animations/printers/PrintTurn.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintTurn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModelImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModelImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/shapes/AbstractShape.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/shapes/LiveShape.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/shapes/LiveShape.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/shapes/Oval.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/shapes/Oval.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/shapes/Rectangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/shapes/Rectangle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/shapes/Triangle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/shapes/Triangle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/utils/Posn.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/utils/Posn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/test/AnimationModelImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/test/AnimationModelImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/test/PosnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/test/PosnTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/test/ShapeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/test/ShapeTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/test/UtilsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/test/UtilsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/AbstractPrint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/AbstractPrint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintCreate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintIdle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintIdle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintRecolor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintRecolor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintScale.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintScale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintTurn.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintTurn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/test/TransformTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/test/TransformTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../turtleview_full/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../turtleview_full/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../turtleview_full/src/cs3500/turtle/view/TurtlePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../turtleview_full/src/cs3500/turtle/view/TurtlePanel.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

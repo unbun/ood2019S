@@ -35,7 +35,7 @@ public class PrintScale extends AbstractPrint {
 
   @Override
   public String stateString(int currTime) {
-    return String.format("Scale %s by h=%.1f, w=%.1f", shape.getID(), yFactor , xFactor) + " "
+    return String.format("Scale %s by h=%.1f, w=%.1f", shape.getID(), yFactor , xFactor)
         + super.stateString(currTime);
   }
 }

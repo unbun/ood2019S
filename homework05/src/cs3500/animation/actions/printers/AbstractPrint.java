@@ -75,7 +75,7 @@ public abstract class AbstractPrint extends AbstractTransform {
 
   @Override
   public String stateString(int currTime) {
-    StringBuilder out = new StringBuilder(":\t");
+    StringBuilder out = new StringBuilder(" :\t");
     if (finished(currTime)) {
       out.append("finished");
     } else if (started(currTime)) {

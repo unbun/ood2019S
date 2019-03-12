@@ -37,6 +37,6 @@ public class PrintMove extends AbstractPrint {
   @Override
   public String stateString(int currTime) {
     return "Move " + shape.getID() + " to " + endPosn.toString()
-        + " " + super.stateString(currTime);
+        + super.stateString(currTime);
   }
 }

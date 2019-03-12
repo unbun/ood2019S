@@ -36,6 +36,6 @@ public class PrintTurn extends AbstractPrint {
   @Override
   public String stateString(int currTime) {
     return "Turn " + shape.getID() + " to " + endHeading
-        + " degrees " + super.stateString(currTime);
+        + " degrees" + super.stateString(currTime);
   }
 }
