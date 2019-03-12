@@ -20,7 +20,7 @@ import static org.junit.Assert.assertFalse;
 /**
  * Test shape actions.
  */
-public class TransformTest {
+public class PrintersTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidTimeInterval() {
@@ -155,7 +155,7 @@ public class TransformTest {
         Color.BLUE);
     Transform turn = new PrintTurn(new StringBuilder(), r, 39, 40,
         60);
-    Transform idle = new PrintIdle(new StringBuilder(), r, 70, 80);
+    Transform idle = new PrintIdle(new StringBuilder(), r, 39, 41);
     Transform create = new PrintCreate(new StringBuilder(), r, 10);
 
     assertEquals("Move R rectangle to {x=d, y=300} :\tqueued\n",move.stateString(9));
@@ -173,5 +173,15 @@ public class TransformTest {
     assertEquals("Turn R rectangle to 60 degrees :\tqueued\n",turn.stateString(38));
     assertEquals("Turn R rectangle to 60 degrees :\trunning[0/1 secs]\n",turn.stateString(39));
     assertEquals("Turn R rectangle to 60 degrees :\tfinished\n",turn.stateString(40));
+
+    assertEquals("Freeze R rectangle :\tqueued\n",idle.stateString(38));
+    assertEquals("Freeze R rectangle :\trunning[1/2 secs]\n",idle.stateString(40));
+    assertEquals("Freeze R rectangle :\tfinished\n",idle.stateString(42));
+
+    assertEquals("Init R rectangle :\tqueued\n",create.stateString(9));
+    assertEquals("Init R rectangle :\trunning[0/1 secs]\n",create.stateString(10));
+    assertEquals("Init R rectangle :\tfinished\n",create.stateString(11));
+
+
   }
 }

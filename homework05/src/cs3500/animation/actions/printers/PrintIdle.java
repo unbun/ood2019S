@@ -29,6 +29,6 @@ public class PrintIdle extends AbstractPrint {
 
   @Override
   public String stateString(int currTime) {
-    return "Freeze " + super.stateString(currTime);
+    return "Freeze " + shape.getID() + super.stateString(currTime);
   }
 }

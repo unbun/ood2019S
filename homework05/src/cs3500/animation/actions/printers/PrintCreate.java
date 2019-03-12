@@ -36,7 +36,7 @@ public final class PrintCreate extends AbstractPrint {
 
   @Override
   public String stateString(int currTime) {
-    return "Create " + super.stateString(currTime);
+    return "Init " + shape.getID() + super.stateString(currTime);
   }
 
 }

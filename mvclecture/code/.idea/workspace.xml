@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="057df119-6c9e-4671-aafc-7ea078e71d67" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/AbstractPrint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/AbstractPrint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintCreate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintIdle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintIdle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintRecolor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintRecolor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintScale.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintScale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintTurn.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintTurn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModelImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModelImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../homework05/test/TransformTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/test/TransformTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

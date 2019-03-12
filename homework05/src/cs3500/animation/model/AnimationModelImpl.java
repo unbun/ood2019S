@@ -19,11 +19,10 @@ import java.util.TimerTask;
  * <li>
  * <ul>1) The period of the timer is set to a given rate, and a TimerTask is scheduled once a
  * period.</ul>
- * <ul>3) A shape cannot have the same kind of animation at the same time.</ul>
+ * <ul>3) A {@code LiveShape} cannot have the same kind of animation at the same time.</ul>
  * <ul>4) Once the timer starts, the actions will continually update until they are done or the
  * timer has stopped</ul>
- * <ul>5) Every motion's shape has atleast 1 motion that creates it (in other words, no motion has
- * a non-Created shape)</ul>
+ * <ul>5) Every motion's shape exists within the class's list of {@code LiveShape}a</ul>
  * </li>
  * </p>
  */
@@ -38,10 +37,6 @@ public final class AnimationModelImpl implements AnimationModel {
 
   public AnimationModelImpl(int rate) {
     this(rate, new ArrayList<>());
-  }
-
-  public AnimationModelImpl(int rate, LiveShape... shapes) {
-    this(rate, Arrays.asList(shapes));
   }
 
   public AnimationModelImpl(int rate, List<LiveShape> shapes) {
