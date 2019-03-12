@@ -3,7 +3,7 @@ import static org.junit.Assert.fail;
 
 import cs3500.animation.actions.Transform;
 import cs3500.animation.actions.printers.*;
-import cs3500.animation.model.AnimationModelImpl;
+import cs3500.animation.model.TextAnimationModel;
 import cs3500.animation.shapes.LiveShape;
 import cs3500.animation.utils.Posn;
 import cs3500.animation.shapes.Oval;
@@ -16,14 +16,14 @@ import org.junit.Test;
 /**
  * Test the model.
  */
-public class AnimationModelImplTest {
+public class TextAnimationModelTest {
 
   private static final int TEST_RATE = 50;
   private static final int TEST_WAIT = 10;
 
   @Test
   public void testAnimationState() {
-    AnimationModelImpl m = new AnimationModelImpl(TEST_RATE);
+    TextAnimationModel m = new TextAnimationModel(TEST_RATE);
 
     LiveShape r = new Rectangle(100, 50, 0, new Posn(200, 200), Color.RED,
         "R");
@@ -76,7 +76,7 @@ public class AnimationModelImplTest {
 
   @Test
   public void testAnimationState2() {
-    AnimationModelImpl m = new AnimationModelImpl(TEST_RATE);
+    TextAnimationModel m = new TextAnimationModel(TEST_RATE);
 
     LiveShape r = new Rectangle(100, 50, 0, new Posn(200, 200), Color.RED,
         "R");
@@ -117,7 +117,7 @@ public class AnimationModelImplTest {
 
     m.addMotions(c0, c1, c2, c3, c4, c5, c6, c7);
 
-    m.resetTime();
+    m.restartTime();
     testWait(TEST_WAIT);
     m.stop();
 
@@ -135,7 +135,7 @@ public class AnimationModelImplTest {
 
   @Test
   public void timerStuff() {
-    AnimationModelImpl m = new AnimationModelImpl(1000);
+    TextAnimationModel m = new TextAnimationModel(1000);
 
     assertEquals(-1, m.currTime());
     testWait(2, 0);
@@ -148,7 +148,7 @@ public class AnimationModelImplTest {
     testWait(1, 0);
     assertEquals(4, m.currTime());
 
-    m.resetTime();
+    m.restartTime();
     assertEquals(0, m.currTime());
     testWait(1, 0);
     assertEquals(1, m.currTime());
@@ -163,7 +163,7 @@ public class AnimationModelImplTest {
 
   @Test
   public void startedTimer() {
-    AnimationModelImpl m = new AnimationModelImpl(1000);
+    TextAnimationModel m = new TextAnimationModel(1000);
     m.start();
     testWait(1);
     assertEquals(1, m.currTime());
@@ -178,7 +178,7 @@ public class AnimationModelImplTest {
 
   @Test
   public void stoppedTimer() {
-    AnimationModelImpl m = new AnimationModelImpl(1000);
+    TextAnimationModel m = new TextAnimationModel(1000);
     m.start();
     testWait(1);
     assertEquals(1, m.currTime());
@@ -194,11 +194,11 @@ public class AnimationModelImplTest {
 
   @Test
   public void resetTimer() {
-    AnimationModelImpl m = new AnimationModelImpl(1000);
+    TextAnimationModel m = new TextAnimationModel(1000);
     m.start();
     testWait(1);
     assertEquals(1, m.currTime());
-    m.resetTime();
+    m.restartTime();
 
     try {
       m.start();

@@ -1,10 +1,10 @@
 package cs3500.animation.model;
 
 import cs3500.animation.actions.Transform;
+import cs3500.animation.actions.printers.AbstractPrint;
 import cs3500.animation.shapes.LiveShape;
 import cs3500.animation.utils.Utils;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Timer;
@@ -26,7 +26,7 @@ import java.util.TimerTask;
  * </li>
  * </p>
  */
-public final class AnimationModelImpl implements AnimationModel {
+public final class TextAnimationModel implements AnimationModel {
 
   private final int rate; //in millis
   private Timer t;
@@ -35,11 +35,11 @@ public final class AnimationModelImpl implements AnimationModel {
   private List<Transform> motions;
   private List<LiveShape> shapes;
 
-  public AnimationModelImpl(int rate) {
+  public TextAnimationModel(int rate) {
     this(rate, new ArrayList<>());
   }
 
-  public AnimationModelImpl(int rate, List<LiveShape> shapes) {
+  public TextAnimationModel(int rate, List<LiveShape> shapes) {
 
     this.motions = new ArrayList<>();
     this.shapes = shapes;
@@ -47,15 +47,6 @@ public final class AnimationModelImpl implements AnimationModel {
     this.currTime = -1; //timer hasn't started yet, so there is no currentTime;
 
     this.t = new Timer(true);
-  }
-
-  @Override
-  public String getAnimationState() {
-    StringBuilder out = new StringBuilder("Time: " + currTime + " ");
-    for (Transform m : this.motions) {
-      out.append(m.stateString(currTime));
-    }
-    return out.toString();
   }
 
   @Override
@@ -81,13 +72,8 @@ public final class AnimationModelImpl implements AnimationModel {
   }
 
   @Override
-  public void addShapes(LiveShape... shapes) {
-    for (LiveShape s : shapes) {
-      if (!this.shapes.contains(s)) {
-        Objects.requireNonNull(s);
-        this.shapes.add(s);
-      }
-    }
+  public ArrayList<LiveShape> getShapes() {
+    return new ArrayList<>(this.shapes);
   }
 
   @Override
@@ -106,10 +92,11 @@ public final class AnimationModelImpl implements AnimationModel {
   }
 
   @Override
-  public void resetShapes() {
+  public void reset() {
     for (LiveShape s : this.shapes) {
       s.reset();
     }
+    this.restartTime();
   }
 
   @Override
@@ -133,7 +120,7 @@ public final class AnimationModelImpl implements AnimationModel {
   }
 
   @Override
-  public synchronized void resetTime() {
+  public synchronized void restartTime() {
     currTime = 0;
   }
 

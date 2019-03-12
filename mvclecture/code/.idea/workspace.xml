@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="057df119-6c9e-4671-aafc-7ea078e71d67" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintCreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintCreate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintIdle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/PrintIdle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModelImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModelImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../homework05/test/TransformTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/test/TransformTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/Transform.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/Transform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/AbstractPrint.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/actions/printers/AbstractPrint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/AnimationModelImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/src/cs3500/animation/model/TextAnimationModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/test/AnimationModelImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/test/TextAnimationModelTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../homework05/test/PrintersTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../homework05/test/PrintersTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -85,7 +88,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />

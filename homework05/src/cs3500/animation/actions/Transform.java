@@ -33,7 +33,7 @@ public interface Transform {
   boolean conflict(Transform other);
 
   /**
-   * Get the state of this action if it is currently running (according to the given time).
+   * Get the state of this action if it is currentlsty running (according to the given time).
    */
   String stateString(int currTime);
 

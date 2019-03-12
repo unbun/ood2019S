@@ -59,7 +59,7 @@ public abstract class AbstractPrint extends AbstractTransform {
   /**
    * The method that actually mutates the shape of the class.
    */
-  public abstract void applyHelp();
+  protected abstract void applyHelp();
 
 
   protected void println(String... strings) {

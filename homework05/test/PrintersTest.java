@@ -181,7 +181,5 @@ public class PrintersTest {
     assertEquals("Init R rectangle :\tqueued\n",create.stateString(9));
     assertEquals("Init R rectangle :\trunning[0/1 secs]\n",create.stateString(10));
     assertEquals("Init R rectangle :\tfinished\n",create.stateString(11));
-
-
   }
 }
