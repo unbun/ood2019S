@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * text-description model, because it shouldn be the view's job to create and output shapes
  * according to what is happening in the model.
  */
-public interface AnimationModel{
+public interface AnimationModel {
 
 
   /**

@@ -39,6 +39,7 @@ public interface Transform {
 
   /**
    * Get the shape of the shape in this shape tranformation
+   *
    * @return the shape of the transformation
    */
   LiveShape getShape();

@@ -1,12 +1,10 @@
 package cs3500.animation.model;
 
 import cs3500.animation.actions.Transform;
-import cs3500.animation.actions.printers.AbstractPrint;
 import cs3500.animation.shapes.LiveShape;
 import cs3500.animation.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 

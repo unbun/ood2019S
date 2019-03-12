@@ -10,7 +10,7 @@ import java.util.Objects;
  * Represents a Shape that can move/be animated. (In other words a Shape with built-in, trackable
  * mutation).
  */
-public abstract class LiveShape{
+public abstract class LiveShape {
 
   private Map<String, Object> originalfields;
 
@@ -39,12 +39,11 @@ public abstract class LiveShape{
     this.color = Objects.requireNonNull(color, "color cannot be null");
     this.name = Objects.requireNonNull(name, "name cannot be null");
 
-
     // to ensure that the original fields are truly original, they need to be created in the
     // constructor. But you can't copy an object (in the traditional sense) in the constructor,
     // so we did it reflexively
     try {
-      this.originalfields = Utils.reflexiveCopy(this, 1,"originalfields");
+      this.originalfields = Utils.reflexiveCopy(this, 1, "originalfields");
     } catch (IllegalAccessException e) {
       throw new IllegalArgumentException("values are un-parsable");
     }
@@ -82,7 +81,7 @@ public abstract class LiveShape{
   ///////////////////////////////
 
   public void reset() {
-    this.height =(int) this.originalfields.get("height");
+    this.height = (int) this.originalfields.get("height");
     this.width = (Integer) this.originalfields.get("width");
 //    this.heading = (Integer) this.originalfields.get("heading");
     this.posn = (Posn) this.originalfields.get("posn");
