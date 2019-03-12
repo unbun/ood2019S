@@ -4,11 +4,13 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.*;
 
 import cs3500.turtle.model.Position2D;
 import cs3500.turtle.tracingmodel.Line;
+import cs3500.turtle.tracingmodel.TracingTurtleModel;
 
 /**
  * This panel represents the region where the
@@ -25,8 +27,10 @@ public class TurtlePanel extends JPanel {
   //the rectangle within which all lines lie
   private Position2D minD, maxD;
 
+  private TracingTurtleModel model; //this should be a ReadOnlyTurtleModel
 
-  public TurtlePanel() {
+
+  public TurtlePanel(TracingTurtleModel model) {
     super();
     lines = new ArrayList<Line>();
     this.setBackground(Color.WHITE);
@@ -34,6 +38,7 @@ public class TurtlePanel extends JPanel {
     maxD = new Position2D(0, 0);
     turtlePosition = new Position2D(0, 0);
     turtleHeading = 0.0;
+    this.model = Objects.requireNonNull(model);
 
   }
 
