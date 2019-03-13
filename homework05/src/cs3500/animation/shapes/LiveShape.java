@@ -10,25 +10,24 @@ import java.util.Objects;
  * Represents a Shape that can move/be animated. (In other words a Shape with built-in, trackable
  * mutation).
  */
-public abstract class LiveShape{
+public abstract class LiveShape implements Comparable<LiveShape> {
 
-  private Map<String, Object> originalfields;
-
+  final String name;
   int height;
   int width;
   int heading; //angle in degrees
   Posn posn;
   Color color;
-  String name;
+  private Map<String, Object> originalfields;
 
   /**
    * Constructs an AbstractShape.
    *
-   * @param height the height of the shape
-   * @param width the width of the shape
-   * @param posn the position of the shape
-   * @param color the color of the shape
-   * @param name the name of the shape
+   * @param height the height of the myShape
+   * @param width the width of the myShape
+   * @param posn the position of the myShape
+   * @param color the color of the myShape
+   * @param name the name of the myShape
    */
   public LiveShape(int height, int width, int heading, Posn posn, Color color,
       String name) {
@@ -39,12 +38,11 @@ public abstract class LiveShape{
     this.color = Objects.requireNonNull(color, "color cannot be null");
     this.name = Objects.requireNonNull(name, "name cannot be null");
 
-
-    // to ensure that the original fields are truly original, they need to be created in the
+    // to ensure that the prevState fields are truly prevState, they need to be created in the
     // constructor. But you can't copy an object (in the traditional sense) in the constructor,
     // so we did it reflexively
     try {
-      this.originalfields = Utils.reflexiveCopy(this, 1,"originalfields");
+      this.originalfields = Utils.reflexiveCopy(this, 1, "originalfields");
     } catch (IllegalAccessException e) {
       throw new IllegalArgumentException("values are un-parsable");
     }
@@ -55,7 +53,7 @@ public abstract class LiveShape{
   ///////////////////////////////////////////
 
   /**
-   * Returns a string identification of this shape.
+   * Returns a string identification of this myShape.
    */
   public abstract String getID();
 
@@ -82,16 +80,15 @@ public abstract class LiveShape{
   ///////////////////////////////
 
   public void reset() {
-    this.height =(int) this.originalfields.get("height");
+    this.height = (int) this.originalfields.get("height");
     this.width = (Integer) this.originalfields.get("width");
-//    this.heading = (Integer) this.originalfields.get("heading");
+    this.heading = (Integer) this.originalfields.get("heading");
     this.posn = (Posn) this.originalfields.get("posn");
     this.color = (Color) this.originalfields.get("color");
-    this.name = (String) this.originalfields.get("name");
   }
 
   /**
-   * Move the shape to the given positoin.
+   * Move the myShape to the given positoin.
    *
    * @param endPoint the position to move through
    */
@@ -100,7 +97,7 @@ public abstract class LiveShape{
   }
 
   /**
-   * Turn the shape to head in the given angle.
+   * Turn the myShape to head in the given angle.
    *
    * @param endHeading the angle to turn to
    */
@@ -109,7 +106,7 @@ public abstract class LiveShape{
   }
 
   /**
-   * Change the color of the shape to the given color.
+   * Change the color of the myShape to the given color.
    *
    * @param c the color to change to
    */
@@ -118,7 +115,7 @@ public abstract class LiveShape{
   }
 
   /**
-   * Change the size of the shape by the given factors.
+   * Change the size of the myShape by the given factors.
    *
    * @param xFactor the factor to change the width by
    * @param yFactor the factor to change the height by
@@ -128,9 +125,17 @@ public abstract class LiveShape{
     this.width *= (Double) Utils.requireNonNegative(xFactor, "xFactor");
   }
 
+  public abstract LiveShape copy();
+
   //////////////////////////////////////
-  ////////// OBJECT OVERRIDES //////////
+  ////////// OBJECT HANDLING ///////////
   //////////////////////////////////////
+
+
+  @Override
+  public int compareTo(LiveShape o) {
+    return this.getID().compareTo(o.getID());
+  }
 
   @Override
   public int hashCode() {
@@ -146,4 +151,6 @@ public abstract class LiveShape{
       return false;
     }
   }
+
+
 }

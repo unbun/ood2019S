@@ -41,10 +41,9 @@ public class Utils {
    * Fields can also be ignored using the Collection parameter, but the names in that parameter must
    * match the field names exactly.
    *
-   *
    * @param obj1 the object to get the specified fields from
    * @param superLvl the level to move up in super classes. However, the class level will stop
-   *                 before it gets to the Object class.
+   * before it gets to the Object class.
    * @param ignore the name of the fields to ignore
    * @return a HashMap of the fields of the object as specified by the parameters
    * @throws IllegalArgumentException if the arguments are invalid
@@ -67,9 +66,9 @@ public class Utils {
 
     HashMap<String, Object> map = new HashMap<>();
 
-    for(Field f : fields){
+    for (Field f : fields) {
       String name = f.getName();
-      if(!Arrays.asList(ignore).contains(name)){
+      if (!Arrays.asList(ignore).contains(name)) {
         f.setAccessible(true);
         Object value = f.get(obj1);
         map.put(name, value);
