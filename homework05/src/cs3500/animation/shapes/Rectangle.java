@@ -9,13 +9,20 @@ import java.awt.Color;
 public final class Rectangle extends LiveShape {
 
   /**
+   * Copy Constructor for Rectangle
+   */
+  public Rectangle(Rectangle copy) {
+    super(copy.height, copy.width, copy.heading, copy.posn, copy.color, copy.name);
+  }
+
+  /**
    * A Movable Rectangle.
    *
    * @param height height of rectangle
    * @param width width of rectangle
-   * @param heading angle the shape is heading
-   * @param x x of the position of the shape
-   * @param y y of the positoin of the shape
+   * @param heading angle the myShape is heading
+   * @param x x of the position of the myShape
+   * @param y y of the positoin of the myShape
    * @param color the color
    * @param name the name/id
    */
@@ -35,6 +42,11 @@ public final class Rectangle extends LiveShape {
    */
   public Rectangle(int height, int width, int heading, Posn posn, Color color, String name) {
     super(height, width, heading, posn, color, name);
+  }
+
+  @Override
+  public LiveShape copy() {
+    return new Rectangle(this);
   }
 
   @Override

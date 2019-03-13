@@ -1,49 +1,40 @@
 package cs3500.animation.model;
 
-import cs3500.animation.actions.Transform;
 import cs3500.animation.shapes.LiveShape;
-import java.util.ArrayList;
+import cs3500.animation.transforms.Transform;
 
 /**
- * A general representation of a model of an animation of shapes. We create to use the
- * text-description model, because it shouldn be the view's job to create and output shapes
- * according to what is happening in the model.
+ *
  */
 public interface AnimationModel {
 
 
   /**
-   * Adds the given motions to this animation'shape list of motions and implements them at the
+   * Adds the given motions to this animation'myShape list of motions and implements them at the
    * corresponding time, if the motions do not conflict with any preexisting motions and if the
-   * motions act upon shapes within this model.
+   * motions act upon shapefx within this model.
    *
    * @param transforms the motions to be added
    * @throws IllegalArgumentException if any of the given motions conflict with another motion in
-   * this model or if any motions act upon shapes not present in this model
+   * this model or if any motions act upon shapefx not present in this model
    */
-  void addMotions(Transform... transforms) throws IllegalArgumentException;
+  void addMotions(Transform<LiveShape>... transforms) throws IllegalArgumentException;
 
   /**
-   * Updates the model based on the current time by implementing the motions designated to take
-   * place at that time.
+   * Removes motions that are finished
    */
-  void updateModel();
+  void flushMotions();
+
+  void onTick();
 
 
   /**
-   * Resets all of the shapes in the model and restart the timer
+   * Resets all of the shapefx in the model and restart the timer
    */
   void reset();
 
   /**
-   * Get each shape in it's current state;
-   *
-   * @return a list of shapes that the model is controlling
-   */
-  ArrayList<LiveShape> getShapes();
-
-  /**
-   * Start the actions. (cannot happen if the timer has been stopped).
+   * Start the transforms. (cannot happen if the timer has been stopped).
    */
   void start() throws IllegalStateException;
 
@@ -55,14 +46,14 @@ public interface AnimationModel {
   void restartTime() throws IllegalStateException;
 
   /**
-   * Stop the actions (once stopped, it cannot be re-started).
+   * Stop the transforms (once stopped, it cannot be re-started).
    */
   void stop();
 
   /**
-   * Get the current time.
+   * Get the myShape time.
    *
-   * @return the current time
+   * @return the myShape time
    */
   int currTime();
 }
