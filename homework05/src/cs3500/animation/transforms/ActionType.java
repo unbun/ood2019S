@@ -1,8 +1,8 @@
-package cs3500.animation.actions;
+package cs3500.animation.transforms;
 
 
 /**
- * Types of actions that can be done for actions.
+ * Types of transforms that can be done for transforms.
  */
 public enum ActionType {
   CREATE("shape"), IDLE("still"), MOVE("motion"), SCALE("scale"), RECOLOR("color"), ROTATE(

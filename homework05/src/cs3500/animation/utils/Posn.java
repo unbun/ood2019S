@@ -24,7 +24,7 @@ public class Posn {
 
   @Override
   public String toString() {
-    return String.format("{x=d, y=%d}",x,y);
+    return String.format("{x=d, y=%d}", x, y);
   }
 
   @Override

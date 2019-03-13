@@ -5,10 +5,9 @@ import static org.junit.Assert.fail;
 import cs3500.animation.shapes.Rectangle;
 import cs3500.animation.utils.Posn;
 import cs3500.animation.utils.Utils;
-import org.junit.Test;
-
-import java.awt.*;
+import java.awt.Color;
 import java.util.HashMap;
+import org.junit.Test;
 
 /**
  * Test the utils class.
@@ -93,16 +92,16 @@ public class UtilsTest {
     assertEquals(6, test1.get("width"));
     assertEquals(-90, test1.get("heading"));
     assertNull(test1.get("posn"));
-    assertEquals(Color.red,test1.get("color"));
+    assertEquals(Color.red, test1.get("color"));
     assertNull(test1.get("name"));
   }
 
   @Test
-  public void testReflection4(){
-    HashMap<String,Object> test1 = null;
+  public void testReflection4() {
+    HashMap<String, Object> test1 = null;
     //test ignoring again
     try {
-      test1 = Utils.reflexiveCopy(new Posn(-4, 5),0,"x");
+      test1 = Utils.reflexiveCopy(new Posn(-4, 5), 0, "x");
     } catch (IllegalAccessException e) {
       fail("test shouldn't fail");
     }

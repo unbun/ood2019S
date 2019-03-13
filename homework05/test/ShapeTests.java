@@ -10,7 +10,7 @@ import java.awt.Color;
 import org.junit.Test;
 
 /**
- * Test shapes.
+ * Test shapefx.
  */
 public class ShapeTests {
 
@@ -26,7 +26,7 @@ public class ShapeTests {
   }
 
   @Test
-  public void testReset(){
+  public void testReset() {
     initShapes();
 
     assertEquals(oval, new Oval(10, 10, 90, new Posn(0, 0), Color.blue, "O1"));
@@ -35,8 +35,8 @@ public class ShapeTests {
 
     oval.turnTo(12);
     oval.recolor(Color.PINK);
-    rect.moveTo(new Posn(-6,-9));
-    rect.scale(2,2);
+    rect.moveTo(new Posn(-6, -9));
+    rect.scale(2, 2);
     tri.turnTo(60);
     tri.recolor(Color.PINK);
 
