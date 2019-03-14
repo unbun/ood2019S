@@ -1,4 +1,4 @@
-package cs3500.animation.utils;
+package cs3500.animator.util;
 
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ public class Posn {
 
   @Override
   public String toString() {
-    return String.format("{x=d, y=%d}", x, y);
+    return String.format("{x=%d, y=%d}", x, y);
   }
 
   @Override

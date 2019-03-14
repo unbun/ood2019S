@@ -1,13 +1,14 @@
-package cs3500.animation.transforms.shapefx;
+package cs3500.animator.transforms.shapefx;
 
-import cs3500.animation.shapes.LiveShape;
-import cs3500.animation.transforms.ActionType;
+import cs3500.animator.shapes.LiveShape;
+import cs3500.animator.transforms.TransformType;
+import cs3500.animator.transforms.InstantTransform;
 
 /**
  * Represents a movement of a given myShape in a given model from one position to another over a
  * given period of time.
  */
-public class Turn extends InstantShapeTransform {
+public final class Turn extends InstantTransform {
 
   private int endHeading;
 
@@ -15,19 +16,18 @@ public class Turn extends InstantShapeTransform {
    * Represents a movement of a given myShape in a given model from one position to another over a
    * given period of time.
    *
-   * @param shape the myShape this action does.
    * @param startTime the time this action should start
    * @param endTime the time this action should end
    * @param endHeading the angle this action should result in for the myShape
    */
-  public Turn(LiveShape shape, int startTime, int endTime, int endHeading) {
-    super(ActionType.ROTATE, shape, startTime, endTime);
+  public Turn(int startTime, int endTime, int endHeading) {
+    super(TransformType.ROTATE, startTime, endTime);
     this.endHeading = endHeading;
   }
 
 
   @Override
-  public void mutate(LiveShape ls) {
+  protected void mutate(LiveShape ls) {
     ls.turnTo(endHeading);
   }
 }

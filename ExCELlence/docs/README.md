@@ -1,19 +1,19 @@
 # AnimationModel
-The AnimationModel interface contains the methods necessary of keeping track of time, adding and removing transformations.
+The AnimationModel interface contains the methods necessary of keeping track of time, storing shapes, and outputing the states of those shapes
 
 ## ShapeFXModel
 This model implements the methods of AnimationModel in ways that will reduce redunandt code when different models will need to be created
 
-### PrintFXModel
-This model updates a StringBuilder/Appendable String Stream based on the Transformation states.
+#### PrintFXModel
+This model outputs the state of the shapes as Strings formatted by the Text format
 
 # LiveShapes
-LiveShapes are different kinds of shapes that can be mutated, copied, or reset to their original states. LiveShapes are Comparable (using a combination of their ID Strings, and the type of shape that they are). The reset is done with reflection on the LiveShape fields.
+LiveShapes are different kinds of shapes (Oval, Rectangle, Triangle) that have stored transforms. The LiveShapes are mutable, but they aren't directly mutated by the Transformations. The LiveShapes are copied and then mutated.
 
 # Transforms<T>
-Transforms change/transform a given Object (of type T) at a given time. The transformation is done in it's apply method, and the time at which that transformation will actually be completed is determined by the finished() and started() methods
+Transforms change/transform a given Object (of type T) at a given time. The transformation is done in it's apply method (which recieves a shape to mutate), and the time at which that transformation will actually be completed is determined by the finished() and started() methods. 
 
 ## InstantShapeTransform implements Transforms<LiveShape>
-InstantShapeTransforms wait until their start time, then mutate their LiveShapes, store these actions in Strings, and then they won't do anything after that first call to their apply function. This means that their strBefore and strAfter accurately show what the shapes were like before and after the transformation was complete. While these mutations are instant and only happen once at the starttime, the InstantShapeTransform's finished() methods still behave according to the endTime class field.
+InstantShapeTransforms wait until their start time, then mutate a given LiveShapes,  and then they won't do anything to any shape after that first call to their apply function. This means that their strBefore and strAfter accurately show what the shapes were like before and after the transformation was complete. While these mutations are instant and only happen once at the starttime, the InstantShapeTransform's finished() methods still behave according to the endTime class field. The transformations store what the state of the Object was before and after the mutation. The InstantShapeTransforms are Create, MoveTo, TurnTo, ScaleBy, RecolorTo, Idle
 
 

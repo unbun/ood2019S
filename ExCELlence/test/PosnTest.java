@@ -1,7 +1,7 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import cs3500.animation.utils.Posn;
+import cs3500.animator.util.Posn;
 import org.junit.Test;
 
 /**
@@ -17,6 +17,9 @@ public class PosnTest {
 
   @Test
   public void testPosn() {
+    assertEquals("{x=12, y=34}", p1.toString());
+    assertEquals(1367, p1.hashCode());
+
     assertEquals(p0, new Posn(0, 0));
     assertEquals(p3, new Posn(-90 + 1, -90));
     assertNotEquals(p1, p2);
@@ -27,6 +30,4 @@ public class PosnTest {
     assertEquals(-45, p2.x);
     assertEquals(-90, p3.y);
   }
-
-
 }

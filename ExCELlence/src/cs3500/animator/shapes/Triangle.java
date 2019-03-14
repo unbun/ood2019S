@@ -1,6 +1,7 @@
-package cs3500.animation.shapes;
+package cs3500.animator.shapes;
 
-import cs3500.animation.utils.Posn;
+import cs3500.animator.transforms.Transform;
+import cs3500.animator.util.Posn;
 import java.awt.Color;
 
 /**
@@ -12,7 +13,7 @@ public final class Triangle extends LiveShape {
    * Copy Constructor for Oval
    */
   public Triangle(Triangle copy) {
-    super(copy.height, copy.width, copy.heading, copy.posn, copy.color, copy.name);
+    super(copy);
   }
 
   /**
@@ -26,8 +27,8 @@ public final class Triangle extends LiveShape {
    * @param color the color
    * @param name the name/id
    */
-  public Triangle(int height, int width, int heading, int x, int y, Color color, String name) {
-    super(height, width, heading, new Posn(x, y), color, name);
+  public Triangle(int currTime, int height, int width, int heading, int x, int y, Color color, String name) {
+    super(currTime, height, width, heading, new Posn(x, y), color, name);
   }
 
   /**
@@ -40,10 +41,9 @@ public final class Triangle extends LiveShape {
    * @param color the color
    * @param name the name/id
    */
-  public Triangle(int height, int width, int heading, Posn posn, Color color, String name) {
-    super(height, width, heading, posn, color, name);
+  public Triangle(int currTime, int height, int width, int heading, Posn posn, Color color, String name) {
+    super(currTime, height, width, heading, posn, color, name);
   }
-
 
   @Override
   public LiveShape copy() {
@@ -57,10 +57,8 @@ public final class Triangle extends LiveShape {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    } else if (obj instanceof Triangle) {
-      return this.hashCode() == ((Triangle) obj).hashCode();
+    if(obj instanceof Triangle){
+      return super.equals(obj);
     } else {
       return false;
     }
@@ -69,6 +67,11 @@ public final class Triangle extends LiveShape {
   @Override
   public int hashCode() {
     return super.hashCode() + 31 * "triangle".hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Triangle@[" + super.toString() + "]";
   }
 
 }

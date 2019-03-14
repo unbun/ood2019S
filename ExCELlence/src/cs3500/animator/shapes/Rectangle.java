@@ -1,6 +1,6 @@
-package cs3500.animation.shapes;
+package cs3500.animator.shapes;
 
-import cs3500.animation.utils.Posn;
+import cs3500.animator.util.Posn;
 import java.awt.Color;
 
 /**
@@ -12,7 +12,7 @@ public final class Rectangle extends LiveShape {
    * Copy Constructor for Rectangle
    */
   public Rectangle(Rectangle copy) {
-    super(copy.height, copy.width, copy.heading, copy.posn, copy.color, copy.name);
+    super(copy);
   }
 
   /**
@@ -26,8 +26,8 @@ public final class Rectangle extends LiveShape {
    * @param color the color
    * @param name the name/id
    */
-  public Rectangle(int height, int width, int heading, int x, int y, Color color, String name) {
-    super(height, width, heading, new Posn(x, y), color, name);
+  public Rectangle(int currTime, int height, int width, int heading, int x, int y, Color color, String name) {
+    super(currTime, height, width, heading, new Posn(x, y), color, name);
   }
 
   /**
@@ -40,8 +40,8 @@ public final class Rectangle extends LiveShape {
    * @param color the color
    * @param name the name/id
    */
-  public Rectangle(int height, int width, int heading, Posn posn, Color color, String name) {
-    super(height, width, heading, posn, color, name);
+  public Rectangle(int currTime, int height, int width, int heading, Posn posn, Color color, String name) {
+    super(currTime, height, width, heading, posn, color, name);
   }
 
   @Override
@@ -56,10 +56,8 @@ public final class Rectangle extends LiveShape {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    } else if (obj instanceof Rectangle) {
-      return this.hashCode() == ((Rectangle) obj).hashCode();
+    if(obj instanceof Rectangle){
+      return super.equals(obj);
     } else {
       return false;
     }
@@ -68,6 +66,11 @@ public final class Rectangle extends LiveShape {
   @Override
   public int hashCode() {
     return super.hashCode() + 31 * "rectangle".hashCode();
+  }
+
+  @Override
+  public String toString() {
+    return "Rectangle@[" + super.toString() + "]";
   }
 
 }
