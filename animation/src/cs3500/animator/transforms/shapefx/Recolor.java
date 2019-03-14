@@ -1,8 +1,8 @@
 package cs3500.animator.transforms.shapefx;
 
 import cs3500.animator.shapes.LiveShape;
-import cs3500.animator.transforms.TransformType;
 import cs3500.animator.transforms.InstantTransform;
+import cs3500.animator.transforms.TransformType;
 import java.awt.Color;
 
 /**
@@ -22,7 +22,7 @@ public final class Recolor extends InstantTransform {
    * @param newColor the color this action should result in for the myShape
    */
   public Recolor(int startTime, int endTime, Color newColor) {
-    super(TransformType.RECOLOR,startTime, endTime);
+    super(TransformType.RECOLOR, startTime, endTime);
     this.newColor = newColor;
   }
 

@@ -4,60 +4,61 @@ import cs3500.animator.util.Posn;
 import java.awt.Color;
 
 /**
- * Represents an oval.
+ * Represents a rectangle.
  */
-public final class Oval extends LiveShape {
-
+public final class Rectangle extends LiveShape {
 
   /**
-   * Copy Constructor for Oval
+   * Copy Constructor for Rectangle
    */
-  public Oval(Oval copy) {
+  public Rectangle(Rectangle copy) {
     super(copy);
   }
 
   /**
-   * A Movable Oval.
+   * A Movable Rectangle.
    *
-   * @param height height of oval
-   * @param width width of oval
+   * @param height height of rectangle
+   * @param width width of rectangle
    * @param heading angle the myShape is heading
    * @param x x of the position of the myShape
    * @param y y of the positoin of the myShape
    * @param color the color
    * @param name the name/id
    */
-  public Oval(int currTime, int height, int width, int heading, int x, int y, Color color, String name) {
+  public Rectangle(int currTime, int height, int width, int heading, int x, int y, Color color,
+      String name) {
     super(currTime, height, width, heading, new Posn(x, y), color, name);
   }
 
   /**
-   * A Movable Oval.
+   * A Movable Rectangle.
    *
-   * @param height height of oval
-   * @param width width of oval
+   * @param height height of rectangle
+   * @param width width of rectangle
    * @param heading angle the oval is heading
-   * @param posn the position of the oval
+   * @param posn the position of the rectangle
    * @param color the color
    * @param name the name/id
    */
-  public Oval(int currTime, int height, int width, int heading, Posn posn, Color color, String name) {
+  public Rectangle(int currTime, int height, int width, int heading, Posn posn, Color color,
+      String name) {
     super(currTime, height, width, heading, posn, color, name);
   }
 
   @Override
   public LiveShape copy() {
-    return new Oval(this);
+    return new Rectangle(this);
   }
 
   @Override
   public String getID() {
-    return name + " oval";
+    return name + " rectangle";
   }
 
   @Override
   public boolean equals(Object obj) {
-    if(obj instanceof Oval){
+    if (obj instanceof Rectangle) {
       return super.equals(obj);
     } else {
       return false;
@@ -66,12 +67,12 @@ public final class Oval extends LiveShape {
 
   @Override
   public int hashCode() {
-    return super.hashCode() + 31 * "oval".hashCode();
+    return super.hashCode() + 31 * "rectangle".hashCode();
   }
 
   @Override
   public String toString() {
-    return "Oval@[" + super.toString() + "]";
+    return "Rectangle@[" + super.toString() + "]";
   }
-}
 
+}

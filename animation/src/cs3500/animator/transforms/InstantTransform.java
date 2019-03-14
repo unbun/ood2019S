@@ -49,9 +49,9 @@ public abstract class InstantTransform implements Transform<LiveShape> {
 
   @Override
   public LiveShape apply(LiveShape toMutate, int currTime) {
-    try{
+    try {
       Objects.requireNonNull(toMutate);
-    } catch (NullPointerException ne){
+    } catch (NullPointerException ne) {
       throw new IllegalArgumentException(ne.getMessage());
     }
 

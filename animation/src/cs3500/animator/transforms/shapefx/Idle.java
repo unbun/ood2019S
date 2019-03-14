@@ -1,8 +1,8 @@
 package cs3500.animator.transforms.shapefx;
 
 import cs3500.animator.shapes.LiveShape;
-import cs3500.animator.transforms.TransformType;
 import cs3500.animator.transforms.InstantTransform;
+import cs3500.animator.transforms.TransformType;
 
 /**
  * Represents a period of time in which no fields of the myShape will change.
@@ -20,5 +20,6 @@ public final class Idle extends InstantTransform {
   }
 
   @Override
-  protected void mutate(LiveShape ls) {}
+  protected void mutate(LiveShape ls) {
+  }
 }

@@ -29,9 +29,8 @@ public abstract class LiveShape implements Comparable<LiveShape> {
 
   /**
    * Copy constructor (does not need a Create transformation)
-   * @param toCopy
    */
-  public LiveShape(LiveShape toCopy){
+  public LiveShape(LiveShape toCopy) {
     name = toCopy.name;
     height = toCopy.height;
     width = toCopy.width;
@@ -68,21 +67,18 @@ public abstract class LiveShape implements Comparable<LiveShape> {
   /**
    * A transforms given will only be added if they don't conflict with another transform for this
    * shape and if they are actually set for this shape.
-   * @param transforms
    */
-  public final void addTransforms(Transform<LiveShape> ... transforms){
+  public final void addTransforms(Transform<LiveShape>... transforms) {
     transformList.addAll(Arrays.asList(transforms));
   }
 
   /**
    * Get the state of this LiveShape at the given time (doesn't actually mutate {@code this} shape.
-   * @param currTime
-   * @return
    */
-  public LiveShape update(int currTime){
+  public LiveShape update(int currTime) {
     LiveShape toMutate = this.copy();
 
-    for(Transform<LiveShape> t: transformList){
+    for (Transform<LiveShape> t : transformList) {
       toMutate = t.apply(this, currTime);
     }
 
@@ -96,20 +92,20 @@ public abstract class LiveShape implements Comparable<LiveShape> {
   /**
    *
    */
-   public String buildTextDoc(){
-     StringBuilder result = new StringBuilder();
+  public String buildTextDoc() {
+    StringBuilder result = new StringBuilder();
 
-     List<Transform<LiveShape>> sorted =
-         transformList.stream().sorted(Comparator.comparingInt(Transform::startTime)).collect(
-             Collectors.toList());
+    List<Transform<LiveShape>> sorted =
+        transformList.stream().sorted(Comparator.comparingInt(Transform::startTime)).collect(
+            Collectors.toList());
 
-     for(Transform<LiveShape> t : sorted){
-       result.append(t.textualStr());
-       result.append("\n");
-     }
+    for (Transform<LiveShape> t : sorted) {
+      result.append(t.textualStr());
+      result.append("\n");
+    }
 
-     return result.toString();
-   }
+    return result.toString();
+  }
 
    /*
    public String buildSvgDoc(){
@@ -130,9 +126,8 @@ public abstract class LiveShape implements Comparable<LiveShape> {
 
   /**
    * Returns the name of this shape
-   * @return
    */
-  public String getName(){
+  public String getName() {
     return this.name;
   }
 
@@ -210,7 +205,7 @@ public abstract class LiveShape implements Comparable<LiveShape> {
 
   @Override
   public boolean equals(Object obj) {
-    if(this == obj){
+    if (this == obj) {
       return true;
     } else if (obj instanceof LiveShape) {
       return this.hashCode() == obj.hashCode();

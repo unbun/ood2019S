@@ -1,7 +1,6 @@
 package cs3500.animator.model;
 
 import cs3500.animator.shapes.LiveShape;
-import cs3500.animator.transforms.Transform;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,17 +28,16 @@ import java.util.TimerTask;
  */
 public abstract class ShapeFXModel<V> implements AnimationModel<V> {
 
+  protected List<LiveShape> shapes;
   private Timer t;
   private int rate;
   private int currTime;
-
-  protected List<LiveShape> shapes;
 
   public ShapeFXModel(int rate) {
     this(rate, new ArrayList<>());
   }
 
-  public ShapeFXModel(int rate, LiveShape... shapes){
+  public ShapeFXModel(int rate, LiveShape... shapes) {
     this(rate, Arrays.asList(shapes));
   }
 
@@ -57,10 +55,10 @@ public abstract class ShapeFXModel<V> implements AnimationModel<V> {
   }
 
   @Override
-  public void addShapes(LiveShape ... shps) {
-    for(LiveShape s: shps){
-      if(!shapes.contains(s)){ // no repetitions
-          shapes.add(s);
+  public void addShapes(LiveShape... shps) {
+    for (LiveShape s : shps) {
+      if (!shapes.contains(s)) { // no repetitions
+        shapes.add(s);
       }
     }
   }
@@ -94,7 +92,7 @@ public abstract class ShapeFXModel<V> implements AnimationModel<V> {
 
   @Override
   public void start() {
-    if(currTime != -1){
+    if (currTime != -1) {
       throw new IllegalStateException("Cannot start a timer that is already running");
     }
 

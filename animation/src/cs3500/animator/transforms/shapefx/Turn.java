@@ -1,8 +1,8 @@
 package cs3500.animator.transforms.shapefx;
 
 import cs3500.animator.shapes.LiveShape;
-import cs3500.animator.transforms.TransformType;
 import cs3500.animator.transforms.InstantTransform;
+import cs3500.animator.transforms.TransformType;
 
 /**
  * Represents a movement of a given myShape in a given model from one position to another over a

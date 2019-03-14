@@ -27,7 +27,7 @@ public class TextFXModelTest {
   private static final int TEST_WAIT = 10;
 
   @Test(expected = IllegalArgumentException.class)
-  public void testRepeatShape(){
+  public void repeatedShape(){
     LiveShape r1 = new Rectangle(0,0,0,0,0,0,Color.RED,"R");
     LiveShape r2 = new Rectangle(1,1,1,1,1,1,Color.BLUE,"R");
     ArrayList<LiveShape> shapes = new ArrayList<>(Arrays.asList(r1,r2));
@@ -35,7 +35,7 @@ public class TextFXModelTest {
   }
 
   @Test
-  public void testAddShapes() {
+  public void addShapes() {
     ShapeFXModel m = new TextFXModel(TEST_RATE);
 
     LiveShape r1 = new Rectangle(0,0,0,0,0,0,Color.RED,"R");
@@ -53,7 +53,7 @@ public class TextFXModelTest {
   }
 
   @Test
-  public void testAnimationState() {
+  public void animationStateTest() {
 
     LiveShape r = new Rectangle(0, 100, 50, 0, new Posn(200, 200), Color.RED,
         "R");
@@ -126,7 +126,7 @@ public class TextFXModelTest {
     assertEquals(2, m.getTime());
   }
 
-  //Timer Tests
+  // Timer Tests
 
   @Test
   public void startedTimer() {

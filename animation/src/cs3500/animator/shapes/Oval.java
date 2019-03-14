@@ -1,63 +1,65 @@
 package cs3500.animator.shapes;
 
-import cs3500.animator.transforms.Transform;
 import cs3500.animator.util.Posn;
 import java.awt.Color;
 
 /**
- * Represents a triangle.
+ * Represents an oval.
  */
-public final class Triangle extends LiveShape {
+public final class Oval extends LiveShape {
+
 
   /**
    * Copy Constructor for Oval
    */
-  public Triangle(Triangle copy) {
+  public Oval(Oval copy) {
     super(copy);
   }
 
   /**
-   * A Movable Triangle.
+   * A Movable Oval.
    *
-   * @param height height of Triangle
-   * @param width width of Triangle
+   * @param height height of oval
+   * @param width width of oval
    * @param heading angle the myShape is heading
    * @param x x of the position of the myShape
    * @param y y of the positoin of the myShape
    * @param color the color
    * @param name the name/id
    */
-  public Triangle(int currTime, int height, int width, int heading, int x, int y, Color color, String name) {
+  public Oval(int currTime, int height, int width, int heading, int x, int y, Color color,
+      String name) {
     super(currTime, height, width, heading, new Posn(x, y), color, name);
   }
 
   /**
-   * A Movable Triangle.
+   * A Movable Oval.
    *
-   * @param height height of triangle
-   * @param width width of triangle
-   * @param heading angle the triangle is heading
-   * @param posn the position of the triangle
+   * @param height height of oval
+   * @param width width of oval
+   * @param heading angle the oval is heading
+   * @param posn the position of the oval
    * @param color the color
    * @param name the name/id
    */
-  public Triangle(int currTime, int height, int width, int heading, Posn posn, Color color, String name) {
+  public Oval(int currTime, int height, int width, int heading, Posn posn, Color color,
+      String name) {
     super(currTime, height, width, heading, posn, color, name);
   }
 
   @Override
   public LiveShape copy() {
-    return new Triangle(this);
+    return new Oval(this);
   }
 
   @Override
   public String getID() {
-    return name + " triangle";
+    return name + " oval";
   }
 
   @Override
   public boolean equals(Object obj) {
-    if(obj instanceof Triangle){
+    if (obj instanceof Oval) {
       return super.equals(obj);
     } else {
       return false;
@@ -66,13 +68,12 @@ public final class Triangle extends LiveShape {
 
   @Override
   public int hashCode() {
-    return super.hashCode() + 31 * "triangle".hashCode();
+    return super.hashCode() + 31 * "oval".hashCode();
   }
 
   @Override
   public String toString() {
-    return "Triangle@[" + super.toString() + "]";
+    return "Oval@[" + super.toString() + "]";
   }
-
 }
 

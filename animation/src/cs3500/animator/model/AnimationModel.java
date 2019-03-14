@@ -6,7 +6,7 @@ import java.util.List;
 /**
  *
  */
-public interface AnimationModel<V>{
+public interface AnimationModel<V> {
 
   /**
    * Adds the given motions to this animator'myShape list of motions and implements them at the
@@ -14,9 +14,8 @@ public interface AnimationModel<V>{
    * motions act upon shapefx within this model.
    *
    * @param shps the shapes to be added
-   *
    */
-  void addShapes(LiveShape ... shps);
+  void addShapes(LiveShape... shps);
 
   List<LiveShape> currentShapes();
 
