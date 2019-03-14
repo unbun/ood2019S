@@ -16,4 +16,9 @@ Transforms change/transform a given Object (of type T) at a given time. The tran
 ## InstantShapeTransform implements Transforms<LiveShape>
 InstantShapeTransforms wait until their start time, then mutate a given LiveShapes,  and then they won't do anything to any shape after that first call to their apply function. This means that their strBefore and strAfter accurately show what the shapes were like before and after the transformation was complete. While these mutations are instant and only happen once at the starttime, the InstantShapeTransform's finished() methods still behave according to the endTime class field. The transformations store what the state of the Object was before and after the mutation. The InstantShapeTransforms are Create, MoveTo, TurnTo, ScaleBy, RecolorTo, Idle
 
+#Class Architecture
+
+![alt text](classDiagram.png "Animation Classes")
+
+
 
