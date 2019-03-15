@@ -1,7 +1,6 @@
 package cs3500.animator.shapes;
 
 import cs3500.animator.transforms.Transform;
-import cs3500.animator.transforms.shapefx.Create;
 import cs3500.animator.util.Posn;
 import cs3500.animator.util.Utils;
 import java.awt.Color;
@@ -10,7 +9,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.function.Function;
 
 /**
  * Represents a Shape that can move/be animated. (In other words a Shape with built-in, trackable
@@ -25,10 +24,10 @@ public abstract class LiveShape implements Comparable<LiveShape> {
   private Posn posn;
   private Color color;
 
-  private List<Transform<LiveShape>> transformList;
+  private List<Transform> transforms;
 
   /**
-   * Copy constructor (does not need a Create transformation)
+   * Copy constructor
    */
   public LiveShape(LiveShape toCopy) {
     name = toCopy.name;
@@ -37,156 +36,120 @@ public abstract class LiveShape implements Comparable<LiveShape> {
     heading = toCopy.heading;
     posn = toCopy.posn;
     color = toCopy.color;
+    transforms = toCopy.transforms;
+    this.transforms.sort(Comparator.comparingInt(Transform::sortRank));
   }
 
   /**
    * Constructs an AbstractShape.
    *
-   * @param currTime the time of creation for this shape
    * @param height the height of the shape
    * @param width the width of the shape
    * @param posn the position of the shape
    * @param color the color of the shape
    * @param name the name of the shape
    */
-  public LiveShape(int currTime, int height, int width, int heading, Posn posn, Color color,
-      String name) {
-    this.height = (Integer) Utils.requireNonNegative(height, "height");
-    this.width = (Integer) Utils.requireNonNegative(width, "width");
+  public LiveShape(int height, int width, int heading, Posn posn, Color color,
+      String name, List<Transform> transforms) {
+    this.height = Utils.requireNonNegative(height, "height");
+    this.width = Utils.requireNonNegative(width, "width");
     this.heading = heading;
     this.posn = Objects.requireNonNull(posn, "posn cannot be null");
     this.color = Objects.requireNonNull(color, "color cannot be null");
     this.name = Objects.requireNonNull(name, "name cannot be null");
+    this.transforms = Objects.requireNonNull(transforms);
+    this.transforms.sort(Comparator.comparingInt(Transform::sortRank));
+  }
 
-    this.transformList = new ArrayList<>();
-    transformList.add(new Create(currTime));
+  /**
+   * Constructs an AbstractShape.
+   *
+   * @param height the height of the shape
+   * @param width the width of the shape
+   * @param posn the position of the shape
+   * @param color the color of the shape
+   * @param name the name of the shape
+   */
+  public LiveShape(int height, int width, int heading, Posn posn, Color color,
+      String name, Transform... transforms) {
+    this(height, width, heading, posn, color, name,
+        new ArrayList<>(Arrays.asList(Objects.requireNonNull(transforms))));
   }
 
   public abstract LiveShape copy();
 
-  /**
-   * A transforms given will only be added if they don't conflict with another transform for this
-   * shape and if they are actually set for this shape.
-   */
-  public final void addTransforms(Transform<LiveShape>... transforms) {
-    transformList.addAll(Arrays.asList(transforms));
+  public LiveShape transform(int height, int width, int heading, Posn posn, Color color)
+      throws IllegalArgumentException{
+    LiveShape result = this.copy();
+    result.height = Utils.requireNonNegative(height, "new height");
+    result.width = Utils.requireNonNegative(width, "new height");
+    result.heading = heading;
+    result.posn = posn;
+    result.color = color;
+    return result;
   }
 
-  /**
-   * Get the state of this LiveShape at the given time (doesn't actually mutate {@code this} shape.
-   */
-  public LiveShape update(int currTime) {
-    LiveShape toMutate = this.copy();
-
-    for (Transform<LiveShape> t : transformList) {
-      toMutate = t.apply(this, currTime);
-    }
-
-    return toMutate;
+  public void addTransforms(Transform... transforms){
+    this.transforms.addAll(Arrays.asList(transforms));
+    this.transforms.sort(Comparator.comparingInt(Transform::sortRank));
+  }
+  public LiveShape moveTo(Posn p){
+    return this.transform(this.height, this.width, this.heading, p, this.color);
   }
 
-  ///////////////////////////////////////////
-  ///////////// Build Helpers ///////////////
-  ///////////////////////////////////////////
-
-  /**
-   *
-   */
-  public String buildTextDoc() {
-    StringBuilder result = new StringBuilder();
-
-    List<Transform<LiveShape>> sorted =
-        transformList.stream().sorted(Comparator.comparingInt(Transform::startTime)).collect(
-            Collectors.toList());
-
-    for (Transform<LiveShape> t : sorted) {
-      result.append(t.textualStr());
-      result.append("\n");
-    }
-
-    return result.toString();
+  public LiveShape moveTo(int x, int y){
+    return this.moveTo(new Posn(x, y));
   }
 
-   /*
-   public String buildSvgDoc(){
+  public LiveShape turnTo(int heading){
+    return this.transform(this.height, this.width, heading, this.posn, this.color);
+  }
 
-   }
+  public LiveShape resizeH(int height){
+    return this.resize(height, this.width);
+  }
 
-   public List<LiveShape> buildJPanelDoc()
-    */
+  public LiveShape resizeW(int width){
+    return this.resize(this.height, width);
+  }
 
-  ///////////////////////////////////////////
-  ///////////// String Getters //////////////
-  ///////////////////////////////////////////
+  public LiveShape resize(int height, int width){
+    return this.transform(height, width, this.heading, this.posn, this.color);
+  }
 
-  /**
-   * Returns a string identification of this myShape. (shape type + name)
-   */
+  public LiveShape recolor(Color color){
+    return this.transform(this.height, this.width, this.heading, this.posn, color);
+  }
+
+  public LiveShape recolor(int r, int g, int b){
+    return this.recolor(new Color(r,g,b));
+  }
+
+  public LiveShape recolorRed(int r){
+    return this.recolor(r, color.getGreen(), color.getBlue());
+  }
+
+  public LiveShape recolorGreen(int g){
+    return this.recolor(color.getRed(), g, color.getBlue());
+  }
+
+  public LiveShape recolorBlue(int b){
+    return this.recolor(color.getRed(), color.getGreen(), b);
+  }
+
+  //////////////////////////////////////
+  ////////////// GETTERS ///////////////
+  //////////////////////////////////////
+
   public abstract String getID();
 
-  /**
-   * Returns the name of this shape
-   */
-  public String getName() {
+  public List<Transform> getTransforms(){
+    return new ArrayList<>(this.transforms);
+  }
+
+  public String getName(){
     return this.name;
   }
-
-  /**
-   * A string containing this Shape's field in the following format: "x y heading width height
-   * color.red color.green color.blue"
-   *
-   * @return a formatted list of this Shape's field
-   */
-  public String stateStr() {
-    return String
-        .format("%d %d %d %d %d %d %d %d",
-            this.posn.x, this.posn.y, this.heading,
-            this.width, this.height,
-            this.color.getRed(), this.color.getGreen(), this.color.getBlue());
-  }
-
-  ///////////////////////////////
-  ////////// MUTATIONS //////////
-  ///////////////////////////////
-
-  /**
-   * Move the myShape to the given positoin.
-   *
-   * @param endPoint the position to move through
-   */
-  public void moveTo(Posn endPoint) {
-    this.posn = Objects.requireNonNull(endPoint);
-  }
-
-  /**
-   * Turn the myShape to head in the given angle.
-   *
-   * @param endHeading the angle to turn to
-   */
-  public void turnTo(int endHeading) {
-    this.heading = endHeading;
-  }
-
-  /**
-   * Change the color of the myShape to the given color.
-   *
-   * @param c the color to change to
-   */
-  public void recolor(Color c) {
-    this.color = c;
-  }
-
-  /**
-   * Change the size of the myShape by the given factors.
-   *
-   * @param xFactor the factor to change the width by
-   * @param yFactor the factor to change the height by
-   */
-  public void scale(double xFactor, double yFactor) {
-    this.height *= (Double) Utils.requireNonNegative(yFactor, "yFactor");
-    this.width *= (Double) Utils.requireNonNegative(xFactor, "xFactor");
-  }
-
   //////////////////////////////////////
   ////////// OBJECT HANDLING ///////////
   //////////////////////////////////////
@@ -216,9 +179,9 @@ public abstract class LiveShape implements Comparable<LiveShape> {
 
   @Override
   public String toString() {
-    return String.format("name=%s, width=%d, height=%d, heading=%d, "
+    return String.format("name=%s, height=%d, width=%d, heading=%d, "
             + "posn={%d, %d}, color={%d,%d,%d}",
-        name, width, height, heading, posn.x, posn.y,
+        name, height, width, heading, posn.x, posn.y,
         color.getRed(), color.getGreen(), color.getBlue());
   }
 

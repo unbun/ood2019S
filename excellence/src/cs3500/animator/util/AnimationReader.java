@@ -17,7 +17,7 @@ public class AnimationReader {
    * The input file format consists of two types of lines:
    * <ul>
    * <li>Shape lines: the keyword "shape" followed by two identifiers (i.e.
-   * alphabetic strings with no spaces), giving the unique name of the shape, and the type of shape
+   * alphabetic strings with no spaces), giving the unique name of the shape, and the typeStr of shape
    * it is.</li>
    * <li>Motion lines: the keyword "motion" followed by an identifier giving the name
    * of the shape to move, and 16 integers giving the initial and final conditions of the motion:
@@ -29,7 +29,7 @@ public class AnimationReader {
    *
    * @param readable The source of data for the animator
    * @param builder A builder for helping to construct a new animator
-   * @param <Doc> The main model interface type describing animations
+   * @param <Doc> The main model interface typeStr describing animations
    */
   public static <Doc> Doc parseFile(Readable readable, AnimationBuilder<Doc> builder) {
     Objects.requireNonNull(readable, "Must have non-null readable source");
@@ -76,7 +76,7 @@ public class AnimationReader {
     if (s.hasNext()) {
       type = s.next();
     } else {
-      throw new IllegalStateException("Shape: Expected a type, but no more input available");
+      throw new IllegalStateException("Shape: Expected a typeStr, but no more input available");
     }
     builder.declareShape(name, type);
   }

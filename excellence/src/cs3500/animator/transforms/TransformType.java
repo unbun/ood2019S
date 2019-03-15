@@ -1,27 +1,16 @@
 package cs3500.animator.transforms;
 
-
-/**
- * Types of transforms that can be done for transforms.
- */
 public enum TransformType {
-  CREATE("create"), IDLE("freeze"), MOVE("motion"), SCALE("scale"), RECOLOR("color"), ROTATE(
-      "rotate");
+  MOVE("motion"), TURN("motion"), FREEZE("motion"), RECOLOR("alter"), RESIZE("alter");
 
-  String descriptor;
+  private String descript;
 
-  /**
-   * A type of action.
-   *
-   * @param descriptor the string description
-   */
-  TransformType(String descriptor) {
-    this.descriptor = descriptor;
+  TransformType(String descript) {
+    this.descript = descript;
   }
 
-
-  @Override
-  public String toString() {
-    return this.descriptor;
+  String descriptor(){
+    return this.descript;
   }
+
 }

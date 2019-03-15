@@ -18,8 +18,7 @@ public final class Oval extends LiveShape {
 
   /**
    * A Movable Oval.
-   *
-   * @param height height of oval
+   *  @param height height of oval
    * @param width width of oval
    * @param heading angle the myShape is heading
    * @param x x of the position of the myShape
@@ -27,24 +26,23 @@ public final class Oval extends LiveShape {
    * @param color the color
    * @param name the name/id
    */
-  public Oval(int currTime, int height, int width, int heading, int x, int y, Color color,
+  public Oval(int height, int width, int heading, int x, int y, Color color,
       String name) {
-    super(currTime, height, width, heading, new Posn(x, y), color, name);
+    super(height, width, heading, new Posn(x, y), color, name);
   }
 
   /**
    * A Movable Oval.
-   *
-   * @param height height of oval
+   *  @param height height of oval
    * @param width width of oval
    * @param heading angle the oval is heading
    * @param posn the position of the oval
    * @param color the color
    * @param name the name/id
    */
-  public Oval(int currTime, int height, int width, int heading, Posn posn, Color color,
+  public Oval(int height, int width, int heading, Posn posn, Color color,
       String name) {
-    super(currTime, height, width, heading, posn, color, name);
+    super(height, width, heading, posn, color, name);
   }
 
   @Override

@@ -54,31 +54,10 @@ public abstract class ShapeFXModel<V> implements AnimationModel<V> {
     this.currTime = -1;
   }
 
-  @Override
-  public void addShapes(LiveShape... shps) {
-    for (LiveShape s : shps) {
-      if (!shapes.contains(s)) { // no repetitions
-        shapes.add(s);
-      }
-    }
-  }
-
-  @Override
-  public List<LiveShape> currentShapes() {
-
-    ArrayList<LiveShape> updated = new ArrayList<>();
-
-    for (LiveShape ls : shapes) {
-      updated.add(ls.update(getTime()));
-    }
-
-    return updated;
-  }
 
   ///////////////////////////////////////////
   ////////////// TIMER METHODS //////////////
   ///////////////////////////////////////////
-
 
   @Override
   public int getTime() {
@@ -99,7 +78,6 @@ public abstract class ShapeFXModel<V> implements AnimationModel<V> {
     t.scheduleAtFixedRate(new TimerTask() {
       @Override
       public void run() {
-        currentShapes();
         currTime++;
       }
     }, 0, rate);

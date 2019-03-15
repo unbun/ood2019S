@@ -14,12 +14,18 @@ public class Utils {
    * @return the number if it is not negative
    * @throws IllegalArgumentException thrown if the number is negative
    */
-  public static Number requireNonNegative(Number n, String name) throws IllegalArgumentException {
-    if (n.doubleValue() < 0) {
-      throw new IllegalArgumentException(name + " cannot be negative.");
-    }
+   public static <T> T requireNonNegative(T n, String name) throws IllegalArgumentException {
+     if(n instanceof Number){
+       Number nNum = (Number)n;
+       if (nNum.doubleValue() < 0) {
+         throw new IllegalArgumentException(name + " cannot be negative.");
+       }
 
-    return n;
+       return n;
+     }
+
+     throw new IllegalArgumentException(name + "is not a number");
+
   }
 
 }

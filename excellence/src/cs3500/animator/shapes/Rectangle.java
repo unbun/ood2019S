@@ -17,8 +17,7 @@ public final class Rectangle extends LiveShape {
 
   /**
    * A Movable Rectangle.
-   *
-   * @param height height of rectangle
+   *  @param height height of rectangle
    * @param width width of rectangle
    * @param heading angle the myShape is heading
    * @param x x of the position of the myShape
@@ -26,24 +25,23 @@ public final class Rectangle extends LiveShape {
    * @param color the color
    * @param name the name/id
    */
-  public Rectangle(int currTime, int height, int width, int heading, int x, int y, Color color,
+  public Rectangle(int height, int width, int heading, int x, int y, Color color,
       String name) {
-    super(currTime, height, width, heading, new Posn(x, y), color, name);
+    super(height, width, heading, new Posn(x, y), color, name);
   }
 
   /**
    * A Movable Rectangle.
-   *
-   * @param height height of rectangle
+   *  @param height height of rectangle
    * @param width width of rectangle
    * @param heading angle the oval is heading
    * @param posn the position of the rectangle
    * @param color the color
    * @param name the name/id
    */
-  public Rectangle(int currTime, int height, int width, int heading, Posn posn, Color color,
+  public Rectangle(int height, int width, int heading, Posn posn, Color color,
       String name) {
-    super(currTime, height, width, heading, posn, color, name);
+    super(height, width, heading, posn, color, name);
   }
 
   @Override

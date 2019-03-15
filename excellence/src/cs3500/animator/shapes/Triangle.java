@@ -17,8 +17,7 @@ public final class Triangle extends LiveShape {
 
   /**
    * A Movable Triangle.
-   *
-   * @param height height of Triangle
+   *  @param height height of Triangle
    * @param width width of Triangle
    * @param heading angle the myShape is heading
    * @param x x of the position of the myShape
@@ -26,24 +25,23 @@ public final class Triangle extends LiveShape {
    * @param color the color
    * @param name the name/id
    */
-  public Triangle(int currTime, int height, int width, int heading, int x, int y, Color color,
+  public Triangle(int height, int width, int heading, int x, int y, Color color,
       String name) {
-    super(currTime, height, width, heading, new Posn(x, y), color, name);
+    super(height, width, heading, new Posn(x, y), color, name);
   }
 
   /**
    * A Movable Triangle.
-   *
-   * @param height height of triangle
+   *  @param height height of triangle
    * @param width width of triangle
    * @param heading angle the triangle is heading
    * @param posn the position of the triangle
    * @param color the color
    * @param name the name/id
    */
-  public Triangle(int currTime, int height, int width, int heading, Posn posn, Color color,
+  public Triangle(int height, int width, int heading, Posn posn, Color color,
       String name) {
-    super(currTime, height, width, heading, posn, color, name);
+    super(height, width, heading, posn, color, name);
   }
 
   @Override
