@@ -1,96 +1,202 @@
 package cs3500.animator.shapes;
 
-import cs3500.animator.transforms.Transform;
+
+import cs3500.animator.transforms.*;
 import cs3500.animator.util.Posn;
 
 import java.awt.*;
 
 /**
- * Represents a rectangle.
+ * Represents a rectangle shape.
  */
-public final class Rectangle extends LiveShape {
+public class Rectangle extends AShape {
 
-    /**
-     * Copy Constructor for Rectangle
-     */
-    public Rectangle(Rectangle copy) {
-        super(copy);
+  /**
+   * Default constructor for a rectangle.
+   *
+   * @param name          the name of the rectangle
+   * @param posn          the current position of the rectangle
+   * @param color         the initial color of the rectangle
+   * @param birthTime    the time that the rectangle appears in the animation
+   * @param deathTime the time that the rectangle disappears in the animation
+   * @param width         the width of a rectangle
+   * @param height        the height of a rectangle
+   */
+  public Rectangle(String name, Posn posn, Color color,
+                   int birthTime, int deathTime, double width, double height) {
+    super(name, ShapeClass.RECT, posn, color, birthTime, deathTime, width, height);
+  }
+
+  @Override
+  protected void changeWidth(double factor) throws IllegalArgumentException {
+    if (this.width + factor <= 0) {
+      throw new IllegalArgumentException("Width must be positive.");
+    } else {
+      this.width += factor;
     }
+  }
 
-    public Rectangle(String name) {
-        super(name, ShapeClass.RECT);
+  @Override
+  protected void changeHeight(double factor) throws IllegalArgumentException {
+    if (this.height + factor <= 0) {
+      throw new IllegalArgumentException("Height must be positive.");
+    } else {
+      this.height += factor;
     }
+  }
 
-    /**
-     * A Movable Rectangle.
-     *
-     * @param height  height of rectangle
-     * @param width   width of rectangle
-     * @param heading angle the myShape is heading
-     * @param x       x of the position of the myShape
-     * @param y       y of the positoin of the myShape
-     * @param color   the color
-     * @param name    the name/id
-     */
-    public Rectangle(int height, int width, int heading, int x, int y, Color color,
-                     String name) {
-        super(height, width, heading, new Posn(x, y), color, name, ShapeClass.RECT);
-    }
+  @Override
+  public String printSVG() {
+    StringBuilder sb = new StringBuilder();
 
-    /**
-     * A Movable Rectangle.
-     *
-     * @param height  height of rectangle
-     * @param width   width of rectangle
-     * @param heading angle the oval is heading
-     * @param posn    the position of the rectangle
-     * @param color   the color
-     * @param name    the name/id
-     */
-    public Rectangle(int height, int width, int heading, Posn posn, Color color,
-                     String name) {
-        super(height, width, heading, posn, color, name, ShapeClass.RECT);
-    }
+    sb.append("<rect id=\"");
+    sb.append(this.getName());
+    sb.append("\" x=\"");
+    sb.append(Double.toString(this.getPosn().getX()));
+    sb.append("\" y=\"");
+    sb.append(Double.toString(this.getPosn().getY()));
+    sb.append("\" width=\"");
+    sb.append(Double.toString(this.getWidth()));
+    sb.append("\" height=\"");
+    sb.append(Double.toString(this.getHeight()));
 
-    /**
-     * A Movable Rectangle.
-     *
-     * @param height     height of rectangle
-     * @param width      width of rectangle
-     * @param heading    angle the oval is heading
-     * @param posn       the position of the rectangle
-     * @param color      the color
-     * @param name       the name/id
-     * @param transforms a list of transforms
-     */
-    public Rectangle(int height, int width, int heading, Posn posn, Color color,
-                     String name, Transform... transforms) {
-        super(height, width, heading, posn, color, name, ShapeClass.RECT, transforms);
-    }
+    sb.append(super.printSVG());
 
-    @Override
-    public LiveShape copy() {
-        return new Rectangle(this);
-    }
+    sb.append("</rect>\n");
+    return sb.toString();
+  }
 
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Rectangle) {
-            return super.equals(obj);
-        } else {
-            return false;
+  @Override
+  public IShape getStateAt(int time) {
+    Rectangle r = new Rectangle(this.name, this.posn, this.color, this.birthTime,
+            this.deathTime, this.width, this.height);
+
+
+    for (Transform o : this.transformList) {
+      if (o.getType() == TransformType.MOVE) {
+        if (time >= o.getStartTime() && time < o.getEndTime()) {
+          r.posn = r.tweenPosn((MoveTo) o, r.posn, ((MoveTo) o).getDestination(), time);
         }
+        if (time >= o.getEndTime()) {
+          r.posn = r.tweenPosn((MoveTo) o, r.posn, ((MoveTo) o).getDestination(), o.getEndTime());
+        }
+      }
+
+      if (o.getType() == TransformType.RECOLOR) {
+        if (time >= o.getStartTime() && time < o.getEndTime()) {
+          r.color = r.tweenColor((Recolor) o, r.color, ((Recolor) o).getColor(), time);
+        }
+        if (time >= o.getEndTime()) {
+          r.color = r.tweenColor((Recolor) o, r.color, ((Recolor) o).getColor(),
+                  o.getEndTime());
+        }
+      }
+
+      if (o.getType() == TransformType.RESIZE) {
+        if (time > o.getStartTime() && time < o.getEndTime()) {
+          r.width = r.tweenWidth((Scale) o, r.width, r.width + ((Scale) o).getyFactor(),
+                  time);
+          r.height = r.tweenHeight((Scale) o, r.height, r.height +
+                  ((Scale) o).getyFactor(), time);
+        }
+        if (time >= o.getEndTime()) {
+          r.width = r.tweenWidth((Scale) o, r.width, r.width +
+                  ((Scale) o).getyFactor(), o.getEndTime());
+          r.height = r.tweenHeight((Scale) o, r.height, r.height +
+                  ((Scale) o).getyFactor(), o.getEndTime());
+        }
+      }
     }
 
-    @Override
-    public int hashCode() {
-        return super.hashCode() + 31 * "rectangle".hashCode();
-    }
+    return r;
+  }
 
-    @Override
-    public String toString() {
-        return "Rectangle@[" + super.toString() + "]";
-    }
+  @Override
+  public String getSymbol() {
+    return "";
+  }
 
+  /**
+   * Tween method for a shape's position. Creates a new position based on the input time and
+   * destination of the shape after the move operation has been called.
+   *
+   * @param m          the move operation
+   * @param beforePosn the position before the move has occurred
+   * @param afterPosn  the destination of the shape
+   * @param time       current time
+   *
+   * @return designated position at time t
+   */
+  private Posn tweenPosn(MoveTo m, Posn beforePosn, Posn afterPosn, int time) {
+
+    return new Posn((beforePosn.getX() * ((double) (m.getEndTime() - time) /
+            (m.getEndTime() - m.getStartTime()))
+            + (afterPosn.getX() * ((double) (time - m.getStartTime()) /
+            (m.getEndTime() - m.getStartTime())))),
+
+            (beforePosn.getY() * ((double) (m.getEndTime() - time) /
+                    (m.getEndTime() - m.getStartTime()))
+                    + (afterPosn.getY() * ((double) (time - m.getStartTime())
+                    / (m.getEndTime() - m.getStartTime())))));
+  }
+
+  /**
+   * Tween method for the color of a shape. Creates a new color based on the input time and desired
+   * resultant color after the recolor operation has been called.
+   *
+   * @param c           the recolor operation
+   * @param beforeColor the color before the operation
+   * @param afterColor  the color after the operation
+   * @param time        current time
+   *
+   * @return designated color at time t
+   */
+  private Color tweenColor(Recolor c, Color beforeColor, Color afterColor, int time) {
+
+    return new Color((beforeColor.getRed() + ((afterColor.getRed() - beforeColor.getRed())
+            * (time
+            - c.getStartTime()) / (c.getEndTime() - c.getStartTime()))),
+
+            (beforeColor.getGreen() + ((afterColor.getGreen() - beforeColor.getGreen())
+                    * (time
+                    - c.getStartTime()) / (c.getEndTime() - c.getStartTime()))),
+            (beforeColor.getBlue() + ((afterColor.getBlue() - beforeColor.getBlue())
+                    * (time
+                    - c.getStartTime()) / (c.getEndTime() - c.getStartTime()))));
+  }
+
+  /**
+   * Tween method for the width of a shape. Creates a new width based on the input time and desired
+   * width after the scale operation has been called.
+   *
+   * @param s           the scale operation
+   * @param beforeWidth the width before the operation
+   * @param afterWidth  the width after the operation
+   * @param time        the current time
+   *
+   * @return designated width at time t
+   */
+  private double tweenWidth(Scale s, double beforeWidth, double afterWidth, int time) {
+    return (beforeWidth * ((double) (s.getEndTime() - time) / (s.getEndTime() - s.getStartTime()))
+            + (afterWidth * ((double) (time - s.getStartTime()) /
+            (s.getEndTime() - s.getStartTime()))));
+  }
+
+  /**
+   * Tween method for the height of a shape. Creates a new height based on the input time and
+   * desired height after the scale operation has been called.
+   *
+   * @param s            the scale operation
+   * @param beforeHeight the width before the operation
+   * @param afterHeight  the width after the operation
+   * @param time         the current time
+   *
+   * @return designated width at time t
+   */
+  private double tweenHeight(Scale s, double beforeHeight, double afterHeight, int time) {
+    return (beforeHeight * ((double) (s.getEndTime() - time) / (s.getEndTime() - s.getStartTime()))
+            + (afterHeight * ((double) (time - s.getStartTime()) /
+            (s.getEndTime() - s.getStartTime()))));
+  }
 }

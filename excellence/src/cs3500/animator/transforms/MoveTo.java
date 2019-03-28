@@ -1,21 +1,103 @@
 package cs3500.animator.transforms;
 
-import cs3500.animator.shapes.LiveShape;
+import java.util.ArrayList;
+import java.util.List;
+
+import cs3500.animator.model.AnimationModel;
+import cs3500.animator.shapes.IShape;
 import cs3500.animator.util.Posn;
 
-import java.util.function.Function;
-
+/**
+ * Class representing an operation on a shape; moves a shape to a destination position.
+ */
 public class MoveTo extends ATransform {
+    private Posn destination;
 
-    private Posn p;
-
-    public MoveTo(int startTime, int endTime, Posn p) {
-        super(TransformType.MOVE, startTime, endTime);
-        this.p = p;
+    /**
+     * Default constructor.
+     *  @param startTime    the time at which the move begins
+     * @param endTime      the time at which the move  ends
+     * @param destination the destination position of the shape
+     */
+    public MoveTo(String name, int startTime, int endTime, Posn destination) {
+        super(name, TransformType.MOVE, startTime, endTime);
+        this.destination = destination;
     }
 
     @Override
-    public Function<LiveShape, LiveShape> func() {
-        return ls -> ls.moveTo(p);
+    public void apply(IShape shape) throws IllegalArgumentException {
+        List<Transform> opsListOnThisShape = new ArrayList<>();
+        for (int i = 0; i < shape.getOperations().size(); i++) {
+            if (shape.getOperations().get(i).getType()  == TransformType.MOVE) {
+                opsListOnThisShape.add(shape.getOperations().get(i));
+                if (this.startTime > shape.getOperations().get(i).getStartTime()
+                        && this.startTime < shape.getOperations().get(i).getEndTime()) {
+                    throw new IllegalArgumentException("Cannot call the same animation while in progress.");
+                }
+            }
+        }
+
+        // checks that operation happens after shape appears
+        if (this.startTime < shape.getBirthTime()) {
+            throw new IllegalArgumentException("Cannot animate shape before it appears.");
+        }
+        // checks that operation happens before shape disappears
+        else if (this.startTime > shape.getDeathTime()) {
+            throw new IllegalArgumentException("Cannot animate shape after it disappears.");
+        }
+        // adds shape to this operations list of shapes
+        // adds this operation to the shape's list of operations
+        else {
+            this.opShapes.add(shape);
+            shape.getOperations().add(this);
+        }
     }
+
+    @Override
+    public String getDescription(AnimationModel model) throws IllegalArgumentException {
+        if (this.opShapes.isEmpty()) {
+            throw new IllegalArgumentException("This operation has not been used");
+        } else {
+            String result = getPreDescription(model.getTickRate());
+
+            result += String.format("%d %.0f %.0f %.0f %.0f %d %d %d\n", (this.endTime / model.getTickRate()), this.destination.getX(), this.destination.getY(),
+                    this.opShapes.get(0).getWidth(), this.opShapes.get(0).getHeight(),
+                    this.opShapes.get(0).getColor().getRed(), this.opShapes.get(0).getColor().getGreen(), this.opShapes.get(0).getColor().getBlue());
+
+            return result;
+        }
+    }
+
+    @Override
+    public String printSVG() {
+        String result = "";
+
+        result += "<animate attributeType=\"xml\" begin=\"" + Integer.toString(100 * this.startTime)
+                + "ms\" dur=\"" + Integer.toString(100 * (this.endTime - this.startTime)) + "ms\"" +
+                " attributeName=\"" + this.opShapes.get(0).getSymbol() + "x\"" +
+                " from=\"" + Integer.toString((int) this.opShapes.get(0).getPosn().getX()) +
+                "\" to=\""
+                + Integer.toString((int) this.destination.getX())
+                + "\" fill=\"freeze\" />\n";
+        result += "<animate attributeType=\"xml\" begin=\"" + Integer.toString(100 * this.startTime)
+                + "ms\" dur=\"" + Integer.toString(100 * (this.endTime - this.startTime)) + "ms\" " +
+                "attributeName=\"" + this.opShapes.get(0).getSymbol() + "y\"" +
+                " from=\"" + Integer.toString((int) this.opShapes.get(0).getPosn().getY()) +
+                "\" to=\""
+                + Integer.toString((int) this.destination.getY())
+                + "\" fill=\"freeze\" />\n";
+
+        return result;
+    }
+
+    /**
+     * Gets destination.
+     *
+     * @return dest.
+     */
+    public Posn getDestination() {
+        return this.destination;
+    }
+
+
 }

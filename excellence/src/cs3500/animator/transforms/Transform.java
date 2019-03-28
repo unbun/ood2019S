@@ -1,47 +1,60 @@
 package cs3500.animator.transforms;
 
-import cs3500.animator.shapes.LiveShape;
+import cs3500.animator.model.AnimationModel;
+import cs3500.animator.shapes.IShape;
 
-import java.util.function.Function;
-
+/**
+ * An interface representing the operations available to animation operations, which implement this
+ * interface through extending the abstract class AOperation.
+ */
 public interface Transform {
+  //void apply(AShape shape);
 
-    /**
-     * Get the function that this transform does on live shapes
-     */
-    Function<LiveShape, LiveShape> func();
+  /**
+   * Stores the specific operation to the given shape.
+   *
+   * @param shape the shape to be operated on
+   *
+   * @throws IllegalArgumentException if operation happens at invalid times
+   */
+  void apply(IShape shape) throws IllegalArgumentException;
 
-    /**
-     * Get the given {@code LiveShape} in it's state at the given time, if {@code this} {@code
-     * Transform} was to occur on it at a given time (according to the time period defined for {@code
-     * this} {@code Transform})
-     *
-     * @param ls   a {@code LiveShape} to apply the given transform at
-     * @param time the current time
-     * @return the LiveShape (altered if the time contrainsts are active, un-altered otherwise
-     */
-    LiveShape applyTimed(LiveShape ls, int time);
+  /**
+   * Gets description of operation on shape.
+   *
+   * @return a description of an operation on a shape
+   *
+   * @throws IllegalArgumentException if there is no shape added to the operation
+   */
+  String getDescription(AnimationModel model) throws IllegalArgumentException;
 
-    /**
-     * String representation of the type of Transform this is (currently, there are 2 types: motion
-     * and alter)
-     *
-     * @return a one-word String description of the transformation
-     */
-    String typeStr();
+  /**
+   * Returns from time.
+   *
+   * @return time.
+   */
+  int getStartTime();
 
-    /**
-     * Get the end time/tick of this transformation
-     *
-     * @return start time/tick
-     */
-    int endTime();
+  /**
+   * Returns to time.
+   *
+   * @return to time.
+   */
+  int getEndTime();
 
-    /**
-     * Get the start time/tick of the transformation
-     *
-     * @return end time/tick
-     */
-    int startTime();
+  /**
+   * Returns formatted svg.
+   *
+   * @return svg.
+   */
+  String printSVG();
 
+  /**
+   * Name of op.
+   *
+   * @return name of op.
+   */
+  String getName();
+
+  TransformType getType();
 }
