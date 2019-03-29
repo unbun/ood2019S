@@ -5,7 +5,7 @@ package cs3500.animator.controller;
  * instructions to create views and models that a use specified. It also starts the animation once
  * those views are created.
  */
-public interface IController {
+public interface AnimationController {
 
   /**
    * Gets the input file which user inputted in the main method.

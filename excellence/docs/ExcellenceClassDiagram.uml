@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>cs3500.animator.controller.AnimationController</OriginalElement>
+  <nodes>
+    <node x="511.995265151515" y="1441.0">cs3500.animator.controller.ShapeFXController</node>
+    <node x="2058.995265151515" y="1585.0">cs3500.animator.view.VisualView</node>
+    <node x="1653.995265151515" y="1057.0">cs3500.animator.view.ControllableView</node>
+    <node x="325.0" y="631.5">java.awt.event.KeyListener</node>
+    <node x="2283.536931818182" y="655.5">java.awt.event.ActionListener</node>
+    <node x="2034.1666666666667" y="2387.0">cs3500.animator.controller.actionHandlers.AddKeyFrameHandler</node>
+    <node x="1125.7035984848485" y="595.5">cs3500.animator.view.IAnimationView</node>
+    <node x="1927.557765151515" y="427.0">cs3500.animator.view.AnimationPanel</node>
+    <node x="3336.8333333333335" y="60.0">cs3500.animator.transforms.Transform</node>
+    <node x="2937.8333333333335" y="0.0">cs3500.animator.shapes.IShape</node>
+    <node x="0.0" y="607.5">java.awt.event.MouseListener</node>
+    <node x="3462.536931818182" y="511.0">cs3500.animator.transforms.ATransform</node>
+    <node x="3109.536931818182" y="379.0">cs3500.animator.shapes.AShape</node>
+    <node x="1646.870265151515" y="0.0">cs3500.animator.model.AnimationModel</node>
+    <node x="605.0" y="643.5">cs3500.animator.controller.AnimationController</node>
+    <node x="512.995265151515" y="144.0">java.util.EventListener</node>
+    <node x="836.995265151515" y="1609.5">cs3500.animator.view.TextualView</node>
+    <node x="1248.995265151515" y="1609.5">cs3500.animator.view.SVGView</node>
+    <node x="2617.536931818182" y="451.0">cs3500.animator.model.ShapeFXModel</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="java.awt.event.KeyListener" target="java.util.EventListener">
+      <point x="0.0" y="-51.5" />
+      <point x="455.0" y="359.0" />
+      <point x="584.995265151515" y="359.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="cs3500.animator.transforms.ATransform" target="cs3500.animator.transforms.Transform">
+      <point x="85.5" y="-172.0" />
+      <point x="3719.036931818182" y="359.0" />
+      <point x="3621.8333333333335" y="359.0" />
+      <point x="114.0" y="99.5" />
+    </edge>
+    <edge source="cs3500.animator.view.ControllableView" target="java.awt.event.ActionListener">
+      <point x="144.375" y="-640.0" />
+      <point x="1990.870265151515" y="1037.0" />
+      <point x="2335.870265151515" y="1037.0" />
+      <point x="-104.66666666666674" y="27.5" />
+    </edge>
+    <edge source="cs3500.animator.controller.ShapeFXController" target="cs3500.animator.model.AnimationModel">
+      <point x="61.0" y="-256.0" />
+      <point x="725.495265151515" y="1017.0" />
+      <point x="985.2083333333334" y="1017.0" />
+      <point x="985.2083333333334" y="359.0" />
+      <point x="1705.870265151515" y="359.0" />
+      <point x="-177.0" y="159.5" />
+    </edge>
+    <edge source="cs3500.animator.shapes.AShape" target="cs3500.animator.transforms.Transform">
+      <point x="83.25" y="-304.0" />
+      <point x="3359.286931818182" y="359.0" />
+      <point x="3507.8333333333335" y="359.0" />
+      <point x="0.0" y="99.5" />
+    </edge>
+    <edge source="cs3500.animator.view.ControllableView" target="cs3500.animator.view.IAnimationView">
+      <point x="-144.375" y="-640.0" />
+      <point x="1702.120265151515" y="1027.0" />
+      <point x="1395.2035984848485" y="1027.0" />
+      <point x="77.0" y="87.5" />
+    </edge>
+    <edge source="cs3500.animator.model.ShapeFXModel" target="cs3500.animator.model.AnimationModel">
+      <point x="-157.33333333333348" y="-232.0" />
+      <point x="2696.203598484848" y="339.0" />
+      <point x="2059.870265151515" y="339.0" />
+      <point x="177.0" y="159.5" />
+    </edge>
+    <edge source="cs3500.animator.transforms.ATransform" target="cs3500.animator.shapes.IShape">
+      <point x="-85.5" y="-172.0" />
+      <point x="3548.036931818182" y="339.0" />
+      <point x="3215.3333333333335" y="339.0" />
+      <point x="111.0" y="159.5" />
+    </edge>
+    <edge source="cs3500.animator.controller.ShapeFXController" target="cs3500.animator.controller.AnimationController">
+      <point x="0.0" y="-256.0" />
+      <point x="664.495265151515" y="1007.0" />
+      <point x="725.0" y="1007.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.animator.controller.ShapeFXController" target="java.awt.event.MouseListener">
+      <point x="-122.0" y="-256.0" />
+      <point x="542.495265151515" y="1037.0" />
+      <point x="152.5" y="1037.0" />
+      <point x="0.0" y="75.5" />
+    </edge>
+    <edge source="cs3500.animator.view.VisualView" target="cs3500.animator.view.IAnimationView">
+      <point x="-128.33333333333348" y="-112.0" />
+      <point x="2123.1619318181815" y="1017.0" />
+      <point x="1472.2035984848485" y="1017.0" />
+      <point x="154.0" y="87.5" />
+    </edge>
+    <edge source="cs3500.animator.controller.actionHandlers.AddKeyFrameHandler" target="java.awt.event.ActionListener">
+      <point x="78.5" y="-40.0" />
+      <point x="2269.666666666667" y="2362.0" />
+      <point x="2482.113636363636" y="2362.0" />
+      <point x="2482.113636363636" y="1037.0" />
+      <point x="2545.2035984848485" y="1037.0" />
+      <point x="104.66666666666674" y="27.5" />
+    </edge>
+    <edge source="cs3500.animator.view.ControllableView" target="cs3500.animator.model.AnimationModel">
+      <point x="-48.125" y="-640.0" />
+      <point x="1798.370265151515" y="1037.0" />
+      <point x="1804.870265151515" y="1037.0" />
+      <point x="1804.870265151515" y="359.0" />
+      <point x="1823.870265151515" y="359.0" />
+      <point x="-59.0" y="159.5" />
+    </edge>
+    <edge source="cs3500.animator.view.VisualView" target="java.awt.event.ActionListener">
+      <point x="128.33333333333326" y="-112.0" />
+      <point x="2379.828598484848" y="1037.0" />
+      <point x="2440.536931818182" y="1037.0" />
+      <point x="0.0" y="27.5" />
+    </edge>
+    <edge source="cs3500.animator.view.VisualView" target="cs3500.animator.view.AnimationPanel">
+      <point x="0.0" y="-112.0" />
+      <point x="2251.495265151515" y="1027.0" />
+      <point x="2145.807765151515" y="1027.0" />
+      <point x="72.75" y="256.0" />
+    </edge>
+    <edge source="cs3500.animator.model.ShapeFXModel" target="cs3500.animator.transforms.Transform">
+      <point x="157.33333333333348" y="-232.0" />
+      <point x="3010.870265151515" y="349.0" />
+      <point x="3393.8333333333335" y="349.0" />
+      <point x="-114.0" y="99.5" />
+    </edge>
+    <edge source="cs3500.animator.view.ControllableView" target="cs3500.animator.view.AnimationPanel">
+      <point x="48.125" y="-640.0" />
+      <point x="1894.620265151515" y="1027.0" />
+      <point x="2000.307765151515" y="1027.0" />
+      <point x="-72.75" y="256.0" />
+    </edge>
+    <edge source="cs3500.animator.controller.actionHandlers.AddKeyFrameHandler" target="cs3500.animator.view.ControllableView">
+      <point x="-78.5" y="-40.0" />
+      <point x="2112.666666666667" y="2362.0" />
+      <point x="1846.495265151515" y="2362.0" />
+      <point x="0.0" y="640.0" />
+    </edge>
+    <edge source="cs3500.animator.shapes.AShape" target="cs3500.animator.shapes.IShape">
+      <point x="-83.25" y="-304.0" />
+      <point x="3192.786931818182" y="339.0" />
+      <point x="3104.3333333333335" y="339.0" />
+      <point x="0.0" y="159.5" />
+    </edge>
+    <edge source="cs3500.animator.controller.ShapeFXController" target="java.awt.event.KeyListener">
+      <point x="-61.0" y="-256.0" />
+      <point x="603.495265151515" y="1027.0" />
+      <point x="455.0" y="1027.0" />
+      <point x="0.0" y="51.5" />
+    </edge>
+    <edge source="cs3500.animator.controller.ShapeFXController" target="cs3500.animator.view.IAnimationView">
+      <point x="122.0" y="-256.0" />
+      <point x="786.495265151515" y="1027.0" />
+      <point x="1164.2035984848485" y="1027.0" />
+      <point x="-154.0" y="87.5" />
+    </edge>
+    <edge source="cs3500.animator.view.TextualView" target="cs3500.animator.view.IAnimationView">
+      <point x="0.0" y="-87.5" />
+      <point x="1029.495265151515" y="1037.0" />
+      <point x="1241.2035984848485" y="1037.0" />
+      <point x="-77.0" y="87.5" />
+    </edge>
+    <edge source="cs3500.animator.view.AnimationPanel" target="cs3500.animator.model.AnimationModel">
+      <point x="0.0" y="-256.0" />
+      <point x="2073.057765151515" y="359.0" />
+      <point x="1941.870265151515" y="359.0" />
+      <point x="59.0" y="159.5" />
+    </edge>
+    <edge source="cs3500.animator.view.SVGView" target="cs3500.animator.view.IAnimationView">
+      <point x="0.0" y="-87.5" />
+      <point x="1441.495265151515" y="1037.0" />
+      <point x="1318.2035984848485" y="1037.0" />
+      <point x="0.0" y="87.5" />
+    </edge>
+    <edge source="java.awt.event.MouseListener" target="java.util.EventListener">
+      <point x="0.0" y="-75.5" />
+      <point x="152.5" y="349.0" />
+      <point x="536.995265151515" y="349.0" />
+      <point x="-48.0" y="15.5" />
+    </edge>
+    <edge source="java.awt.event.ActionListener" target="java.util.EventListener">
+      <point x="0.0" y="-27.5" />
+      <point x="2440.536931818182" y="349.0" />
+      <point x="632.995265151515" y="349.0" />
+      <point x="48.0" y="15.5" />
+    </edge>
+    <edge source="cs3500.animator.model.ShapeFXModel" target="cs3500.animator.shapes.IShape">
+      <point x="0.0" y="-232.0" />
+      <point x="2853.536931818182" y="359.0" />
+      <point x="2993.3333333333335" y="359.0" />
+      <point x="-111.0" y="159.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.20000000000000007" x="2655.5935634781854" y="1871.9999999999995" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

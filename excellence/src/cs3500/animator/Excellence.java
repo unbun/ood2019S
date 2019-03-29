@@ -1,7 +1,7 @@
 package cs3500.animator;
 
-import cs3500.animator.controller.Controller;
-import cs3500.animator.controller.IController;
+import cs3500.animator.controller.ShapeFXController;
+import cs3500.animator.controller.AnimationController;
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.model.ShapeFXModel;
 import cs3500.animator.util.AnimationBuilder;
@@ -33,7 +33,7 @@ public class Excellence {
 
     AnimationModel model = factoryBuild.build();
 
-    IController controller = new Controller(model, args);
+    AnimationController controller = new ShapeFXController(model, args);
 
     String path = "";
     try {

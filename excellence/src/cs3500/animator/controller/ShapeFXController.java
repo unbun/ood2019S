@@ -17,15 +17,15 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * This controller implements the tasks of an {@code IController}. This controller also acts as the
+ * This controller implements the tasks of an {@code AnimationController}. This controller also acts as the
  * MouseListener and KeyListener of the {@code ControllableView} view (but can still be used to run
  * the other views as well).
  */
-public class Controller implements IController, MouseListener, KeyListener {
+public class ShapeFXController implements AnimationController, MouseListener, KeyListener {
 
   private final AnimationModel model;
   private IAnimationView view;
-  private Appendable ap = System.out;
+  private Appendable output = System.out;
   private String inputFilePath = "";
   private int speed = 1;
   private String typeOfView = "";
@@ -41,7 +41,7 @@ public class Controller implements IController, MouseListener, KeyListener {
    * @param args arguments in main method
    * @throws IllegalArgumentException if passed a null model
    */
-  public Controller(AnimationModel model, String[] args)
+  public ShapeFXController(AnimationModel model, String[] args)
       throws IllegalArgumentException {
     Objects.requireNonNull(model);
 
@@ -59,7 +59,7 @@ public class Controller implements IController, MouseListener, KeyListener {
     if (canUseAppendable) {
       view.makeVisible();
       try {
-        ap.append(view.makeView(model));
+        output.append(view.makeView(model));
       } catch (IOException e) {
         throw new IllegalArgumentException("Could not create View!");
       }
@@ -70,8 +70,8 @@ public class Controller implements IController, MouseListener, KeyListener {
 
     if (!isSystemOut) {
       try {
-        ((FileWriter) ap).flush();
-        ((FileWriter) ap).close();
+        ((FileWriter) output).flush();
+        ((FileWriter) output).close();
       } catch (IOException e) {
         throw new IllegalStateException("Cannot close, data has been lost");
       }
@@ -145,10 +145,10 @@ public class Controller implements IController, MouseListener, KeyListener {
               // output location.
               case "-out":
                 if (args[i + 1].equalsIgnoreCase("out")) {
-                  ap = System.out;
+                  output = System.out;
                 } else {
                   try {
-                    ap = new FileWriter(args[i + 1]);
+                    output = new FileWriter(args[i + 1]);
                     isSystemOut = false;
                   } catch (IOException e) {
                     throw new IllegalArgumentException("Error in output file creation");
@@ -264,9 +264,6 @@ public class Controller implements IController, MouseListener, KeyListener {
     if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
-    Posn mouseLoc = new Posn(e.getX(), e.getY());
-    ControllableView cView = (ControllableView) view;
-
   }
 
   @Override
@@ -274,10 +271,6 @@ public class Controller implements IController, MouseListener, KeyListener {
     if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
-    Posn mouseLoc = new Posn(e.getX(), e.getY());
-
-    ControllableView cView = (ControllableView) view;
-
   }
 }
 

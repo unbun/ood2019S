@@ -1,6 +1,9 @@
 
 # Design
 
+![alt text](ExcellenceClassDiagram.png "Logo Title Text 1")
+
+
 #### Controller/View Designs
 We thought it would too clunky to have the keyboard control the edit view, and have updating JLabels tell the user what to do with
 the keys. So everything is done with buttons and button handlers (handlers to keep everything organized, and so that the AnimationPanel
