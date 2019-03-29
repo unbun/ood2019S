@@ -3,15 +3,14 @@ package cs3500.animator.view;
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
 import cs3500.animator.transforms.Transform;
-
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- * The implementation of the textual view. Creates a textual output describing the shapes and
- * their specific animations.
+ * The implementation of the textual view. Creates a textual output describing the shapes and their
+ * specific animations.
  */
 public class TextualView implements IAnimationView {
 
@@ -50,7 +49,7 @@ public class TextualView implements IAnimationView {
 
         ArrayList<Transform> transforms = model.getShapes().get(i).getOperations();
         transforms.sort(Comparator.comparingInt(Transform::getStartTime));
-        for(Transform t : transforms){
+        for (Transform t : transforms) {
           sb.append(t.getDescription(model));
         }
         sb.append("\n");

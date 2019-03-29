@@ -1,7 +1,6 @@
 package cs3500.animator.controller.actionHandlers;
 
 import cs3500.animator.view.ControllableView;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,6 +8,7 @@ import java.awt.event.ActionListener;
  * Action listener class that speeds up the animation by scaling the panel's rate up.
  */
 public class SpeedUpAnimationHandler implements ActionListener {
+
   ControllableView view;
 
   /**

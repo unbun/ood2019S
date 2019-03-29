@@ -1,27 +1,52 @@
 package cs3500.animator.view;
 
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.IOException;
-import java.util.Objects;
-
-import javax.swing.*;
-
+import cs3500.animator.controller.actionHandlers.AddKeyFrameHandler;
+import cs3500.animator.controller.actionHandlers.AddShapeHandler;
+import cs3500.animator.controller.actionHandlers.DeleteKeyFrameHandler;
+import cs3500.animator.controller.actionHandlers.DeleteShapeHandler;
+import cs3500.animator.controller.actionHandlers.ExportSVGHandler;
+import cs3500.animator.controller.actionHandlers.LoopingHandler;
+import cs3500.animator.controller.actionHandlers.PlayButtonHandler;
+import cs3500.animator.controller.actionHandlers.RestartButtonHandler;
+import cs3500.animator.controller.actionHandlers.SlowDownAnimationHandler;
+import cs3500.animator.controller.actionHandlers.SpeedUpAnimationHandler;
+import cs3500.animator.controller.actionHandlers.UpdateKeyFrameHandler;
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
 import cs3500.animator.shapes.Oval;
 import cs3500.animator.shapes.Rectangle;
 import cs3500.animator.util.Constants;
 import cs3500.animator.util.Posn;
-import cs3500.animator.controller.actionHandlers.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.util.Objects;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.Timer;
+import javax.swing.WindowConstants;
 
 
 /**
- * The implementation of the edit view that allows users to control the animation with buttons and  the export of a svg file
- * from a visual view for the animation.
+ * The implementation of the edit view that allows users to control the animation with buttons and
+ * the export of a svg file from a visual view for the animation.
  */
 public class ControllableView extends JFrame implements IAnimationView, ActionListener {
+
   private AnimationPanel animationPanel;
   private Appendable ap;
 
@@ -49,7 +74,6 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
   private JTextField editAddPosnSize;
 
 
-
   private JButton editAddShapeBtn;
 
   private JButton editDeleteShapeBtn;
@@ -75,7 +99,7 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
 
     // adds scroll bars to panel
     JScrollPane scrollBar = new JScrollPane(this.animationPanel,
-            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     this.add(scrollBar);
 
     // play and pause button, adds to view
@@ -109,9 +133,9 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
     //edit panel
     editPanel = new JPanel();
     editPanel.setPreferredSize(new Dimension(50, animationPanel.getHeight()));
-    editPanel.setMinimumSize(new Dimension(50,animationPanel.getHeight()));
-    editPanel.setMaximumSize(new Dimension(50,animationPanel.getHeight()));
-    editPanel.setLayout( new GridLayout(5,1,10,10));
+    editPanel.setMinimumSize(new Dimension(50, animationPanel.getHeight()));
+    editPanel.setMaximumSize(new Dimension(50, animationPanel.getHeight()));
+    editPanel.setLayout(new GridLayout(5, 1, 10, 10));
     this.add(editPanel, new GridLayout());
 
     editAddTime0 = new JTextField("start time");
@@ -121,7 +145,6 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
     editAddTimeF = new JTextField("end time");
     editAddTimeF.setHorizontalAlignment(JTextField.CENTER);
     editPanel.add(editAddTimeF);
-
 
     editAddShape = new JTextField("shape type");
     editAddShape.setHorizontalAlignment(JTextField.CENTER);
@@ -189,16 +212,16 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
     }
   }
 
-    /**
-     * Getter for the model this view is using.
-     *
-     * @return the model this view is using.
-     */
+  /**
+   * Getter for the model this view is using.
+   *
+   * @return the model this view is using.
+   */
   public AnimationModel getModel() {
     return this.model;
   }
 
-  public void setModel(AnimationModel model){
+  public void setModel(AnimationModel model) {
     this.model = Objects.requireNonNull(model);
   }
 
@@ -248,11 +271,12 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
   }
 
 
-    /**
-     * Getter for the current speed label
-     * @return the current speed label (for rate)
-     */
-  public JLabel getCurrentSpeedLabel(){
+  /**
+   * Getter for the current speed label
+   *
+   * @return the current speed label (for rate)
+   */
+  public JLabel getCurrentSpeedLabel() {
     return this.currentSpeed;
   }
 
@@ -266,6 +290,15 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
   }
 
   /**
+   * Getter for the title of the play button.
+   *
+   * @return the title of the play button
+   */
+  public String getPlayButtonTitle() {
+    return this.playButtonTitle;
+  }
+
+  /**
    * Sets the title of the play button to the given string.
    *
    * @param s the new title of the button
@@ -276,113 +309,115 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
   }
 
   /**
-   * Getter for the title of the play button.
+   * Getter for button to delete a key frame.
    *
-   * @return the title of the play button
-   *
+   * @return the delete key frame button
    */
-  public String getPlayButtonTitle() {
-    return this.playButtonTitle;
-  }
-
-    /**
-     * Getter for button to delete a key frame.
-     * @return the delete key frame button
-     */
   public JButton getEditDeleteKeyFrameBtn() {
     return editDeleteKeyFrameBtn;
   }
 
-    /**
-     * Getter for the button to add a key frame.
-     * @return the add key frame button
-     */
+  /**
+   * Getter for the button to add a key frame.
+   *
+   * @return the add key frame button
+   */
   public JButton getEditAddKeyFrameBtn() {
     return editAddKeyFrameBtn;
   }
 
-    /**
-     * Getter for the button to update a key frame
-     * @return the update key frame button
-     */
+  /**
+   * Getter for the button to update a key frame
+   *
+   * @return the update key frame button
+   */
   public JButton getEditChangeKeyFrameBtn() {
     return editChangeKeyFrameBtn;
   }
 
-    /**
-     * Getter for the button to add a shape
-     * @return the add shape button
-     */
+  /**
+   * Getter for the button to add a shape
+   *
+   * @return the add shape button
+   */
   public JButton getEditAddShapeBtn() {
     return editAddShapeBtn;
   }
 
-    /**
-     * Getter for the button to delete a shape
-     * @return the delete shape button
-     */
+  /**
+   * Getter for the button to delete a shape
+   *
+   * @return the delete shape button
+   */
   public JButton getEditDeleteShapeBtn() {
     return editDeleteShapeBtn;
   }
 
-    /**
-     * If the given posn is a mouse click, update the text fields for editing if that mouse click was a click on a
-     * shape.
-     *
-     * @param mouseLoc the Posn that the mouse clicked.
-     */
-  public void loadClickedShape(Posn mouseLoc){
-    for(IShape s: this.model.getShapes()){
+  /**
+   * If the given posn is a mouse click, update the text fields for editing if that mouse click was
+   * a click on a shape.
+   *
+   * @param mouseLoc the Posn that the mouse clicked.
+   */
+  public void loadClickedShape(Posn mouseLoc) {
+    for (IShape s : this.model.getShapes()) {
       IShape currS = s.getStateAt(animationPanel.getTime());
-      Posn topLeft = new Posn(currS.getPosn().x - (currS.getWidth()/2), currS.getPosn().y - (currS.getHeight()/2));
-      Posn botRight = new Posn(currS.getPosn().x + (currS.getWidth()/2), currS.getPosn().y + (currS.getHeight()/2));
+      Posn topLeft = new Posn(currS.getPosn().x - (currS.getWidth() / 2),
+          currS.getPosn().y - (currS.getHeight() / 2));
+      Posn botRight = new Posn(currS.getPosn().x + (currS.getWidth() / 2),
+          currS.getPosn().y + (currS.getHeight() / 2));
       boolean inX = mouseLoc.getX() >= topLeft.getX() && mouseLoc.getX() <= botRight.getX();
       boolean inY = mouseLoc.getY() >= topLeft.getY() && mouseLoc.getY() <= botRight.getY();
-      if(inX & inY){
+      if (inX & inY) {
         editAddTime0.setText(String.format("%d", currS.getBirthTime()));
         editAddTimeF.setText(String.format("%d", currS.getDeathTime()));
         editAddShape.setText(currS.getType());
         editAddShapeName.setText(currS.getName());
-        editAddPosnSize.setText(String.format("%f %f %f %f", currS.getPosn().x, currS.getPosn().y, currS.getWidth(), currS.getHeight()));
-        editAddColor.setText(String.format("%d %d %d", currS.getColor().getRed(), currS.getColor().getGreen(), currS.getColor().getBlue()));
+        editAddPosnSize.setText(String
+            .format("%f %f %f %f", currS.getPosn().x, currS.getPosn().y, currS.getWidth(),
+                currS.getHeight()));
+        editAddColor.setText(String
+            .format("%d %d %d", currS.getColor().getRed(), currS.getColor().getGreen(),
+                currS.getColor().getBlue()));
       }
     }
   }
 
 
   /**
-   * Get the keyFrame described by the edit pane's fields in String array form. The order of the array is as follows:
-   *  name, t, x, y, w, h, r, g, b
-   * @return
+   * Get the keyFrame described by the edit pane's fields in String array form. The order of the
+   * array is as follows: name, t, x, y, w, h, r, g, b
    */
-  public String[] getDescribedKeyFrame(){
+  public String[] getDescribedKeyFrame() {
     //String name, int t, int x, int y, int w, int h, int r, int g, int b
 
-    try{
+    try {
       String[] posnVals = editAddPosnSize.getText().split(" ");
       String[] colorVals = editAddColor.getText().split(" ");
-      String[] result = {editAddShapeName.getText(), editAddTime0.getText(), posnVals[0], posnVals[1], posnVals[2],
-              posnVals[3], colorVals[0], colorVals[1], colorVals[2]};
+      String[] result = {editAddShapeName.getText(), editAddTime0.getText(), posnVals[0],
+          posnVals[1], posnVals[2],
+          posnVals[3], colorVals[0], colorVals[1], colorVals[2]};
       return result;
-    } catch (ArrayIndexOutOfBoundsException oobe){
+    } catch (ArrayIndexOutOfBoundsException oobe) {
       return null;
     }
 
   }
 
-    /**
-     * Get the name of the shape the user wants to edit.
-     * @return a String of the name of the shape to edit.
-     */
+  /**
+   * Get the name of the shape the user wants to edit.
+   *
+   * @return a String of the name of the shape to edit.
+   */
   public String getEditShapeName() {
     return editAddShapeName.getText();
   }
 
 
   /**
-   * Get the shape described by the edit pane's fields. The format for the posn/width and color fields are described in
-   * the init text values of the JTextField objects. Returns null if there is no valid shape described
-   * @return
+   * Get the shape described by the edit pane's fields. The format for the posn/width and color
+   * fields are described in the init text values of the JTextField objects. Returns null if there
+   * is no valid shape described
    */
   public IShape getDescribedShape() {
     String[] posnVals = editAddPosnSize.getText().split(" ");
@@ -391,21 +426,26 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
       switch (editAddShape.getText()) {
         case "oval":
           IShape toAdd = new Oval(editAddShapeName.getText(),
-                  new Posn(Double.parseDouble(posnVals[0]), Double.parseDouble(posnVals[1])),
-                  new Color(Integer.parseInt(colorVals[0]), Integer.parseInt(colorVals[1]), Integer.parseInt(colorVals[2])),
-                  Integer.parseInt(editAddTime0.getText()), Integer.parseInt(editAddTimeF.getText()), Integer.parseInt(posnVals[2]), Integer.parseInt(posnVals[3]));
+              new Posn(Double.parseDouble(posnVals[0]), Double.parseDouble(posnVals[1])),
+              new Color(Integer.parseInt(colorVals[0]), Integer.parseInt(colorVals[1]),
+                  Integer.parseInt(colorVals[2])),
+              Integer.parseInt(editAddTime0.getText()), Integer.parseInt(editAddTimeF.getText()),
+              Integer.parseInt(posnVals[2]), Integer.parseInt(posnVals[3]));
           return toAdd;
         case "rectangle":
           toAdd = new Rectangle(editAddShapeName.getText(),
-                  new Posn(Double.parseDouble(posnVals[0]), Double.parseDouble(posnVals[1])),
-                  new Color(Integer.parseInt(colorVals[0]), Integer.parseInt(colorVals[1]), Integer.parseInt(colorVals[2])),
-                  Integer.parseInt(editAddTime0.getText()), Integer.parseInt(editAddTimeF.getText()), Integer.parseInt(posnVals[2]), Integer.parseInt(posnVals[3]));
+              new Posn(Double.parseDouble(posnVals[0]), Double.parseDouble(posnVals[1])),
+              new Color(Integer.parseInt(colorVals[0]), Integer.parseInt(colorVals[1]),
+                  Integer.parseInt(colorVals[2])),
+              Integer.parseInt(editAddTime0.getText()), Integer.parseInt(editAddTimeF.getText()),
+              Integer.parseInt(posnVals[2]), Integer.parseInt(posnVals[3]));
           return toAdd;
-        default: return null;
+        default:
+          return null;
       }
-    } catch (ArrayIndexOutOfBoundsException idxe){
+    } catch (ArrayIndexOutOfBoundsException idxe) {
       return null;
-    } catch (NumberFormatException nfe){
+    } catch (NumberFormatException nfe) {
       return null;
     }
   }
@@ -438,24 +478,24 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
     repaint();
   }
 
-    /**
-     * Initalize a Pop-up dialog to warn the user of something.
-     *
-     * @param header the header of the Dialog Box
-     * @param message the message of the Dialog Box
-     */
-  public void warnDialog(String header, String message){
-    JOptionPane.showMessageDialog(this, message, header,JOptionPane.WARNING_MESSAGE);
+  /**
+   * Initalize a Pop-up dialog to warn the user of something.
+   *
+   * @param header the header of the Dialog Box
+   * @param message the message of the Dialog Box
+   */
+  public void warnDialog(String header, String message) {
+    JOptionPane.showMessageDialog(this, message, header, JOptionPane.WARNING_MESSAGE);
   }
 
-    /**
-     * Initalize a Pop-up dialog to tell the user of an error.
-     *
-     * @param header the header of the Dialog Box
-     * @param message the message of the Dialog Box
-     */
-    public void errorDialog(String header, String message){
-        JOptionPane.showMessageDialog(this, message, header,JOptionPane.ERROR_MESSAGE);
-    }
+  /**
+   * Initalize a Pop-up dialog to tell the user of an error.
+   *
+   * @param header the header of the Dialog Box
+   * @param message the message of the Dialog Box
+   */
+  public void errorDialog(String header, String message) {
+    JOptionPane.showMessageDialog(this, message, header, JOptionPane.ERROR_MESSAGE);
+  }
 
 }

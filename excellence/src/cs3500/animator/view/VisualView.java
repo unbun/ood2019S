@@ -3,27 +3,22 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.util.Constants;
-
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.WindowConstants;
-import javax.swing.JScrollPane;
-
-import javax.swing.JFrame;
-import javax.swing.Timer;
-
-import java.awt.BorderLayout;
-
-
-import java.awt.Dimension;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.Timer;
+import javax.swing.WindowConstants;
 
 /**
  * Implementation of the visual view animation. Creates a visual of the animation in action.
  */
 public class VisualView extends JFrame implements IAnimationView, ActionListener {
+
   private AnimationPanel animationPanel;
 
   /**
@@ -37,11 +32,11 @@ public class VisualView extends JFrame implements IAnimationView, ActionListener
 
     this.setLayout(new BorderLayout());
     animationPanel.setPreferredSize(new Dimension(Constants.CANVAS_WIDTH,
-            Constants.CANVAS_HEIGHT));
+        Constants.CANVAS_HEIGHT));
     this.add(animationPanel, BorderLayout.CENTER);
 
     JScrollPane scrollBar = new JScrollPane(this.animationPanel,
-            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
     this.add(scrollBar);
     this.pack();

@@ -1,10 +1,8 @@
 package cs3500.animator.view;
 
 
-
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
-
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 
@@ -32,7 +30,6 @@ public class SVGView implements IAnimationView {
   public String makeView(AnimationModel model) {
 
     StringBuilder stringBuilder = new StringBuilder();
-
 
     stringBuilder.append("<svg width=\"");
     stringBuilder.append(model.getWidth());

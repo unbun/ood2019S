@@ -27,7 +27,6 @@ public class Utils {
   }
 
 
-
   /**
    * Check if the given number is negative.
    *

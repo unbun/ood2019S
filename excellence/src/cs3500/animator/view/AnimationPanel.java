@@ -1,27 +1,23 @@
 package cs3500.animator.view;
 
-import java.awt.Color;
-
-import java.awt.Graphics;
-import java.util.Objects;
-
-import javax.swing.JPanel;
-
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
 import cs3500.animator.util.Constants;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Objects;
+import javax.swing.JPanel;
 
 /**
- * This panel represents the region where the animation will occur. An instance of a
- * JPanel in Java Swing.
+ * This panel represents the region where the animation will occur. An instance of a JPanel in Java
+ * Swing.
  */
 public class AnimationPanel extends JPanel {
-  private AnimationModel model;
-  private int time;
 
   boolean looping;
   boolean playing;
-
+  private AnimationModel model;
+  private int time;
   private double rate = 1;
   private int lowRateCount = 0;
 
@@ -37,38 +33,20 @@ public class AnimationPanel extends JPanel {
     this.looping = false;
   }
 
-  public void setLooping(boolean looping) {
-    this.looping = looping;
-  }
-
-  public void setPlaying(boolean playing) {
-    this.playing = playing;
-  }
-
   public boolean isLooping() {
     return looping;
+  }
+
+  public void setLooping(boolean looping) {
+    this.looping = looping;
   }
 
   public boolean isPlaying() {
     return playing;
   }
 
-  /**
-   * Model setter.
-   *
-   * @param m model.
-   */
-  public void setModel(AnimationModel m) {
-    this.model = m;
-  }
-
-  /**
-   * Setter for time.
-   *
-   * @param time the time to change to
-   */
-  public void setTime(int time) {
-    this.time = time;
+  public void setPlaying(boolean playing) {
+    this.playing = playing;
   }
 
   /**
@@ -81,6 +59,15 @@ public class AnimationPanel extends JPanel {
   }
 
   /**
+   * Model setter.
+   *
+   * @param m model.
+   */
+  public void setModel(AnimationModel m) {
+    this.model = m;
+  }
+
+  /**
    * Override of the paintComponent method. Updates the frame to hold shapes at correct positions at
    * each tick.
    *
@@ -89,7 +76,7 @@ public class AnimationPanel extends JPanel {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
 
-    if(Objects.isNull(model)){
+    if (Objects.isNull(model)) {
       return;
     }
 
@@ -99,10 +86,10 @@ public class AnimationPanel extends JPanel {
           s = s.getStateAt(time);
 
           g.setColor(new Color(s.getColor().getRed(), s.getColor().getGreen(),
-                  s.getColor().getBlue()));
+              s.getColor().getBlue()));
 
           g.fillOval((int) s.getPosn().getX(), (int) s.getPosn().getY(), (int)
-                  s.getWidth(), (int) s.getHeight());
+              s.getWidth(), (int) s.getHeight());
         }
       }
 
@@ -111,25 +98,25 @@ public class AnimationPanel extends JPanel {
           s = s.getStateAt(time);
 
           g.setColor(new Color(s.getColor().getRed(), s.getColor().getGreen(),
-                  s.getColor().getBlue()));
+              s.getColor().getBlue()));
           g.fillRect((int) s.getPosn().getX(), (int) s.getPosn().getY(),
-                  (int) s.getWidth(), (int) s.getHeight());
+              (int) s.getWidth(), (int) s.getHeight());
         }
       }
     }
 
     if (this.looping && time > model.getEndTime()) {
       this.time = 0;
-    } else if (time > model.getEndTime()){
+    } else if (time > model.getEndTime()) {
       time = model.getEndTime();
     }
 
     if (this.playing) {
 //      System.out.println(time + ", r=" + rate + ", lrc=" + lowRateCount);
 
-      if(rate < 1){
-        lowRateCount ++;
-        if(lowRateCount > (1/rate)){
+      if (rate < 1) {
+        lowRateCount++;
+        if (lowRateCount > (1 / rate)) {
           this.time++;
           lowRateCount = 0;
         }
@@ -148,15 +135,24 @@ public class AnimationPanel extends JPanel {
     return this.time;
   }
 
-  public void slowDownRate(){
+  /**
+   * Setter for time.
+   *
+   * @param time the time to change to
+   */
+  public void setTime(int time) {
+    this.time = time;
+  }
+
+  public void slowDownRate() {
     this.rate *= Constants.RATE_FACTOR_SLOWER;
   }
 
-  public void speedUpRate(){
+  public void speedUpRate() {
     this.rate *= Constants.RATE_FACTOR_SPEEDY;
   }
 
-  public double getRate(){
+  public double getRate() {
     return rate;
   }
 

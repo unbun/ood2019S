@@ -18,7 +18,8 @@ public class PosnTest {
   @Test
   public void testPosns() {
     assertEquals(p0, new Posn(0, 0));
-    assertEquals(p3, new Posn(-90.3 + 1, -90 - 0.2));;
+    assertEquals(p3, new Posn(-90.3 + 1, -90 - 0.2));
+    ;
     assertNotEquals(p1, p2);
     assertNotEquals(p3, p4);
     p1.setX(-45);

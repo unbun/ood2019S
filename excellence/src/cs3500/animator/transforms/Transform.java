@@ -13,7 +13,6 @@ public interface Transform {
    * Stores the specific operation to the given shape.
    *
    * @param shape the shape to be operated on
-   *
    * @throws IllegalArgumentException if operation happens at invalid times
    */
   void apply(IShape shape) throws IllegalArgumentException;
@@ -22,7 +21,6 @@ public interface Transform {
    * Gets description of operation on shape.
    *
    * @return a description of an operation on a shape
-   *
    * @throws IllegalArgumentException if there is no shape added to the operation
    */
   String getDescription(AnimationModel model) throws IllegalArgumentException;

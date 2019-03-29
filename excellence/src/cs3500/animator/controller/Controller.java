@@ -1,5 +1,13 @@
 package cs3500.animator.controller;
 
+import cs3500.animator.model.AnimationModel;
+import cs3500.animator.util.Posn;
+import cs3500.animator.view.ControllableView;
+import cs3500.animator.view.IAnimationView;
+import cs3500.animator.view.SVGView;
+import cs3500.animator.view.TextualView;
+import cs3500.animator.view.ViewType;
+import cs3500.animator.view.VisualView;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -8,16 +16,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 
-
-import cs3500.animator.model.AnimationModel;
-import cs3500.animator.util.Posn;
-import cs3500.animator.view.*;
-
 /**
- * This controller implements the tasks of an {@code IController}. This controller also acts as the MouseListener and
- * KeyListener of the {@code ControllableView} view (but can still be used to run the other views as well).
+ * This controller implements the tasks of an {@code IController}. This controller also acts as the
+ * MouseListener and KeyListener of the {@code ControllableView} view (but can still be used to run
+ * the other views as well).
  */
 public class Controller implements IController, MouseListener, KeyListener {
+
   private final AnimationModel model;
   private IAnimationView view;
   private Appendable ap = System.out;
@@ -33,11 +38,11 @@ public class Controller implements IController, MouseListener, KeyListener {
    * Default constructor for controller.
    *
    * @param model the desired model that handles the animation
-   * @param args  arguments in main method
+   * @param args arguments in main method
    * @throws IllegalArgumentException if passed a null model
    */
   public Controller(AnimationModel model, String[] args)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     Objects.requireNonNull(model);
 
     this.model = model;
@@ -76,10 +81,10 @@ public class Controller implements IController, MouseListener, KeyListener {
   /**
    * Creates the desired view based on user input; can be one of the following:
    * <ul>
-   *     <item>visual</item>
-   *     <item>edit</item>
-   *     <item>svg</item>
-   *     <item>text</item>
+   * <item>visual</item>
+   * <item>edit</item>
+   * <item>svg</item>
+   * <item>text</item>
    * </ul>
    *
    * @param view the view to be made
@@ -127,8 +132,8 @@ public class Controller implements IController, MouseListener, KeyListener {
                   inputFilePath = args[i + 1];
                 } else {
                   throw new
-                          IllegalArgumentException(args[i + 1].substring(args[i + 1].length() - 4)
-                          + " is not a valid output file type");
+                      IllegalArgumentException(args[i + 1].substring(args[i + 1].length() - 4)
+                      + " is not a valid output file type");
                 }
                 break;
 
@@ -165,19 +170,19 @@ public class Controller implements IController, MouseListener, KeyListener {
 
               default:
                 throw new IllegalArgumentException("There was a bad parameter" +
-                        " specifier, try again");
+                    " specifier, try again");
             }
           }
         } catch (IndexOutOfBoundsException e) {
           throw new IllegalArgumentException("You must have values after" +
-                  " the parameter specifiers.");
+              " the parameter specifiers.");
         }
       }
     }
 
     if (this.inputFilePath.equalsIgnoreCase("")) {
       throw new IllegalArgumentException("No input file path detected. Please specify" +
-              " a pre-existing input file path.");
+          " a pre-existing input file path.");
     }
 
   }
@@ -189,34 +194,35 @@ public class Controller implements IController, MouseListener, KeyListener {
 
   @Override
   public void keyTyped(KeyEvent e) {
-    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+    if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
 
-    ControllableView cView = (ControllableView)view;
+    ControllableView cView = (ControllableView) view;
 
   }
 
   @Override
   public void keyPressed(KeyEvent e) {
-    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+    if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
 
-    ControllableView cView = (ControllableView)view;
+    ControllableView cView = (ControllableView) view;
 
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
-    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+    if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
 
-    ControllableView cView = (ControllableView)view;
+    ControllableView cView = (ControllableView) view;
 
-    switch(e.getKeyChar()){
-      case 'q': System.exit(0);
+    switch (e.getKeyChar()) {
+      case 'q':
+        System.exit(0);
         break;
     }
 
@@ -224,53 +230,53 @@ public class Controller implements IController, MouseListener, KeyListener {
 
   @Override
   public void mouseClicked(MouseEvent e) {
-    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+    if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
-    ControllableView cView = (ControllableView)view;
+    ControllableView cView = (ControllableView) view;
     Posn mouseLoc = new Posn(e.getX(), e.getY());
     cView.loadClickedShape(mouseLoc);
   }
 
   @Override
   public void mousePressed(MouseEvent e) {
-    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+    if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
 
-    ControllableView cView = (ControllableView)view;
+    ControllableView cView = (ControllableView) view;
 
   }
 
 
   @Override
   public void mouseReleased(MouseEvent e) {
-    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+    if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
 
-    ControllableView cView = (ControllableView)view;
+    ControllableView cView = (ControllableView) view;
 
   }
 
   @Override
   public void mouseEntered(MouseEvent e) {
-    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+    if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
     Posn mouseLoc = new Posn(e.getX(), e.getY());
-    ControllableView cView = (ControllableView)view;
+    ControllableView cView = (ControllableView) view;
 
   }
 
   @Override
   public void mouseExited(MouseEvent e) {
-    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+    if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
     Posn mouseLoc = new Posn(e.getX(), e.getY());
 
-    ControllableView cView = (ControllableView)view;
+    ControllableView cView = (ControllableView) view;
 
   }
 }

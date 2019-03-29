@@ -1,23 +1,24 @@
 package cs3500.animator.transforms;
 
+import cs3500.animator.model.AnimationModel;
+import cs3500.animator.shapes.IShape;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
-import cs3500.animator.model.AnimationModel;
-import cs3500.animator.shapes.IShape;
 
 /**
  * Recoloring a shape to a new color.s
  */
 public class Recolor extends ATransform {
+
   private Color color;
 
   /**
    * Default constructor.
-   *  @param startTime the time at which the color change begins
-   * @param endTime   the time at which the color change ends
-   * @param color    the new color of the shape
+   *
+   * @param startTime the time at which the color change begins
+   * @param endTime the time at which the color change ends
+   * @param color the new color of the shape
    */
   public Recolor(String name, int startTime, int endTime, Color color) {
     super(name, TransformType.RECOLOR, startTime, endTime);
@@ -40,7 +41,7 @@ public class Recolor extends ATransform {
       if (shape.getOperations().get(i).getType() == TransformType.RECOLOR) {
         opsListOnThisShape.add(shape.getOperations().get(i));
         if (this.startTime > shape.getOperations().get(i).getStartTime()
-                && this.startTime < shape.getOperations().get(i).getEndTime()) {
+            && this.startTime < shape.getOperations().get(i).getEndTime()) {
           throw new IllegalArgumentException("Cannot call the same animation while in progress.");
         }
       }
@@ -69,7 +70,9 @@ public class Recolor extends ATransform {
     } else {
 
       String result = getPreDescription(model.getTickRate());
-      result += String.format("%d %.0f %.0f %.0f %.0f %d %d %d\n", (this.endTime / model.getTickRate()), this.opShapes.get(0).getPosn().getX(),  this.opShapes.get(0).getPosn().getY(),
+      result += String
+          .format("%d %.0f %.0f %.0f %.0f %d %d %d\n", (this.endTime / model.getTickRate()),
+              this.opShapes.get(0).getPosn().getX(), this.opShapes.get(0).getPosn().getY(),
               this.opShapes.get(0).getWidth(), this.opShapes.get(0).getHeight(),
               this.color.getRed(), this.color.getGreen(), this.color.getBlue());
 
@@ -82,20 +85,20 @@ public class Recolor extends ATransform {
   public String printSVG() {
     String result = "";
     result += "<animate attributeType=\"xml\" begin=\"" + Integer.toString(100 * this.startTime)
-            + "ms\" dur=\"" + Integer.toString(100 * (this.endTime - this.startTime)) + "ms\"" +
-            " attributeName=\"fill\"" +
-            " from=\"RGB("
-            + Integer.toString(Math.round(255 * this.opShapes.get(0).getColor().getRed()))
-            + ","
-            + Integer.toString(Math.round(255 * this.opShapes.get(0).getColor().getGreen()))
-            + ","
-            + Integer.toString(Math.round(255 * this.opShapes.get(0).getColor().getBlue()))
-            + ")\" to=\""
-            + "RGB("
-            + Integer.toString(Math.round(255 * this.color.getRed())) + ","
-            + Integer.toString(Math.round(255 * this.color.getGreen())) + ","
-            + Integer.toString(Math.round(255 * this.color.getBlue())) + ")"
-            + "\" fill=\"freeze\" />\n";
+        + "ms\" dur=\"" + Integer.toString(100 * (this.endTime - this.startTime)) + "ms\"" +
+        " attributeName=\"fill\"" +
+        " from=\"RGB("
+        + Integer.toString(Math.round(255 * this.opShapes.get(0).getColor().getRed()))
+        + ","
+        + Integer.toString(Math.round(255 * this.opShapes.get(0).getColor().getGreen()))
+        + ","
+        + Integer.toString(Math.round(255 * this.opShapes.get(0).getColor().getBlue()))
+        + ")\" to=\""
+        + "RGB("
+        + Integer.toString(Math.round(255 * this.color.getRed())) + ","
+        + Integer.toString(Math.round(255 * this.color.getGreen())) + ","
+        + Integer.toString(Math.round(255 * this.color.getBlue())) + ")"
+        + "\" fill=\"freeze\" />\n";
     return result;
   }
 }

@@ -1,14 +1,15 @@
 package cs3500.animator.controller.actionHandlers;
 
 import cs3500.animator.view.ControllableView;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Action listener class toggles the view's play/pause state when its action is performed by the corresponding buttons.
+ * Action listener class toggles the view's play/pause state when its action is performed by the
+ * corresponding buttons.
  */
 public class PlayButtonHandler implements ActionListener {
+
   ControllableView view;
 
   /**
