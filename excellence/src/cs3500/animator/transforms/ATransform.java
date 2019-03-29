@@ -25,7 +25,7 @@ public abstract class ATransform implements Transform {
    */
   protected ATransform(String name, TransformType tType, int startTime, int endTime) {
 
-    if (this.startTime > this.endTime) {
+    if (startTime > endTime) {
       throw new IllegalArgumentException("Start time must be before endtime");
     }
 
