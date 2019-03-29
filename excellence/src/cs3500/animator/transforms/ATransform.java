@@ -5,9 +5,10 @@ import java.util.Objects;
 
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
+import cs3500.animator.util.Utils;
 
 /**
- * An abstract class representing the abstraction of instances of operations that shapes can have.
+ * An abstract class representing the abstraction of instances of transformations that shapes could go through.
  */
 public abstract class ATransform implements Transform {
   protected String name;
@@ -19,19 +20,19 @@ public abstract class ATransform implements Transform {
   /**
    * Default constructor.
    *
-   * @param startTime the time at which the operation begins
-   * @param endTime   the time at which the operation ends
+   * @param startTime the time at which the transform begins
+   * @param endTime   the time at which the transform ends
    */
   protected ATransform(String name, TransformType tType, int startTime, int endTime) {
-    if (this.startTime < 0 || this.endTime < 0) {
-      throw new IllegalArgumentException("Invalid times.");
-    } else if (this.startTime > this.endTime) {
-      throw new IllegalArgumentException("Invalid times.");
+
+    if (this.startTime > this.endTime) {
+      throw new IllegalArgumentException("Start time must be before endtime");
     }
+
     else {
       this.name = name;
-      this.startTime = startTime;
-      this.endTime = endTime;
+      this.startTime = Utils.requireNonNegative(startTime);
+      this.endTime = Utils.requireNonNegative(endTime);
       this.tType = Objects.requireNonNull(tType);
       this.opShapes = new ArrayList<>();
     }
@@ -58,6 +59,11 @@ public abstract class ATransform implements Transform {
   @Override
   public abstract String getDescription(AnimationModel model) throws IllegalArgumentException;
 
+  /**
+   * Get the part of the Description that is formatted the same for all Transforms regardless of what they are.
+   * @param tickRate the tickrate this transform will run at
+   * @return a formatted String of the description.
+   */
   protected String getPreDescription(int tickRate){
     String result = String.format("%s %s \t", this.tType.descriptor(), this.opShapes.get(0).getName());
     //t  x  y  w  h  r  g  b

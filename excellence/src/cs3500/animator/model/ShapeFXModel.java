@@ -22,8 +22,8 @@ import cs3500.animator.util.Utils;
 
 
 /**
- * The implementation of the AnimatorModel interface. Consists of the model of the Easy Animator.
- * Implements the public methods as specified in the IAnimationModel interface.
+ * The implementation of the AnimatorModel interface. Uses a Builder class to read animation descriptions and create
+ * Shapes, Transforms, and KeyFrames from those descriptions.
  */
 public class ShapeFXModel implements AnimationModel {
   private List<IShape> shapeList;
@@ -113,7 +113,8 @@ public class ShapeFXModel implements AnimationModel {
 
       @Override
       public AnimationBuilder<AnimationModel> addKeyframe(String name, int t, int x, int y, int w, int h, int r, int g, int b) {
-        throw new UnsupportedOperationException("Please do not use key frames for animations");
+        model.createKeyFrame(name, t, x, y, w, h, r, g, b);
+        return this;
       }
     }
 
@@ -139,6 +140,55 @@ public class ShapeFXModel implements AnimationModel {
     for (IShape s : this.getShapes()) {
       if (trns.getName().equals(s.getName())) {
         trns.apply(s);
+      }
+    }
+  }
+
+  @Override
+  public void createKeyFrame(String name, int t, int x, int y, int w, int h, int r, int g, int b) {
+    IShape s = null;
+    for(int i = 0; i < this.getShapes().size(); i++){
+      if(this.getShapes().get(i).getName().equalsIgnoreCase(name)){
+        s = this.getShapes().get(i);
+      }
+    }
+
+    if(s == null){
+      //TODO: throw an error maybe?
+      return;
+    }
+
+    if(s.getPosn().x != x || s.getPosn().y != y){
+      createTransform(new MoveTo("move key frame " + t,Math.max(0,t-1),t,new Posn(x,y)));
+    }
+
+    if(s.getColor().getRed()!=r || s.getColor().getGreen()!=g || s.getColor().getBlue()!=b){
+      createTransform(new Recolor("recolor key frame " + t,Math.max(0,t-1),t,new Color(r,g,b)));
+    }
+
+    if(s.getHeight() != h || s.getWidth() != w){
+      createTransform(new Scale("scale key frame " + t, Math.max(0,t-1), t, w,h));
+    }
+  }
+
+  @Override
+  public void removeKeyFrame(String name, int t) {
+    IShape s = null;
+    for(int i = 0; i < this.getShapes().size(); i++){
+      if(this.getShapes().get(i).getName().equalsIgnoreCase(name)){
+        s = this.getShapes().get(i);
+      }
+    }
+
+    if(s == null){
+      //TODO: throw an error maybe?
+      return;
+    }
+
+    for(int j = 0; j < s.getOperations().size(); j++){
+      if(s.getOperations().get(j).getStartTime() == t){
+        s.getOperations().remove(j);
+        j--;
       }
     }
   }

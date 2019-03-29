@@ -6,7 +6,9 @@ import cs3500.animator.shapes.IShape;
 import cs3500.animator.transforms.Transform;
 
 /**
- *
+ * A model of {@code IShapes}. The Animation has a list of IShapes, and sets global values (like tick rate, canvas size, etc.)
+ * The model also keeps track of the state the list of shapes, the transforms of those shapes, and the keyframes created
+ * by those transforming shapes.
  */
 public interface AnimationModel {
 
@@ -58,6 +60,27 @@ public interface AnimationModel {
    * @param trns operation.
    */
   void createTransform(Transform trns);
+
+  /**
+   * Create a KeyFrame from the given details
+   * @param name the name of the shape to update
+   * @param t the time to insert the keyframe
+   * @param x the x posn to put the shape at
+   * @param y the y posn to put the shape at
+   * @param w the width of the shape
+   * @param h the height of the shape
+   * @param r the red value of the shape
+   * @param g the green value of the shape
+   * @param b the blue value of the shape
+   */
+  void createKeyFrame(String name, int t, int x, int y, int w, int h, int r, int g, int b);
+
+  /**
+   * Remove the key frame of the given shape at the given time
+   * @param name the shape to remove the keyframe of
+   * @param t the time to remove it at
+   */
+  void removeKeyFrame(String name, int t);
 
   /**
    * Sets speed, which is an int in model.

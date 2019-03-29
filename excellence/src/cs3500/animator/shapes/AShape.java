@@ -8,8 +8,7 @@ import cs3500.animator.transforms.Transform;
 import cs3500.animator.util.Posn;
 
 /**
- * An abstract class representing different types of shapes. Contains multiple pieces of information
- * about each shape. Classes extending this class are examples of shapes.
+ * Represents a Shape that can calculate it's own time-based movements and alterations.
  */
 public abstract class AShape implements IShape {
     protected String name;

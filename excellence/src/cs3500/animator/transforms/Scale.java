@@ -9,7 +9,7 @@ import cs3500.animator.shapes.Oval;
 import cs3500.animator.shapes.Rectangle;
 
 /**
- * Class representing an operation on a shape; changes the width of a shape by a factor.
+ * Change the height and width of a Shape.
  */
 public class Scale extends ATransform {
   private float xFactor;

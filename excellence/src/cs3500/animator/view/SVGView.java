@@ -5,6 +5,9 @@ package cs3500.animator.view;
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
 
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+
 /**
  * The implementation of the SVG-based view. Creates a visual in .svg file format.
  */
@@ -17,9 +20,13 @@ public class SVGView implements IAnimationView {
 
   @Override
   public AnimationPanel getAnimationPanel() {
-    throw new IllegalArgumentException("There is not Panel here!");
+    throw new UnsupportedOperationException("SVG does not use panels");
   }
 
+  @Override
+  public void setListeners(MouseListener mouse, KeyListener keys) {
+    return;
+  }
 
   @Override
   public String makeView(AnimationModel model) {
@@ -47,5 +54,10 @@ public class SVGView implements IAnimationView {
   @Override
   public void makeVisible() {
     // not applicable to this view type
+  }
+
+  @Override
+  public void setModel(AnimationModel model) {
+    return;
   }
 }

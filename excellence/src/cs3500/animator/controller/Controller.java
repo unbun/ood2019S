@@ -1,19 +1,23 @@
 package cs3500.animator.controller;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 
 
 import cs3500.animator.model.AnimationModel;
+import cs3500.animator.util.Posn;
 import cs3500.animator.view.*;
-import cs3500.animator.view.actionhandlers.*;
 
 /**
- * This interface represents the points of control of the operations offered by the Easy Animator.
- * Allows the user to run animations through manual input.
+ * This controller implements the tasks of an {@code IController}. This controller also acts as the MouseListener and
+ * KeyListener of the {@code ControllableView} view (but can still be used to run the other views as well).
  */
-public class Controller implements IController {
+public class Controller implements IController, MouseListener, KeyListener {
   private final AnimationModel model;
   private IAnimationView view;
   private Appendable ap = System.out;
@@ -41,27 +45,8 @@ public class Controller implements IController {
     model.setSpeed(speed);
     this.createView(typeOfView);
 
-    if (this.view.getViewType().equals(ViewType.HYBRID)) {
-      ((ControllableView) view)
-              .getPlayButton().addActionListener(new PlayButtonHandler((ControllableView) this.view));
-      ((ControllableView) view)
-              .getRestartButton().addActionListener(
-              new RestartButtonHandler((ControllableView) this.view));
-      ((ControllableView) view)
-              .getLoopCheckBox().addActionListener(new LoopingHandler((ControllableView) this.view));
-      ((ControllableView) view)
-              .getSlowDownButton().addActionListener(
-              new SlowDownAnimationHandler((ControllableView) this.view));
-      ((ControllableView) view)
-              .getSpeedUpButton().addActionListener(
-              new SpeedUpAnimationHandler((ControllableView) this.view));
-      try {
-        ((ControllableView) view).getExportSVG().addActionListener(
-                new ExportSVGHandler((ControllableView) this.view, this.model, this.ap));
-      } catch (IOException e) {
-        throw new IllegalArgumentException("Unable to export SVG");
-      }
-    }
+    this.view.setModel(model);
+    this.view.setListeners(this, this);
   }
 
   @Override
@@ -89,11 +74,13 @@ public class Controller implements IController {
   }
 
   /**
-   * Creates the desired view based on user input; can be one of the following:.
-   * - visual.
-   * - interactive.
-   * - svg.
-   * - text.
+   * Creates the desired view based on user input; can be one of the following:
+   * <ul>
+   *     <item>visual</item>
+   *     <item>edit</item>
+   *     <item>svg</item>
+   *     <item>text</item>
+   * </ul>
    *
    * @param view the view to be made
    */
@@ -198,6 +185,93 @@ public class Controller implements IController {
   @Override
   public String getInputFilePath() {
     return this.inputFilePath;
+  }
+
+  @Override
+  public void keyTyped(KeyEvent e) {
+    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+      return;
+    }
+
+    ControllableView cView = (ControllableView)view;
+
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+      return;
+    }
+
+    ControllableView cView = (ControllableView)view;
+
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
+    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+      return;
+    }
+
+    ControllableView cView = (ControllableView)view;
+
+    switch(e.getKeyChar()){
+      case 'q': System.exit(0);
+        break;
+    }
+
+  }
+
+  @Override
+  public void mouseClicked(MouseEvent e) {
+    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+      return;
+    }
+    ControllableView cView = (ControllableView)view;
+    Posn mouseLoc = new Posn(e.getX(), e.getY());
+    cView.loadClickedShape(mouseLoc);
+  }
+
+  @Override
+  public void mousePressed(MouseEvent e) {
+    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+      return;
+    }
+
+    ControllableView cView = (ControllableView)view;
+
+  }
+
+
+  @Override
+  public void mouseReleased(MouseEvent e) {
+    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+      return;
+    }
+
+    ControllableView cView = (ControllableView)view;
+
+  }
+
+  @Override
+  public void mouseEntered(MouseEvent e) {
+    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+      return;
+    }
+    Posn mouseLoc = new Posn(e.getX(), e.getY());
+    ControllableView cView = (ControllableView)view;
+
+  }
+
+  @Override
+  public void mouseExited(MouseEvent e) {
+    if(this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)){
+      return;
+    }
+    Posn mouseLoc = new Posn(e.getX(), e.getY());
+
+    ControllableView cView = (ControllableView)view;
+
   }
 }
 

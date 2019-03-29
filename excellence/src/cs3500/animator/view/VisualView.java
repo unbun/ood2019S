@@ -17,6 +17,8 @@ import java.awt.BorderLayout;
 
 
 import java.awt.Dimension;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 
 /**
  * Implementation of the visual view animation. Creates a visual of the animation in action.
@@ -43,6 +45,13 @@ public class VisualView extends JFrame implements IAnimationView, ActionListener
 
     this.add(scrollBar);
     this.pack();
+    this.animationPanel.setPlaying(true);
+    this.animationPanel.setLooping(true);
+  }
+
+  @Override
+  public void setListeners(MouseListener mouse, KeyListener keys) {
+    return;
   }
 
   @Override
@@ -69,5 +78,10 @@ public class VisualView extends JFrame implements IAnimationView, ActionListener
   @Override
   public void actionPerformed(ActionEvent e) {
     repaint();
+  }
+
+  @Override
+  public void setModel(AnimationModel model) {
+    return;
   }
 }

@@ -4,6 +4,8 @@ import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
 import cs3500.animator.transforms.Transform;
 
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -19,8 +21,13 @@ public class TextualView implements IAnimationView {
   }
 
   @Override
+  public void setListeners(MouseListener mouse, KeyListener keys) {
+    return;
+  }
+
+  @Override
   public AnimationPanel getAnimationPanel() {
-    throw new IllegalArgumentException("There is not Panel here!");
+    throw new UnsupportedOperationException("Textual does not use panels");
   }
 
   @Override
@@ -56,6 +63,11 @@ public class TextualView implements IAnimationView {
   @Override
   public void makeVisible() {
     // method does not apply to this view
+  }
+
+  @Override
+  public void setModel(AnimationModel model) {
+    return;
   }
 
 }

@@ -1,10 +1,10 @@
 package cs3500.animator.shapes;
 
 /**
- * Represents a specific class of a AShape.
+ * Enum for the different kind of Shapes.
  */
 public enum ShapeClass {
-  RECT("rectangle", "rect"), OVAL("oval", "ellipse"), TRIANGLE("triangle", "polygon");
+  RECT("rectangle", "rect"), OVAL("oval", "ellipse");
 
   String text;
   String svg;

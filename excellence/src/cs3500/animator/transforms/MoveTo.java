@@ -8,20 +8,20 @@ import cs3500.animator.shapes.IShape;
 import cs3500.animator.util.Posn;
 
 /**
- * Class representing an operation on a shape; moves a shape to a destination position.
+ * Moving a Shape to given location.
  */
 public class MoveTo extends ATransform {
-    private Posn destination;
+    private Posn dest;
 
     /**
      * Default constructor.
      *  @param startTime    the time at which the move begins
      * @param endTime      the time at which the move  ends
-     * @param destination the destination position of the shape
+     * @param dest the dest position of the shape
      */
-    public MoveTo(String name, int startTime, int endTime, Posn destination) {
+    public MoveTo(String name, int startTime, int endTime, Posn dest) {
         super(name, TransformType.MOVE, startTime, endTime);
-        this.destination = destination;
+        this.dest = dest;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class MoveTo extends ATransform {
         } else {
             String result = getPreDescription(model.getTickRate());
 
-            result += String.format("%d %.0f %.0f %.0f %.0f %d %d %d\n", (this.endTime / model.getTickRate()), this.destination.getX(), this.destination.getY(),
+            result += String.format("%d %.0f %.0f %.0f %.0f %d %d %d\n", (this.endTime / model.getTickRate()), this.dest.getX(), this.dest.getY(),
                     this.opShapes.get(0).getWidth(), this.opShapes.get(0).getHeight(),
                     this.opShapes.get(0).getColor().getRed(), this.opShapes.get(0).getColor().getGreen(), this.opShapes.get(0).getColor().getBlue());
 
@@ -77,26 +77,26 @@ public class MoveTo extends ATransform {
                 " attributeName=\"" + this.opShapes.get(0).getSymbol() + "x\"" +
                 " from=\"" + Integer.toString((int) this.opShapes.get(0).getPosn().getX()) +
                 "\" to=\""
-                + Integer.toString((int) this.destination.getX())
+                + Integer.toString((int) this.dest.getX())
                 + "\" fill=\"freeze\" />\n";
         result += "<animate attributeType=\"xml\" begin=\"" + Integer.toString(100 * this.startTime)
                 + "ms\" dur=\"" + Integer.toString(100 * (this.endTime - this.startTime)) + "ms\" " +
                 "attributeName=\"" + this.opShapes.get(0).getSymbol() + "y\"" +
                 " from=\"" + Integer.toString((int) this.opShapes.get(0).getPosn().getY()) +
                 "\" to=\""
-                + Integer.toString((int) this.destination.getY())
+                + Integer.toString((int) this.dest.getY())
                 + "\" fill=\"freeze\" />\n";
 
         return result;
     }
 
     /**
-     * Gets destination.
+     * Gets dest.
      *
      * @return dest.
      */
-    public Posn getDestination() {
-        return this.destination;
+    public Posn getDest() {
+        return this.dest;
     }
 
 

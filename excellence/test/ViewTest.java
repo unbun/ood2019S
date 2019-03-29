@@ -2,7 +2,7 @@ import cs3500.animator.model.ShapeFXModel;
 import cs3500.animator.shapes.IShape;
 import cs3500.animator.transforms.*;
 import cs3500.animator.view.*;
-import cs3500.animator.view.actionhandlers.*;
+import cs3500.animator.controller.actionHandlers.*;
 import org.junit.Before;
 import org.junit.Test;
 

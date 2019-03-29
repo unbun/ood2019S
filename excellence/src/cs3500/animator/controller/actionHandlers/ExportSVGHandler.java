@@ -1,4 +1,4 @@
-package cs3500.animator.view.actionhandlers;
+package cs3500.animator.controller.actionHandlers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,8 @@ import cs3500.animator.view.ControllableView;
 import cs3500.animator.view.SVGView;
 
 /**
- * Action listener class that creates an SVG file for the animation to be exported.
+ * Action listener class that creates an SVG file for the animation to be exported when the corresponding button is
+ * clicked.
  */
 public class ExportSVGHandler implements ActionListener {
   private ControllableView view;

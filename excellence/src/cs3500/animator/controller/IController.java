@@ -1,9 +1,8 @@
 package cs3500.animator.controller;
 
 /**
- * This interface represents the points of control as created in the animator model. Allows for
- * coordination between the view of the animation and the data controlled in the model. Controls
- * for user input through commands.
+ * This interface represents multiple points of control for the Excellence Animation. It parses CLI instructions to
+ * create views and models that a use specified. It also starts the animation once those views are created.
  */
 public interface IController {
     /**

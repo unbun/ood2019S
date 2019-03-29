@@ -6,7 +6,7 @@ import cs3500.animator.util.Posn;
 import java.awt.*;
 
 /**
- * Represents an oval shape.
+ * Represents an oval.
  */
 public class Oval extends AShape {
 
@@ -87,10 +87,10 @@ public class Oval extends AShape {
     for (Transform o : this.transformList) {
       if (o.getType() == TransformType.MOVE) {
         if (time >= o.getStartTime() && time < o.getEndTime()) {
-          r.posn = r.tweenPosn((MoveTo) o, r.posn, ((MoveTo) o).getDestination(), time);
+          r.posn = r.tweenPosn((MoveTo) o, r.posn, ((MoveTo) o).getDest(), time);
         }
         if (time >= o.getEndTime()) {
-          r.posn = r.tweenPosn((MoveTo) o, r.posn, ((MoveTo) o).getDestination(), o.getEndTime());
+          r.posn = r.tweenPosn((MoveTo) o, r.posn, ((MoveTo) o).getDest(), o.getEndTime());
         }
       }
       if (o.getType() == TransformType.RECOLOR) {

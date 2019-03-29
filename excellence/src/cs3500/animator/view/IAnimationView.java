@@ -2,14 +2,21 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.AnimationModel;
 
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+
 /**
  * This interface represents the various view supported by the animator.
- *      1. Textual view
- *      2. Visual Animation view
- *      3. SVG Animation view
- *      4. Interactive Animation view
  */
 public interface IAnimationView {
+
+  /**
+   * Set the listeners to control this view with (if applicable)
+   * @param mouse the mouse listener
+   * @param keys the keyboard listener
+   */
+  void setListeners(MouseListener mouse, KeyListener keys);
+
 
   /**
    * Returns the specific type of view, expressed as an enumeration.
@@ -40,5 +47,11 @@ public interface IAnimationView {
    * Make the view visible. Called after the view is constructed.
    */
   void makeVisible();
+
+  /**
+   * Setter for the view's model
+   * @param model the model to use for this view.
+   */
+  void setModel(AnimationModel model);
 
 }

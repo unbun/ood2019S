@@ -4,11 +4,10 @@ import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
 
 /**
- * An interface representing the operations available to animation operations, which implement this
- * interface through extending the abstract class AOperation.
+ * A transformation that Shape can go through to alter some aspect of it and it's representation.
  */
 public interface Transform {
-  //void apply(AShape shape);
+
 
   /**
    * Stores the specific operation to the given shape.

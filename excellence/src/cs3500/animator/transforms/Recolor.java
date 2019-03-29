@@ -8,7 +8,7 @@ import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
 
 /**
- * Class representing an operation on a shape; changes the color of a shape to another color
+ * Recoloring a shape to a new color.s
  */
 public class Recolor extends ATransform {
   private Color color;

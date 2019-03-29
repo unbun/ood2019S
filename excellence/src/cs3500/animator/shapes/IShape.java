@@ -7,7 +7,7 @@ import cs3500.animator.transforms.Transform;
 import cs3500.animator.util.Posn;
 
 /**
- * Interface for IShape, extended by AShape. Represents a shape.
+ * Represents a Shape that can calculate it's own time-based movements and alterations.
  */
 public interface IShape {
 

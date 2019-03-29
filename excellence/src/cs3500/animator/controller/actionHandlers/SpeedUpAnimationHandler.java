@@ -1,4 +1,4 @@
-package cs3500.animator.view.actionhandlers;
+package cs3500.animator.controller.actionHandlers;
 
 import cs3500.animator.view.ControllableView;
 
@@ -6,23 +6,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Action listener class that slows the animation down.
+ * Action listener class that speeds up the animation by scaling the panel's rate up.
  */
-public class SlowDownAnimationHandler implements ActionListener {
+public class SpeedUpAnimationHandler implements ActionListener {
   ControllableView view;
 
   /**
    * Default constructor.
    *
-   * @param view the hybrid view to be passed in.
+   * @param view the hybrid view to be passed in
    */
-  public SlowDownAnimationHandler(ControllableView view) {
+  public SpeedUpAnimationHandler(ControllableView view) {
     this.view = view;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    this.view.getAnimationPanel().slowDownRate();
+    this.view.getAnimationPanel().speedUpRate();
     this.view.getCurrentSpeedLabel().setText("Rate: " + view.getAnimationPanel().getRate() + "x");
   }
 }

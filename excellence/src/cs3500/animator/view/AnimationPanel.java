@@ -35,7 +35,6 @@ public class AnimationPanel extends JPanel {
     this.time = 0;
     this.playing = false;
     this.looping = false;
-
   }
 
   public void setLooping(boolean looping) {

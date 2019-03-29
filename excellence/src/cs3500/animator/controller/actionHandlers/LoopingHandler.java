@@ -1,4 +1,4 @@
-package cs3500.animator.view.actionhandlers;
+package cs3500.animator.controller.actionHandlers;
 
 import cs3500.animator.view.ControllableView;
 
@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Action listener class that implements the looping toggler mechanism.
+ * Action listener class that implements the looping toggler mechanism by the corresponding check box.
  */
 public class LoopingHandler implements ActionListener {
   ControllableView view;
