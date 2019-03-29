@@ -44,12 +44,9 @@ them.
 # Change Log
 
 #### Assignment 7:
-We realized that it was very difficult to have a Shape mutate, but also keep track of it's own states at every tick and its transforms.
-So we simplified the shapes and abandoned of the "LiveShape" concept. Now, on their own, Shapes don't really have much functionality.
-But once they add Transforms to themselves, they can actually update their states. Transforms and Shapes are now more seperated than before.
+We realized that it was very difficult to have a Shape mutate, but also keep track of it's own states at every tick and its transforms. So we simplified the shapes and abandoned of the "LiveShape" concept. Now, on their own, Shapes don't really have much functionality.But once they add Transforms to themselves, they can actually update their states. 
 We added getDescription() and getSVG() methods to the transforms that use a shape's current state 
-and the fields of the Transforms for the TextView and SVGView to use. The transforms don't actually do anything to shapes anymore. They simply add themselves to the shape's 
-list of transforms, and contain some methods to help for different views. The Shapes then use those lists of transforms to get their state at any given time.
+and the fields of the Transforms for the TextView and SVGView to use. The transforms don't actually do anything to shapes anymore. They simply add themselves to the shape's list of transforms, and contain some methods to help for different views. The Shapes then use those lists of transforms to get their state at any given time.
 
 This also allowed us to have model that was universal for all views. All the model has to do now is create/remove shapes and create transforms 
 (and for this assignment, it also must add/remove keyframes). The model also contains some canvas-related information.
