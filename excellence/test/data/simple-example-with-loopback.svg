@@ -1,0 +1,54 @@
+<!--the overall svg width is 560 and height is 430. By default anything
+drawn between (0,0) and (width,height) will be visible -->
+<svg height="500" version="1.1" width="700"
+  xmlns="http://www.w3.org/2000/svg">
+
+  <!--We add a faux rectangle and keep it hidden
+  This rectangle merely provides a reference time for all
+  the other shapes. This is for loopback.
+
+  -->
+  <rect>
+    <!-- This is the loop back. Set duration for the duration of one
+    animation before loopback. Ensure that this number is greater than 
+    the end of one complete animation-->
+    <!-- this example loops back after 10 seconds -->
+    <animate attributeName="visibility" begin="0;base.end" dur="10000.0ms" from="hide" id="base"
+      to="hide"/>
+  </rect>
+
+  <!--A purple rectangle named P with lower left corner (200,200), width 50 and height 100 -->
+  <rect fill="rgb(128,0,128)" height="100" id="P" visibility="visible" width="50" x="200" y="200">
+    <!-- starting at time=1s relative to base.begin, move the rectangle horizontally from x=200 to x=300 in 4 seconds -->
+    <!-- fill=freeze keeps it there after the animation ends -->
+    <animate attributeName="x" attributeType="xml" begin="base.begin+1000ms" dur="4000ms" fill="freeze"
+      from="200" to="300"/>
+
+    <!-- at the end, restore all changed attributes with an instant animation of 1ms duration at the end -->
+    <animate attributeName="x" attributeType="xml" begin="base.end" dur="1ms" fill="freeze"
+      to="200"/>
+
+    <!--add more animations here for this rectangle using animate tags -->
+  </rect>
+
+  <!--An orange ellipse named "E" with center at (500,100), x-radius 60 and y-radius 30 -->
+  <ellipse cx="500" cy="100" fill="rgb(255,128,0)" id="E" rx="60" ry="30" visibility="visible">
+    <!-- starting at time=2s relative to base.begin, move the ellipse's center from (500,100) to (600,400) in 5 seconds -->
+    <!-- fill=remove, which is the default if you don't specify it, brings the shape back to its original attributes after 
+    this animation is over -->
+    <animate attributeName="cx" attributeType="xml" begin="base.begin+2000.0ms" dur="5000.0ms"
+      fill="remove" from="500" to="600"/>
+    <animate attributeName="cy" attributeType="xml" begin="base.begin+2000.0ms" dur="5000.0ms"
+      fill="remove" from="100" to="400"/>
+    <!--add more animations here for this circle using animate tags -->
+
+    <!-- at the end, restore all changed attributes with an instant animation of 1ms duration at the end -->
+    <animate attributeName="cx" attributeType="xml" begin="base.end" dur="1ms" fill="freeze"
+      to="500"/>
+    <animate attributeName="cy" attributeType="xml" begin="base.end" dur="1ms" fill="freeze"
+      to="100"/>
+
+  </ellipse>
+
+</svg>
+
