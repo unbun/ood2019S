@@ -3,6 +3,7 @@ package cs3500.animator.model;
 import cs3500.animator.shapes.IShape;
 import cs3500.animator.transforms.Transform;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A model of {@code IShapes}. The Animation has a list of IShapes, and sets global values (like
@@ -33,13 +34,24 @@ public interface AnimationModel {
    */
   int getEndTime();
 
+  /**
+   * Returns the height of the animation canvas.
+   */
   int getHeight();
 
+  /**
+   * Returns the width of the animation canvas.
+   */
   int getWidth();
 
   /**
-   * Creates an initial shape object in the animation, from where it can perform different actions
-   * based on user input.
+   * Returns this model's list of transformations.
+   */
+  List<Transform> getTransforms();
+
+  /**
+   * Creates an initial shape object in the animation, from where it can be transformed based on
+   * user input.
    *
    * @param shape the shape to be added
    */
@@ -61,7 +73,7 @@ public interface AnimationModel {
   void createTransform(Transform trns);
 
   /**
-   * Create a KeyFrame from the given details
+   * Create a KeyFrame from the given details.
    *
    * @param name the name of the shape to update
    * @param t the time to insert the keyframe
@@ -76,7 +88,7 @@ public interface AnimationModel {
   void createKeyFrame(String name, int t, int x, int y, int w, int h, int r, int g, int b);
 
   /**
-   * Remove the key frame of the given shape at the given time
+   * Remove the key frame of the given shape at the given time.
    *
    * @param name the shape to remove the keyframe of
    * @param t the time to remove it at
@@ -84,7 +96,7 @@ public interface AnimationModel {
   void removeKeyFrame(String name, int t);
 
   /**
-   * Sets speed, which is an int in model.
+   * Sets the speed of the model to the given speed.
    *
    * @param speed speed.
    */

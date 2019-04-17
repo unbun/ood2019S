@@ -5,12 +5,10 @@ import cs3500.animator.shapes.IShape;
 import cs3500.animator.util.Constants;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Objects;
 import javax.swing.JPanel;
 
 /**
- * This panel represents the region where the animation will occur. An instance of a JPanel in Java
- * Swing.
+ * Represents the JPanel where the visual animation will appear.
  */
 public class AnimationPanel extends JPanel {
 
@@ -19,11 +17,10 @@ public class AnimationPanel extends JPanel {
   private AnimationModel model;
   private int time;
   private double rate = 1;
-  private int lowRateCount = 0;
 
 
   /**
-   * Animation panel creator. Default constructor.
+   * Animation panel creator.
    */
   public AnimationPanel() {
     super();
@@ -52,7 +49,7 @@ public class AnimationPanel extends JPanel {
   /**
    * Getter for the model.
    *
-   * @return the model set up
+   * @return the model
    */
   public AnimationModel getModel() {
     return this.model;
@@ -68,35 +65,25 @@ public class AnimationPanel extends JPanel {
   }
 
   /**
-   * Override of the paintComponent method. Updates the frame to hold shapes at correct positions at
-   * each tick.
+   * Updates the frame to hold shapes at correct positions at each tick.
    *
-   * @param g graphic
+   * @param g graphic being painted on
    */
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
-
-    if (Objects.isNull(model)) {
-      return;
-    }
-
     for (IShape s : model.getShapes()) {
       if (s.getType().equals("oval")) {
-        if (time >= s.getBirthTime() && time < s.getDeathTime()) {
-          s = s.getStateAt(time);
-
+        if (time >= s.gett0()) {
+          s = s.currState(time);
           g.setColor(new Color(s.getColor().getRed(), s.getColor().getGreen(),
               s.getColor().getBlue()));
-
           g.fillOval((int) s.getPosn().getX(), (int) s.getPosn().getY(), (int)
               s.getWidth(), (int) s.getHeight());
         }
       }
-
       if (s.getType().equals("rectangle")) {
-        if (time >= s.getBirthTime() && time < s.getDeathTime()) {
-          s = s.getStateAt(time);
-
+        if (time >= s.gett0()) {
+          s = s.currState(time);
           g.setColor(new Color(s.getColor().getRed(), s.getColor().getGreen(),
               s.getColor().getBlue()));
           g.fillRect((int) s.getPosn().getX(), (int) s.getPosn().getY(),
@@ -104,26 +91,12 @@ public class AnimationPanel extends JPanel {
         }
       }
     }
-
     if (this.looping && time > model.getEndTime()) {
       this.time = 0;
     } else if (time > model.getEndTime()) {
       time = model.getEndTime();
     }
-
-    if (this.playing) {
-//      System.out.println(time + ", r=" + rate + ", lrc=" + lowRateCount);
-
-      if (rate < 1) {
-        lowRateCount++;
-        if (lowRateCount > (1 / rate)) {
-          this.time++;
-          lowRateCount = 0;
-        }
-      } else {
-        this.time += rate;
-      }
-    }
+    this.time += rate;
   }
 
   /**
@@ -144,29 +117,27 @@ public class AnimationPanel extends JPanel {
     this.time = time;
   }
 
-  public void slowDownRate() {
-    this.rate *= Constants.RATE_FACTOR_SLOWER;
+  /**
+   * Slows the speed of the animation.
+   */
+  public void slowDownAnimation() {
+    this.rate *= Constants.SLOWRATE;
   }
 
-  public void speedUpRate() {
-    this.rate *= Constants.RATE_FACTOR_SPEEDY;
+  /**
+   * Increases the speed of the animation.
+   */
+  public void speedUpAnimation() {
+    this.rate *= Constants.FASTRATE;
   }
 
+  /**
+   * Getter for rate of animation.
+   *
+   * @return rate
+   */
   public double getRate() {
     return rate;
   }
 
-  /**
-   * Increase time by factor of 50. Useful for future fast forward.
-   */
-  public void increaseTime() {
-    this.time = time + (this.model.getTickRate() / 10);
-  }
-
-  /**
-   * Decrease time by factor of -5. Useful for future rewind function.
-   */
-  public void decreaseTime() {
-    this.time = time - 5;
-  }
 }

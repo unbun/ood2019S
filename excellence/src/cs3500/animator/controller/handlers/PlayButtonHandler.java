@@ -1,21 +1,21 @@
-package cs3500.animator.controller.actionHandlers;
+package cs3500.animator.controller.handlers;
 
+import cs3500.animator.view.AnimationPanel;
 import cs3500.animator.view.ControllableView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Action listener class toggles the view's play/pause state when its action is performed by the
- * corresponding buttons.
+ * Toggles the view's play/pause state.
  */
 public class PlayButtonHandler implements ActionListener {
 
   ControllableView view;
 
   /**
-   * Default constructor.
+   * Constructs a PlayButtonHandler.
    *
-   * @param view the hybrid view to be passed in
+   * @param view the controllable view to be passed in
    */
   public PlayButtonHandler(ControllableView view) {
     this.view = view;
@@ -23,12 +23,12 @@ public class PlayButtonHandler implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (view.getPlayButtonTitle().equalsIgnoreCase("Press to pause")) {
+    if (view.getPlayButtonTitle().equals("Press to pause")) {
       view.setPlayButtonTitle("Press to play");
-      this.view.getAnimationPanel().setPlaying(false);
+      ((AnimationPanel) this.view.getAnimationPanel()).setPlaying(false);
     } else {
       view.setPlayButtonTitle("Press to pause");
-      this.view.getAnimationPanel().setPlaying(true);
+      ((AnimationPanel) this.view.getAnimationPanel()).setPlaying(true);
     }
   }
 }

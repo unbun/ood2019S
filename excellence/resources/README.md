@@ -43,6 +43,20 @@ them.
 
 # Change Log
 
+#### Assignment 8:
+##### Added Classes:
+
+See resources/reflections for more
+
+```
+	src/cs3500/animator/provider/SinglePanelEdit.java
+	src/cs3500/animator/model/LocalToProviderModel.java
+	src/cs3500/animator/controller/PSupportedController.java
+  src/cs3500/animator/provider/view/SinglePanelEditView.java
+  src/cs3500/animator/view/AnimationPanel.java
+  src/cs3500/animator/view/ProviderToLocalEditView.java
+```
+
 #### Assignment 7:
 We realized that it was very difficult to have a Shape mutate, but also keep track of it's own states at every tick and its transforms. So we simplified the shapes and abandoned of the "LiveShape" concept. Now, on their own, Shapes don't really have much functionality.But once they add Transforms to themselves, they can actually update their states. 
 We added getDescription() and getSVG() methods to the transforms that use a shape's current state 

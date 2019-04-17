@@ -1,13 +1,11 @@
 package cs3500.animator.transforms;
 
 import cs3500.animator.model.AnimationModel;
-import cs3500.animator.shapes.IShape;
+import cs3500.animator.shapes.AShape;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Recoloring a shape to a new color.s
+ * Represents a transformation which recolors a shape to a new color.
  */
 public class Recolor extends ATransform {
 
@@ -26,7 +24,7 @@ public class Recolor extends ATransform {
   }
 
   /**
-   * Getter. Returns color.
+   * Getter. Returns destination color.
    *
    * @return color.
    */
@@ -34,71 +32,31 @@ public class Recolor extends ATransform {
     return this.color;
   }
 
-  @Override
-  public void apply(IShape shape) throws IllegalArgumentException {
-    List<Transform> opsListOnThisShape = new ArrayList<>();
-    for (int i = 0; i < shape.getOperations().size(); i++) {
-      if (shape.getOperations().get(i).getType() == TransformType.RECOLOR) {
-        opsListOnThisShape.add(shape.getOperations().get(i));
-        if (this.startTime > shape.getOperations().get(i).getStartTime()
-            && this.startTime < shape.getOperations().get(i).getEndTime()) {
-          throw new IllegalArgumentException("Cannot call the same animation while in progress.");
-        }
-      }
-    }
-
-    // checks that operation happens after shape appears
-    if (this.startTime <= shape.getBirthTime()) {
-      throw new IllegalArgumentException("Cannot animate shape before it appears.");
-    }
-    // checks that operation happens before shape disappears
-    else if (this.startTime > shape.getDeathTime()) {
-      throw new IllegalArgumentException("Cannot animate shape after it disappears.");
-    }
-    // adds shape to this operations list of shapes
-    // adds this operation to the shape's list of operations
-    else {
-      this.opShapes.add(shape);
-      shape.getOperations().add(this);
-    }
-  }
 
   @Override
-  public String getDescription(AnimationModel model) throws IllegalArgumentException {
-    if (this.opShapes.isEmpty()) {
-      throw new IllegalArgumentException("This operation has not been used");
-    } else {
-
-      String result = getPreDescription(model.getTickRate());
-      result += String
-          .format("%d %.0f %.0f %.0f %.0f %d %d %d\n", (this.endTime / model.getTickRate()),
-              this.opShapes.get(0).getPosn().getX(), this.opShapes.get(0).getPosn().getY(),
-              this.opShapes.get(0).getWidth(), this.opShapes.get(0).getHeight(),
-              this.color.getRed(), this.color.getGreen(), this.color.getBlue());
-
-      return result;
-    }
+  public String toText(AnimationModel model) {
+    String output = getPreDescription(model.getTickRate());
+    output += String
+        .format("%d %.0f %.0f %.0f %.0f %d %d %d\n", (this.endTime / model.getTickRate()),
+            this.shapes.get(0).getPosn().getX(), this.shapes.get(0).getPosn().getY(),
+            this.shapes.get(0).getWidth(), this.shapes.get(0).getHeight(),
+            this.color.getRed(), this.color.getGreen(), this.color.getBlue());
+    return output;
   }
 
 
   @Override
-  public String printSVG() {
-    String result = "";
-    result += "<animate attributeType=\"xml\" begin=\"" + Integer.toString(100 * this.startTime)
-        + "ms\" dur=\"" + Integer.toString(100 * (this.endTime - this.startTime)) + "ms\"" +
+  public String commandToSVG(AShape s) {
+    String output = "";
+    output += "<animate attributeType=\"xml\" begin=\"" + (1000 * this.startTime)
+        + "ms\" dur=\"" + (1000 * (this.endTime - this.startTime)) + "ms\"" +
         " attributeName=\"fill\"" +
-        " from=\"RGB("
-        + Integer.toString(Math.round(255 * this.opShapes.get(0).getColor().getRed()))
-        + ","
-        + Integer.toString(Math.round(255 * this.opShapes.get(0).getColor().getGreen()))
-        + ","
-        + Integer.toString(Math.round(255 * this.opShapes.get(0).getColor().getBlue()))
-        + ")\" to=\""
-        + "RGB("
-        + Integer.toString(Math.round(255 * this.color.getRed())) + ","
-        + Integer.toString(Math.round(255 * this.color.getGreen())) + ","
-        + Integer.toString(Math.round(255 * this.color.getBlue())) + ")"
+        " from=\"RGB(" + (Math.round(this.shapes.get(0).getColor().getRed()))
+        + "," + (Math.round(this.shapes.get(0).getColor().getGreen()))
+        + "," + (Math.round(this.shapes.get(0).getColor().getBlue()))
+        + ")\" to=\"" + "RGB(" + (Math.round(this.color.getRed())) + ","
+        + (Math.round(this.color.getGreen())) + "," + (Math.round(this.color.getBlue())) + ")"
         + "\" fill=\"freeze\" />\n";
-    return result;
+    return output;
   }
 }

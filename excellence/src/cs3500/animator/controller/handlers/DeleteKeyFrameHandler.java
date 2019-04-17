@@ -1,4 +1,4 @@
-package cs3500.animator.controller.actionHandlers;
+package cs3500.animator.controller.handlers;
 
 import cs3500.animator.view.ControllableView;
 import java.awt.event.ActionEvent;
@@ -6,16 +6,17 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
- * Action listener class that deletes a KeyFrame to the view's model when it's action is performed
+ * Action listener class that deletes a KeyFrame from the view's model when its action is
+ * performed.
  */
 public class DeleteKeyFrameHandler implements ActionListener {
 
   ControllableView view;
 
   /**
-   * Default constructor.
+   * Constructs a DeleteKeyFrameHandler.
    *
-   * @param view the hybrid view to be passed in
+   * @param view the controllable view to be passed in
    */
   public DeleteKeyFrameHandler(ControllableView view) {
     this.view = Objects.requireNonNull(view);
@@ -31,9 +32,11 @@ public class DeleteKeyFrameHandler implements ActionListener {
         view.getModel().removeKeyFrame(fields[0],
             Integer.parseInt(fields[1]));
       } catch (NumberFormatException nfe) {
-        view.warnDialog("KeyFrame Editor", "Specified KeyFrame Values are not valid numbers");
+        view.warningBox("KeyFrame Editor",
+            "Specified KeyFrame Values are not valid numbers");
       } catch (ArrayIndexOutOfBoundsException oobe) {
-        view.warnDialog("KeyFrame Editor", "Not enough KeyFrame Values are validly specified");
+        view.warningBox("KeyFrame Editor",
+            "Not enough KeyFrame Values are validly specified");
       }
     }
   }

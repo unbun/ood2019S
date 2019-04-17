@@ -4,11 +4,14 @@ package cs3500.animator.view;
  * Enumeration describing the different types of views.
  */
 public enum ViewType {
-  EDITOR("edit"), VISUAL("visual"), TEXT("text"), SVG("svg");
+  EDITOR("edit"), VISUAL("visual"), TEXT("text"), SVG("svg"), PROVIDED_EDIT(
+      "edit"), PROVIDED_VISUAL("visual");
 
-  String cliRep;
+  String type;
 
-  ViewType(String cliRep) {
-    this.cliRep = cliRep;
+  ViewType(String type) {
+    this.type = type;
   }
+
+
 }

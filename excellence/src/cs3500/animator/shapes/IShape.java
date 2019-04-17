@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 /**
- * Represents a Shape that can calculate it's own time-based movements and alterations.
+ * Represents a Shape that can compute its own time-based movements and alterations.
  */
 public interface IShape {
 
@@ -43,21 +43,14 @@ public interface IShape {
    *
    * @return the appearance time of this shape
    */
-  int getBirthTime();
+  int gett0();
 
   /**
-   * Getter for the disappear of the shape.
+   * Getter for the list of transformations on the shape.
    *
-   * @return the disappear time of this shape
+   * @return the list of transformations for this shape
    */
-  int getDeathTime();
-
-  /**
-   * Getter for the list of operations on the shape.
-   *
-   * @return the list of operations for this shape
-   */
-  ArrayList<Transform> getOperations();
+  ArrayList<Transform> getTransformations();
 
   /**
    * Getter for the width of the shape.
@@ -86,12 +79,13 @@ public interface IShape {
    * @param t time.
    * @return state at time.
    */
-  IShape getStateAt(int t);
+  IShape currState(int t);
 
   /**
    * Getting type of shape, either c or r, used for moving shape and formatting SVG.
    *
-   * @return either "c" or "r". Helper for printing SVG.
+   * @return either "c" or "r"
    */
-  String getSymbol();
+  String shapeSVGSymbol();
+
 }

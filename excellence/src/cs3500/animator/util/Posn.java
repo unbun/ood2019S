@@ -38,9 +38,11 @@ public class Posn {
     this.y = y;
   }
 
+  /**
+   * Returns a textual description of a Posn.
+   */
   public String getDescription() {
     StringBuilder sb = new StringBuilder();
-
     sb.append("(");
     sb.append(this.getX());
     sb.append(",");

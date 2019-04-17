@@ -2,10 +2,11 @@ package cs3500.animator.controller;
 
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.util.Posn;
+import cs3500.animator.view.AnimationPanel;
 import cs3500.animator.view.ControllableView;
-import cs3500.animator.view.IAnimationView;
+import cs3500.animator.view.IView;
 import cs3500.animator.view.SVGView;
-import cs3500.animator.view.TextualView;
+import cs3500.animator.view.TextView;
 import cs3500.animator.view.ViewType;
 import cs3500.animator.view.VisualView;
 import java.awt.event.KeyEvent;
@@ -17,69 +18,124 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * This controller implements the tasks of an {@code AnimationController}. This controller also acts as the
- * MouseListener and KeyListener of the {@code ControllableView} view (but can still be used to run
- * the other views as well).
+ * Implements the tasks of an {@code AnimationController}. Also acts as the MouseListener and
+ * KeyListener of the {@code ControllableView} view (but can still run the other views as well).
  */
 public class ShapeFXController implements AnimationController, MouseListener, KeyListener {
 
-  private final AnimationModel model;
-  private IAnimationView view;
-  private Appendable output = System.out;
-  private String inputFilePath = "";
-  private int speed = 1;
-  private String typeOfView = "";
-  // isSytemOut is a flag used to detect whether or not the appendable needs to be flushed. If true,
-  // the appendable does NOT need to be flushed.
-  private boolean isSystemOut = true;
-  private boolean canUseAppendable = true;
+  protected final AnimationModel model;
+  protected IView view;
+  protected Appendable outputFile = System.out;
+  protected String inputFile = "";
+  protected int speed = 1;
+  protected String viewType = "";
+  protected boolean isDefaultOutput = true;
 
   /**
-   * Default constructor for controller.
+   * Default constructor for a controller.
    *
-   * @param model the desired model that handles the animation
-   * @param args arguments in main method
+   * @param model the desired model to represent the animation
+   * @param args arguments received in main method
    * @throws IllegalArgumentException if passed a null model
    */
   public ShapeFXController(AnimationModel model, String[] args)
       throws IllegalArgumentException {
     Objects.requireNonNull(model);
-
     this.model = model;
     this.parseInput(args);
     model.setSpeed(speed);
-    this.createView(typeOfView);
-
+    this.createView(viewType);
     this.view.setModel(model);
     this.view.setListeners(this, this);
   }
 
-  @Override
-  public void runAnimation() {
-    if (canUseAppendable) {
-      view.makeVisible();
+  /**
+   * Parses user inputs via the main method to establish view type, input file, output file, and
+   * animation speed.
+   *
+   * @param args given arguments in the main method
+   */
+  protected void parseInput(String[] args) {
+    for (int i = 0; i < args.length; i += 2) {
       try {
-        output.append(view.makeView(model));
-      } catch (IOException e) {
-        throw new IllegalArgumentException("Could not create View!");
+        if ((args[i + 1].length() > 0)) {
+          switch (args[i]) {
+            case "-in":
+              if ((args[i + 1].endsWith(".txt")) || (args[i + 1].endsWith(".svg"))) {
+                inputFile = args[i + 1];
+              } else {
+                throw new
+                    IllegalArgumentException(args[i + 1].substring(args[i + 1].length() - 4)
+                    + "input file must be a .txt or .svg file");
+              }
+              break;
+            case "-out":
+              if (args[i + 1].equals("out")) {
+                outputFile = System.out;
+              } else {
+                try {
+                  outputFile = new FileWriter(args[i + 1]);
+                  isDefaultOutput = false;
+                } catch (IOException e) {
+                  throw new IllegalArgumentException("Error in creating output file, try again");
+                }
+              }
+              break;
+            case "-view":
+              viewType = args[i + 1];
+              break;
+            case "-speed":
+              try {
+                speed = Integer.parseInt(args[i + 1]);
+              } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Speed must be an integer!");
+              }
+              break;
+            default:
+              throw new IllegalArgumentException("The only valid inputs are -in, -out, -view, "
+                  + "and -speed. Try again!");
+          }
+        }
+      } catch (IndexOutOfBoundsException e) {
+        throw new IllegalArgumentException("You must provide a value after" +
+            " each input specifier.");
       }
-    } else {
-      view.makeView(model);
-      view.makeVisible();
     }
+    if (this.inputFile.equals("")) {
+      throw new IllegalArgumentException("Please specify" +
+          " a pre-existing input file path.");
+    }
+  }
 
-    if (!isSystemOut) {
+  /**
+   * Setter for testing purposes, normally the view will be set by parsing args.
+   *
+   * @param view the view to be set to
+   */
+  public void setView(IView view) {
+    this.view = view;
+  }
+
+  @Override
+  public void run() {
+    view.init();
+    try {
+      outputFile.append(view.updateView(model));
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Error in creating view.");
+    }
+    if (!isDefaultOutput) {
       try {
-        ((FileWriter) output).flush();
-        ((FileWriter) output).close();
+        ((FileWriter) outputFile).flush();
+        ((FileWriter) outputFile).close();
       } catch (IOException e) {
-        throw new IllegalStateException("Cannot close, data has been lost");
+        throw new IllegalStateException("Cannot close file.");
       }
     }
   }
 
   /**
-   * Creates the desired view based on user input; can be one of the following:
+   * Creates the view of the animation based on user specified type; can be one of the following.
    * <ul>
    * <item>visual</item>
    * <item>edit</item>
@@ -89,107 +145,43 @@ public class ShapeFXController implements AnimationController, MouseListener, Ke
    *
    * @param view the view to be made
    */
-  private void createView(String view) {
+  protected void createView(String view) {
     switch (view.toLowerCase()) {
       case "visual":
         this.view = new VisualView();
-        this.view.getAnimationPanel().setModel(model);
+        setViewPanelModel();
         break;
       case "edit":
         this.view = new ControllableView();
-        this.view.getAnimationPanel().setModel(model);
+        setViewPanelModel();
         break;
       case "svg":
         this.view = new SVGView();
         break;
       case "text":
-        this.view = new TextualView();
+        this.view = new TextView();
         break;
       default:
-        throw new IllegalArgumentException(typeOfView + " is not a valid view type!");
+        throw new IllegalArgumentException("Invalid view type!");
     }
   }
 
-  /**
-   * The purpose of this method is to parse the user input and establish the types of things the
-   * user specified. Such as which view it is, what speed it is etc.
-   *
-   * @param args given arguments in the main method.
-   */
-  private void parseInput(String[] args) {
-
-    if (args.length > 0) {
-
-      for (int i = 0; i < args.length; i += 2) {
-
-        try {
-          if ((args[i + 1].length() > 0)) {
-            switch (args[i]) {
-
-              // name of animation file.
-              case "-in":
-                if ((args[i + 1].endsWith(".txt")) || (args[i + 1].endsWith(".svg"))) {
-                  inputFilePath = args[i + 1];
-                } else {
-                  throw new
-                      IllegalArgumentException(args[i + 1].substring(args[i + 1].length() - 4)
-                      + " is not a valid output file type");
-                }
-                break;
-
-              // type of view.
-              case "-view":
-                typeOfView = args[i + 1];
-                break;
-
-              // output location.
-              case "-out":
-                if (args[i + 1].equalsIgnoreCase("out")) {
-                  output = System.out;
-                } else {
-                  try {
-                    output = new FileWriter(args[i + 1]);
-                    isSystemOut = false;
-                  } catch (IOException e) {
-                    throw new IllegalArgumentException("Error in output file creation");
-                  }
-                }
-                break;
-
-              //tick rate.
-              case "-speed":
-                try {
-                  speed = Integer.parseInt(args[i + 1]);
-                } catch (NumberFormatException e) {
-                  throw new IllegalArgumentException(args[i + 1] + " is not a number");
-                }
-                if (speed < 1) {
-                  throw new IllegalArgumentException("The tick rate cannot be zero");
-                }
-                break;
-
-              default:
-                throw new IllegalArgumentException("There was a bad parameter" +
-                    " specifier, try again");
-            }
-          }
-        } catch (IndexOutOfBoundsException e) {
-          throw new IllegalArgumentException("You must have values after" +
-              " the parameter specifiers.");
-        }
-      }
+  protected void setViewPanelModel() throws UnsupportedClassVersionError {
+    if (this.view == null) {
+      return;
     }
 
-    if (this.inputFilePath.equalsIgnoreCase("")) {
-      throw new IllegalArgumentException("No input file path detected. Please specify" +
-          " a pre-existing input file path.");
+    try {
+      ((AnimationPanel) this.view.getAnimationPanel()).setModel(model);
+    } catch (ClassCastException eCast) {
+      throw new UnsupportedClassVersionError("Certain Views have JPanels that depend on models");
     }
-
   }
+
 
   @Override
-  public String getInputFilePath() {
-    return this.inputFilePath;
+  public String getInputFile() {
+    return this.inputFile;
   }
 
   @Override
@@ -197,9 +189,6 @@ public class ShapeFXController implements AnimationController, MouseListener, Ke
     if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
-
-    ControllableView cView = (ControllableView) view;
-
   }
 
   @Override
@@ -207,9 +196,6 @@ public class ShapeFXController implements AnimationController, MouseListener, Ke
     if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
-
-    ControllableView cView = (ControllableView) view;
-
   }
 
   @Override
@@ -217,15 +203,9 @@ public class ShapeFXController implements AnimationController, MouseListener, Ke
     if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
-
-    ControllableView cView = (ControllableView) view;
-
-    switch (e.getKeyChar()) {
-      case 'q':
-        System.exit(0);
-        break;
+    if (e.getKeyChar() == ('q')) {
+      System.exit(0);
     }
-
   }
 
   @Override
@@ -243,9 +223,6 @@ public class ShapeFXController implements AnimationController, MouseListener, Ke
     if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
-
-    ControllableView cView = (ControllableView) view;
-
   }
 
 
@@ -254,9 +231,6 @@ public class ShapeFXController implements AnimationController, MouseListener, Ke
     if (this.view.getViewType() != ViewType.EDITOR || !(view instanceof ControllableView)) {
       return;
     }
-
-    ControllableView cView = (ControllableView) view;
-
   }
 
   @Override

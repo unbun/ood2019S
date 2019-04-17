@@ -1,7 +1,7 @@
 package cs3500.animator.shapes;
 
 /**
- * Enum for the different kind of Shapes.
+ * Enum for the different kinds of Shapes able to be represented in an animation.
  */
 public enum ShapeClass {
   RECT("rectangle", "rect"), OVAL("oval", "ellipse");

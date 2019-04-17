@@ -7,15 +7,14 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * An abstract class representing the abstraction of instances of transformations that shapes could
- * go through.
+ * An abstract class representing instances of transformations that could be applied to shapes.
  */
 public abstract class ATransform implements Transform {
 
   protected String name;
   protected int startTime;
   protected int endTime;
-  protected ArrayList<IShape> opShapes;
+  protected ArrayList<IShape> shapes;
   private TransformType tType;
 
   /**
@@ -25,15 +24,14 @@ public abstract class ATransform implements Transform {
    * @param endTime the time at which the transform ends
    */
   protected ATransform(String name, TransformType tType, int startTime, int endTime) {
-
     if (startTime > endTime) {
-      throw new IllegalArgumentException("Start time must be before endtime");
+      throw new IllegalArgumentException("Start time must be before end time");
     } else {
       this.name = name;
       this.startTime = Utils.requireNonNegative(startTime);
       this.endTime = Utils.requireNonNegative(endTime);
       this.tType = Objects.requireNonNull(tType);
-      this.opShapes = new ArrayList<>();
+      this.shapes = new ArrayList<>();
     }
   }
 
@@ -53,32 +51,36 @@ public abstract class ATransform implements Transform {
   }
 
   @Override
-  public abstract void apply(IShape shape) throws IllegalArgumentException;
+  public void apply(IShape shape) throws IllegalArgumentException {
+    if (this.startTime < shape.gett0()) {
+      throw new IllegalArgumentException("Cannot animate shape before it appears.");
+    } else {
+      this.shapes.add(shape);
+      shape.getTransformations().add(this);
+    }
+  }
+
 
   @Override
-  public abstract String getDescription(AnimationModel model) throws IllegalArgumentException;
+  public abstract String toText(AnimationModel model);
 
   /**
-   * Get the part of the Description that is formatted the same for all Transforms regardless of
-   * what they are.
+   * Produces the first part of a textual representation for any transformation.
    *
-   * @param tickRate the tickrate this transform will run at
-   * @return a formatted String of the description.
+   * @param tickRate the tickrate of the transform
+   * @return a formatted String describing the transform
    */
   protected String getPreDescription(int tickRate) {
     String result = String
-        .format("%s %s \t", this.tType.descriptor(), this.opShapes.get(0).getName());
+        .format("%s %s \t", this.tType.descriptor(), this.shapes.get(0).getName());
     //t  x  y  w  h  r  g  b
     result += String.format("%d %.0f %.0f %.0f %.0f %d %d %d\t| ", (this.startTime / tickRate),
-        this.opShapes.get(0).getPosn().getX(), this.opShapes.get(0).getPosn().getY(),
-        this.opShapes.get(0).getWidth(), this.opShapes.get(0).getHeight(),
-        this.opShapes.get(0).getColor().getRed(), this.opShapes.get(0).getColor().getGreen(),
-        this.opShapes.get(0).getColor().getBlue());
+        this.shapes.get(0).getPosn().getX(), this.shapes.get(0).getPosn().getY(),
+        this.shapes.get(0).getWidth(), this.shapes.get(0).getHeight(),
+        this.shapes.get(0).getColor().getRed(), this.shapes.get(0).getColor().getGreen(),
+        this.shapes.get(0).getColor().getBlue());
     return result;
   }
-
-  @Override
-  public abstract String printSVG();
 
   @Override
   public String getName() {

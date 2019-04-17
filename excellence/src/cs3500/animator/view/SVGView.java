@@ -5,11 +5,12 @@ import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import javax.swing.JPanel;
 
 /**
- * The implementation of the SVG-based view. Creates a visual in .svg file format.
+ * An implementation of an SVG-based view. Creates an animation in .svg file format.
  */
-public class SVGView implements IAnimationView {
+public class SVGView implements IView {
 
   @Override
   public ViewType getViewType() {
@@ -17,7 +18,7 @@ public class SVGView implements IAnimationView {
   }
 
   @Override
-  public AnimationPanel getAnimationPanel() {
+  public JPanel getAnimationPanel() {
     throw new UnsupportedOperationException("SVG does not use panels");
   }
 
@@ -27,7 +28,7 @@ public class SVGView implements IAnimationView {
   }
 
   @Override
-  public String makeView(AnimationModel model) {
+  public String updateView(AnimationModel model) {
 
     StringBuilder stringBuilder = new StringBuilder();
 
@@ -49,7 +50,8 @@ public class SVGView implements IAnimationView {
   }
 
   @Override
-  public void makeVisible() {
+  public void init() {
+    // do nothing
     // not applicable to this view type
   }
 

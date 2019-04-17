@@ -1,22 +1,22 @@
-package cs3500.animator.controller.actionHandlers;
+package cs3500.animator.controller.handlers;
 
+import cs3500.animator.view.AnimationPanel;
 import cs3500.animator.view.ControllableView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 /**
- * Action listener class that enables the restart animation functionality, triggered by a the
- * corresponding button's event.
+ * Enables the restart functionality of an animation via a button.
  */
 public class RestartButtonHandler implements ActionListener {
 
   ControllableView view;
 
   /**
-   * Default constructor.
+   * Constructs a RestartButtonHandler.
    *
-   * @param view the hybrid view to be passed in
+   * @param view the controllable view to be passed in
    */
   public RestartButtonHandler(ControllableView view) {
     this.view = view;
@@ -24,6 +24,6 @@ public class RestartButtonHandler implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    this.view.getAnimationPanel().setTime(0);
+    ((AnimationPanel) this.view.getAnimationPanel()).setTime(0);
   }
 }

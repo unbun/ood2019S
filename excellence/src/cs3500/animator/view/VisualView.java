@@ -10,19 +10,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 /**
- * Implementation of the visual view animation. Creates a visual of the animation in action.
+ * Implementation of a visual view of an animation.
  */
-public class VisualView extends JFrame implements IAnimationView, ActionListener {
+public class VisualView extends JFrame implements IView, ActionListener {
 
   private AnimationPanel animationPanel;
 
   /**
-   * Visual view.
+   * Constructs a visual view.
    */
   public VisualView() {
     super();
@@ -46,15 +47,16 @@ public class VisualView extends JFrame implements IAnimationView, ActionListener
 
   @Override
   public void setListeners(MouseListener mouse, KeyListener keys) {
+    // not applicable to this view type
     return;
   }
 
   @Override
-  public void makeVisible() {
+  public void init() {
     this.setVisible(true);
   }
 
-  public AnimationPanel getAnimationPanel() {
+  public JPanel getAnimationPanel() {
     return this.animationPanel;
   }
 
@@ -64,7 +66,7 @@ public class VisualView extends JFrame implements IAnimationView, ActionListener
   }
 
   @Override
-  public String makeView(AnimationModel model) {
+  public String updateView(AnimationModel model) {
     Timer timer = new Timer(1000 / model.getTickRate(), this);
     timer.start();
     return "";
