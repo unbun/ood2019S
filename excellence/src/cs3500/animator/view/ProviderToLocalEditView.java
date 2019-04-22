@@ -2,7 +2,7 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.model.LocalToProviderModel;
-import cs3500.animator.provider.view.SinglePanelEditView;
+import cs3500.animator.provider.view.EditView;
 import cs3500.animator.util.Constants;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
@@ -14,14 +14,21 @@ import javax.swing.JPanel;
  * An Adapter to get provided view to act as the view that can be controlled with the local
  * controller.
  */
-public class ProviderToLocalEditView extends SinglePanelEditView implements IView {
+public class ProviderToLocalEditView extends EditView implements IView {
 
   private ActionListener lstnr;
   private AnimationPanel animationPanel;
 
+  /**
+   * An Adapter to get provided view to act as the view that can be controlled with the local
+   * controller.
+   *
+   * @param lstnr a listener for the buttons on the GUI
+   */
   public ProviderToLocalEditView(ActionListener lstnr) {
     this.lstnr = Objects.requireNonNull(lstnr);
     this.animationPanel = new AnimationPanel();
+    this.add(animationPanel);
   }
 
   @Override
@@ -43,7 +50,7 @@ public class ProviderToLocalEditView extends SinglePanelEditView implements IVie
 
   @Override
   public JPanel getAnimationPanel() throws UnsupportedOperationException {
-    return super.getCombinedPanel();
+    return this.animationPanel;
   }
 
   @Override
@@ -65,6 +72,7 @@ public class ProviderToLocalEditView extends SinglePanelEditView implements IVie
   public void setModel(AnimationModel model) {
     if (model instanceof LocalToProviderModel) {
       super.model = (LocalToProviderModel) model;
+      animationPanel.setModel((LocalToProviderModel) model);
     } else {
       throw new UnsupportedOperationException("Adapted Views must use Adapted Model");
     }

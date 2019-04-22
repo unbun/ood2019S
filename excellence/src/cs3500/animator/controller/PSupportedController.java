@@ -7,6 +7,8 @@ import cs3500.animator.view.ProviderToLocalEditView;
 import cs3500.animator.view.ViewType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JComboBox;
 import javax.swing.JToggleButton;
 
@@ -45,10 +47,30 @@ public class PSupportedController extends ShapeFXController implements ActionLis
   protected void createView(String view) {
     if (view.equalsIgnoreCase("provider")) {
       this.view = new ProviderToLocalEditView(this);
+      setViewPanelModel();
     } else {
       super.createView(view);
     }
   }
+
+  @Override
+  public void run() {
+    view.init();
+    try {
+      outputFile.append(view.updateView(model));
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Error in creating view.");
+    }
+    if (!isDefaultOutput) {
+      try {
+        ((FileWriter) outputFile).flush();
+        ((FileWriter) outputFile).close();
+      } catch (IOException e) {
+        throw new IllegalStateException("Cannot close file.");
+      }
+    }
+  }
+
 
 
   @Override
@@ -66,11 +88,13 @@ public class PSupportedController extends ShapeFXController implements ActionLis
         //Jbuttons
         case "start":
           // This is what we meant when we say we weren't given enough information. What
-          // does it mean to "start" from the POV of the controller, view, and model?
+          // does it mean to "start" from the POV of the controller, view, and model? So we had
+          // to guess of make our own solutions
 
           ((ProviderToLocalEditView) this.view).start();
           break;
         case "restart":
+          ((ProviderToLocalEditView) this.view).setTick(0);
           break;
         case "dropShape":
           shapeName = ((JComboBox) ((ProviderToLocalEditView) this.view).getSomething("whichShape"))
@@ -85,6 +109,8 @@ public class PSupportedController extends ShapeFXController implements ActionLis
           adpModel.declareAShape(shapeName, shapeType);
           break;
         case "changeKeyFrame":
+          shapeType = ((JComboBox) ((ProviderToLocalEditView) this.view)
+              .getSomething("whichShapeType")).getSelectedItem().toString();
           shapeName = ((JComboBox) ((ProviderToLocalEditView) this.view).getSomething("whichShape"))
               .getSelectedItem().toString();
           IShape atT1 = null;
@@ -104,10 +130,33 @@ public class PSupportedController extends ShapeFXController implements ActionLis
           Using atT1 to get the "1" values, and the view's JTexFields to get the "2" values
 
           //Also not given: What tells time!
-          adpModel.addAMotion(shapeName,shapeName ,x1,y1,w1,h1,r1,g1,b1,
-                                        t2,x2,y2,w2,hw,r2,g2,b2);
 
-           */
+          */
+
+          int t2 = Integer.parseInt(
+              ((JComboBox) ((ProviderToLocalEditView) this.view).getSomething("t")).toString());
+          int x2 = Integer.parseInt(
+              ((JComboBox) ((ProviderToLocalEditView) this.view).getSomething("x")).toString());
+          int y2 = Integer.parseInt(
+              ((JComboBox) ((ProviderToLocalEditView) this.view).getSomething("y")).toString());
+          int w2 = Integer.parseInt(
+              ((JComboBox) ((ProviderToLocalEditView) this.view).getSomething("width")).toString());
+          int h2 = Integer.parseInt(
+              ((JComboBox) ((ProviderToLocalEditView) this.view).getSomething("height"))
+                  .toString());
+          int r2 = Integer.parseInt(
+              ((JComboBox) ((ProviderToLocalEditView) this.view).getSomething("r")).toString());
+          int g2 = Integer.parseInt(
+              ((JComboBox) ((ProviderToLocalEditView) this.view).getSomething("g")).toString());
+          int b2 = Integer.parseInt(
+              ((JComboBox) ((ProviderToLocalEditView) this.view).getSomething("b")).toString());
+
+          adpModel
+              .addAMotion(shapeName, atT1.gett0(), (int) atT1.getPosn().x, (int) atT1.getPosn().y,
+                  (int) atT1.getWidth(), (int) atT1.getHeight(),
+                  (int) atT1.getColor().getRed(), (int) atT1.getColor().getGreen(),
+                  (int) atT1.getColor().getBlue(),
+                  t2, x2, y2, w2, h2, r2, g2, b2);
 
           break;
         //Toggle buttons
@@ -115,6 +164,7 @@ public class PSupportedController extends ShapeFXController implements ActionLis
           ((ProviderToLocalEditView) this.view).pause();
           break;
         case "rewind":
+          ((ProviderToLocalEditView) this.view).setTick(0);
           break;
         case "loopBack":
           boolean looping = ((JToggleButton) ((ProviderToLocalEditView) this.view)

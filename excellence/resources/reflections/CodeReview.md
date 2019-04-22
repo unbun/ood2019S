@@ -1,14 +1,18 @@
 # Assignment 8 Code Review
 ## Carolina Mack and Unnas Hussain
 
-Overall, the code was well documented and their design choices were, for the most part, very sound and easy to understand. However, they gave no code of documentation about the controller, or any way to interact between the view and the model. They also had some inconsistencies between how the view and the model treated shapes and animations in general, so it was very difficult to implement that bridge.
-
+Overall, the code was well documented and their design choices were, for the most part, very sound and easy to understand. 
+However, they gave no code of documentation about the controller, or any way to interact between the view and the model.
+They also had some inconsistencies between how the view and the model treated shapes and animations in general, so it was very difficult to implement that bridge. 
+They also seemed to switch from Shape-based animations with t0 and t1 descriptions to keyframe animations
+with just one t, and didn't really explain how to transition between the old and new states.
 
 ### Design Critique
 The interfaces that were provided to us were flexible. Their model interface provides the capability to initialize a canvas of any size and color, add to it a shape with a name and shape type of either rectangle or ellipse, remove a shape by referring to its name, and a method that updates shapes on each tick by Tweening between keyframe states. It kept it simple, but accomplished everything it needed to in order to produce a simple animation. This model provides a good basic foundation for an animation but also provides flexibility to add more enhancements to the animation without having to change the foundation. The view interfaces were also flexible. They provided functionality to set a model, change that model, set the tick rate, add ActionListeners, change view size, update desired output path, and get a text representation of the model. I think it would be very easy to add a new type of view to this interface, as well as expand the functionality of the interface with extra bells and whistles if desired.
 
 One good aspect of their interface design is how they had 2 model interfaces, a ReadOnlyModel and an AnimatorModel. A ReadOnlyModel only has getters so that any implementing classes can access information but cannot change or mutate anything. An AnimatorModel, on the other hand, can have shapes and keyframes added and removed to it. Their view implementations included a ReadOnlyModel so that the model could not be changed from within the view. This provided them with the necessary functionality for updating animations, but also ensured that the model data was very well protected to ensure consistency and accuracy. 
-
+ Howevever, they often had repeated behaviors or features that had to be perfectly syncronized. For example,
+ their Views don't exactly work unless they have the features of their VisualView class AND their EditView Class.
  
 ### Implementation Critique
 Their edit view and visual view produced a good animation. Their visual view displays animations inputted through text files, and their edit view adds onto this functionality by providing the user the ability to save the animation as svg file, save as text file, input a new animation file directly through the GUI, start, restart, rewind, pause, loop, speed up, slow down, add keyframe, delete keyframe, add shape, and delete shape. The functionality of these views is not at all lacking. Another thing we appreciated about their view implementations was the way they abstracted so much duplicate code between their visual and edit views. They had their visual view act as an abstract class that the edit view extended, so that they could use the same logic to create the view visually but then just add extra functionality to their edit view as needed. This was an extremely clever way of implementing the assignment, and we wish we had done it this way from the start, as our edit view and visual view had a little bit of unnecessary overlap. 

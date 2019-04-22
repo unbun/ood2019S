@@ -70,6 +70,7 @@ public class AnimationPanel extends JPanel {
    * @param g graphic being painted on
    */
   public void paintComponent(Graphics g) {
+    System.out.println(time);
     super.paintComponent(g);
     for (IShape s : model.getShapes()) {
       if (s.getType().equals("oval")) {

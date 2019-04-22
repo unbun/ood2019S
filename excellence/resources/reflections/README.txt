@@ -1,9 +1,8 @@
 # Which Features Work for Providers:
-   - Everything from Assignment 9
-   - Producing Shapes and Animations from a given file of instructed key frames
-   - Playing the animations thorugh once
-   - Clicking Buttons and inputing shapes
+   - Everything mandatory from Assignment 7
+   - Rewinding
+   - *Note the providers did not provide all code. They did not provide a Controller, so we gave
+   them the benifit of the doubt.
 
 # Which Features Don't Work:
-
-   - Controlling the animation when the buttons are pressed (please see our experience Review for more information)
+  - Clicking on the shapes
