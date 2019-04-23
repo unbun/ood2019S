@@ -1,333 +1,604 @@
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-3.4.0.min.js"
-integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous">
-</script><style media="screen" type="text/css">
-td {
-  width:40px;
-  height:40px;
-}
-.circle {
-  display: block;
-  width: 30px;
-  height: 30px;
-  margin: 0 auto;
-  border-radius: 50%;
-}
-.num-input {
-  width: 30px;
-  border-radius: 20%;
-}
-</style>
-<title>Marble Solitaire</title>
+  <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+          integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous">
+  </script>
+  <style media="screen" type="text/css">
+    td {
+      width: 40px;
+      height: 40px;
+    }
+
+    .circle {
+      display: block;
+      width: 30px;
+      height: 30px;
+      margin: 0 auto;
+      border-radius: 50%;
+    }
+
+    .num-input {
+      width: 30px;
+      border-radius: 20%;
+    }
+  </style>
+  <title>Marble Solitaire</title>
 </head>
 <body style="font-family: Helvetica, sans-serif">
-<!--
+
 <select id="game-type">
-<option>English</option>
-<option>European</option>
-<option>Triangle</option>
+  <option>English</option>
+  <option>European</option>
+  <option>Triangle</option>
 </select>
--->
+
 Arm thickness: <input id="arm" type="text" class="num-input">
-<!-- Starting empty row: <input id="sRow" type="text" class="num-input">, column: <input id="sCol" type="text" class="num-input"> -->
+<!--
+Starting empty row: <input id="sRow" type="text" class="num-input">,
+column: <input id="sCol" type="text" class="num-input">
+ -->
 <button id="new-game" style="border-radius:5px">New Game</button>
 <table id="board" border="0"></table>
 <div style="display:none" id="score-disp">Score: <span id="score"></span></div>
 <div id="msg"></div>
 <script>
-var slotTpl = '<div class="circle" style="%%%"/>'; // html snippet for PEG/EMPTY
-// an "enum" representing slot values. PEG and EMPTY have styles.
-var Slot = {
-  PEG: 1,
-  EMPTY: 2,
-  INVALID: 3,
-  prop: {
-    1: {style: "background-color:#4b5bb3;box-shadow: inset -5px -5px 5px rgba(0,0,0,.5);"},
-    2: {style: "background-color:white;box-shadow: inset 4px 4px 5px rgba(0,0,0,.5);"}
-  }
-};
-
-
-class MarbleSolitaireView {
-
-  // set up the html table and score display
-  constructor(dim) {
-    if(dim <= 0) throw "Board side dimension must be positive";
-    this.boardSide = dim;
-    var tmpHtml = '';
-    for(var r = 0; r < dim; r++) {
-      tmpHtml += '<tr id="'+r+'">';
-      for(var c = 0; c < dim; c++) {
-        tmpHtml += '<td id="'+r+'-'+c+'"></td>';
-      }
-      tmpHtml += '</tr>';
+  var slotTpl = '<div class="circle" style="%%%"/>'; // html snippet for PEG/EMPTY
+  // an "enum" representing slot values. PEG and EMPTY have styles.
+  var Slot = {
+    PEG: 1,
+    EMPTY: 2,
+    INVALID: 3,
+    prop: {
+      1: {style: "background-color:#4b5bb3;box-shadow: inset -5px -5px 5px rgba(0,0,0,.5);"},
+      2: {style: "background-color:white;box-shadow: inset 4px 4px 5px rgba(0,0,0,.5);"},
     }
-    $('#board').html(tmpHtml);
-    $('#score-disp').show();
-  }
-  // take a 2d array board, display it in the table; display given score
-  renderBoard(board, score) {
-    if(board.length != this.boardSide) {
-      throw "Invalid board dimension: " + board.length;
-    }
-    for(var r = 0; r < board.length; r++) {
-      if(board[r].length != this.boardSide) {
-        throw "Invalid board dimension: " + board[r].length;
+  };
+
+  class MarbleSolitaireView {
+
+    // set up the html table and score display
+    constructor(dim) {
+      if (dim <= 0) {
+        throw "Board side dimension must be positive";
       }
-      for(var c = 0; c < board[r].length; c++) {
-        if(board[r][c] === Slot.PEG || board[r][c] === Slot.EMPTY) {
-          $('#'+r+'-'+c).html(slotTpl.replace(/%%%/, Slot.prop[board[r][c]].style));
+      this.boardSide = dim;
+      var tmpHtml = '';
+      for (var r = 0; r < dim; r++) {
+        tmpHtml += '<tr id="' + r + '">';
+        for (var c = 0; c < dim; c++) {
+          tmpHtml += '<td id="' + r + '-' + c + '"></td>';
+        }
+        tmpHtml += '</tr>';
+      }
+      $('#board').html(tmpHtml);
+      $('#score-disp').show();
+    }
+
+    // take a 2d array board, display it in the table; display given score
+    renderBoard(board, score) {
+      if (board.length != this.boardSide) {
+        throw "Invalid board dimension: " + board.length;
+      }
+      for (var r = 0; r < board.length; r++) {
+        if (board[r].length != this.boardSide) {
+          throw "Invalid board dimension: " + board[r].length;
+        }
+        for (var c = 0; c < board[r].length; c++) {
+          if (board[r][c] === Slot.PEG || board[r][c] === Slot.EMPTY) {
+            $('#' + r + '-' + c).html(slotTpl.replace(/%%%/, Slot.prop[board[r][c]].style));
+          }
         }
       }
+      $('#score').html(score);
     }
-    $('#score').html(score);
-  }
-  // display a message below the board
-  setMessage(msg) {
-    $('#msg').html(msg);
-  }
-  // "highlight" a cell: change its background color to the given color.
-  // cells are 0-indexed from upper left to lower right
-  highlightCell(r, c, color) {
-    if(r < 0 || r >= this.boardSide || c < 0 || c >= this.boardSide) {
-      throw "Invalid cell position: " + r + "," + c;
+
+    // display a message below the board
+    setMessage(msg) {
+      $('#msg').html(msg);
     }
-    $('#'+r+'-'+c).css('background-color', color);
-  }
-  // add a function to be executed when a cell is clicked. Function func must take
-  // two arguments, row and col (0-based indices, upper left to lower right)
-  addCellClickListener(func) {
-    $('td').click(function(evt) {
-      var cell = $(evt.target).attr('id') || $(evt.target).parent('td').attr('id');
-      var [row, col] = cell.split('-');
-      func(+row, +col);
-    });
-  }
-}
 
-/*** Don't modify code above this line. Fill in your code BELOW this line. *****/
+    // "highlight" a cell: change its background color to the given color.
+    // cells are 0-indexed from upper left to lower right
+    highlightCell(r, c, color) {
+      if (r < 0 || r >= this.boardSide || c < 0 || c >= this.boardSide) {
+        throw "Invalid cell position: " + r + "," + c;
+      }
+      $('#' + r + '-' + c).css('background-color', color);
+    }
 
-function Pair(x,y) {
+    // add a function to be executed when a cell is clicked. Function func must take
+    // two arguments, row and col (0-based indices, upper left to lower right)
+    addCellClickListener(func) {
+      $('td').click(function (evt) {
+        var cell = $(evt.target).attr('id') || $(evt.target).parent('td').attr('id');
+        var [row, col] = cell.split('-');
+        func(+row, +col);
+      });
+    }
+  }
+
+  /*** Don't modify code above this line. Fill in your code BELOW this line. *****/
+
+// Pair/Coordinate container class
+  function Pair(x, y) {
     this.x = x;
     this.y = y;
-}
+  }
 
-class MarbleSolitaireController {
+  ///////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////// Controller /////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
 
-  // take in model m and view v
-  constructor(m, v) {
+  class MarbleSolitaireController {
 
-    this.u0 = undefined;
-    this.u1 = undefined;
-    this.clickClount = 0;
-    this.needEmpty = true;
+    // take in model m and view v
+    constructor(m, v) {
 
-    v.renderBoard(m.getBoard(), "");
-    // board starts out completely filled; first click selects empty slot, and game begins.
-    // to start out, may be easier to hardcode a starting empty slot, get the game play right, then deal with this.
-    v.setMessage("Click to select starting empty slot");
-    v.addCellClickListener(function(row, col) {
+      this.u0 = undefined;
+      this.u1 = undefined;
+      this.clickClount = 0;
+      this.needEmpty = true;
 
-      if(this.needEmpty){
-        m.resetWithEmpty(row, col);
-        this.needEmpty = false;
-        v.setMessage("Click the peg you want to move and it's destination");
-      } else {
-        var over = undefined;
+      v.renderBoard(m.getBoard(), "");
+      v.setMessage("Click to select starting empty slot");
+      v.addCellClickListener(function (row, col) {
+        console.clear();
 
-        // get the two slots that the user selected
-        if(this.u0 == undefined || (this.u0 != undefined && this.u1 != undefined)){
-          if(this.u0 != undefined && this.u1 != undefined){
-            v.highlightCell(this.u0.x, this.u0.y, 'white');
-            v.highlightCell(this.u1.x, this.u1.y, 'white');
+        // board starts out completely filled; first click selects empty slot, and game begins.
+
+        if (this.needEmpty) { // start_config
+          var msg = m.setEmpty(row, col);
+          if (msg == -1) {
+            v.setMessage("Click to select starting empty slot (MUST BE A PEG SLOT).");
+          } else {
+            this.needEmpty = false;
+            v.setMessage("Click the peg you want to move");
+          }
+        } else { // game_play
+          var over = undefined;
+
+          // get the two slots that the user selected, highlight them, update msg
+          if (this.u0 == undefined || (this.u0 != undefined && this.u1 != undefined)) {
+            if (this.u0 != undefined && this.u1 != undefined) {
+              v.highlightCell(this.u0.x, this.u0.y, 'white');
+              v.highlightCell(this.u1.x, this.u1.y, 'white');
+            }
+
+            v.highlightCell(row, col, 'pink');
+            this.u0 = new Pair(row, col);
+            this.u1 = undefined;
+            v.setMessage("Click the Slot you want to move the Peg to");
+          } else if (this.u1 == undefined) {
+            this.u1 = new Pair(row, col);
+            v.highlightCell(this.u1.x, this.u1.y, 'lightgreen');
+            v.setMessage("Click the Peg you want to move");
           }
 
-          v.highlightCell(row, col, 'lightgreen');
-          this.u0 = new Pair(row, col);
-          this.u1 = undefined;
-        } else if (this.u1 == undefined){
-          this.u1 = new Pair(row, col);
-          v.highlightCell(this.u1.x, this.u1.y, 'lightblue');
-        }
+          // try to move with the selected cells
+          if (this.u0 != undefined && this.u1 != undefined) {
+            try {
+              m.move(this.u0.x, this.u0.y, this.u1.x, this.u1.y);
+            } catch (err) {
+              alert(err);
+            }
+          }
 
+          //process if the game is over and update the view
+          var gameOver = m.isGameOver();
+          var noPegsLeft = m.getScore() <= 1;
+          if (gameOver && noPegsLeft) {
+            v.setMessage("You Win! Hit New Game to Play Again!");
+            console.log("FINISHED (WIN)!");
+          } else if (gameOver) {
+            v.setMessage("You Lost! Try Customizing a new board. Hit New Game to Play Again!");
+            console.log("FINISHED (LOSS)!");
+          } else {
+            console.log("NOT FINISHED");
+          }
 
-        if(this.u0 != undefined && this.u1 != undefined){
-          var moveResult = m.move(this.u0.x, this.u0.y, this.u1.x, this.u1.y);
-          v.renderBoard(m.getBoard(), m.getScore());
-          v.setMessage(moveResult);
-        }
+        } // end of start_config/pla_game if statement
+
+        v.renderBoard(m.getBoard(), m.getScore());
+
+      }.bind(this));
+      // ^^^ ensure that in the body of the function "this" refers to the controller object,
+      // not the inner function context
+    }
+
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////// MS Model ///////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
+
+  // English style Marble Solitare Class
+  class MarbleSolitaireModel {
+
+    constructor(size) {
+      this.size = this.sizeCheck(size);
+
+      this.orthoAlert = "Moves must be 2 spaces Orthoginally";
+      this.board = new Array(this.getBoardSide());
+      for (var i = 0; i < this.getBoardSide(); i++) {
+        this.board[i] = new Array(this.getBoardSide());
       }
 
-    }.bind(this));
-    // ^^^ ensure that in the body of the function "this" refers to the controller object, not the inner function context
-  }
-
-
-}
-
-// English style /**** YOUR CODE HERE *****/
-class MarbleSolitaireModel {
-  constructor(armLength) {
-    this.armLength = armLength;
-    this.width = 3 * armLength - 2;
-    this.score = 0;
-
-    this.sCol = -1;
-    this.sRow = -1;
-
-    this.board = new Array(this.width);
-    for(var i = 0; i < this.width; i++){
-      this.board[i] = new Array(this.width);
+      this.initBoard();
     }
-    this.initBoard();
-  }
 
-  //get true width of the board
-  getBoardSide() {
-    return this.width;
-  }
-
-  //get a 2D array of the board
-  getBoard() {
-    return this.board;
-  }
-
-  resetWithEmpty(sRow, sCol){
-    this.board_get(sRow, sCol); //make sure the given values are valid
-    this.sRow = sRow;
-    this.sCol = sCol;
-    this.initBoard();
-  }
-
-  initBoard(){
-    var width = this.getBoardSide();
-    for(var i = 0; i < width; i++){
-      for(var j = 0; j < width; j++){
-        if(i == this.sCol && j == this.sRow){
-          console.log("hi ma!")
-          this.board[i][j] = Slot.EMPTY;
-        } else if(this.invalidSlotCheck(i,j)){
-          this.board[i][j] = Slot.INVALID;
-        } else {
-          this.board[i][j] = Slot.PEG;
+    /**
+     *
+     * Initalize the board.
+     *
+     */
+    initBoard() {
+      var width = this.getBoardSide();
+      for (var i = 0; i < width; i++) {
+        for (var j = 0; j < width; j++) {
+          if (this.invalidSlotCheck(i, j)) {
+            this.board[i][j] = Slot.INVALID;
+          } else {
+            this.board[i][j] = Slot.PEG;
+          }
         }
       }
     }
-  }
 
-  board_get(r,c){
-    if(r < 0 || r >= this.getBoardSide() || c < 0 || c >= this.getBoardSide()){
-      throw "Out of Bounds: " + r + " " + c;
-    }
-    return this.board[r][c];
-  }
+    /////////////////// General Gameplay //////////////////
 
-  //returns true if the given coordinate is a null/invalid slot
-  invalidSlotCheck(r, c){
-    var size = this.armLength;
-    var rowCheck = r >= size - 1 && r < 2 * size - 1;
-    var columnCheck = c >= size - 1 && c < 2 * size - 1;
-    return !(columnCheck || rowCheck);
-  }
+    /**
+     * Move a single marble from a given position to another given position. A move is valid only if
+     * the from and to positions are valid. <br>
+     *
+     * <p>A valid move satisfies 3 conditions: 1. the to and from coordinates are in the range of
+     * the board. 2. the movement is an orthogonal direction with a magnitude of 2 spaces in only 1
+     * direction. 3. states of slots are correct (you can't move into an occupied or Null slot. You
+     * can't move from an unoccupied or null spot).</p>
+     *
+     * @param fromRow the row number of the position to be moved from (starts at 0)
+     * @param fromCol the column number of the position to be moved from (starts at 0)
+     * @param toRow the row number of the position to be moved to (starts at 0)
+     * @param toCol the column number of the position to be moved to (starts at 0)
+     * @throws IllegalArgumentException if the move is not possible
+     */
+    move(fromR, fromC, toR, toC) {
+      var from = this.board_get(fromR, fromC);
+      var to = this.board_get(toR, toC);
 
-  //returns if the move is valid orthoginally
-  validMove_Orth2(fromR, fromC, toR, toC){
-    var rDiff = Math.abs(toR - fromR);
-    var cDiff = Math.abs(toC - fromC);
-
-    return (rDiff == 2 && cDiff == 0) || (rDiff == 0 && cDiff == 2);
-  }
-
-  getJumpedOver(fromR, fromC, toR, toC){
-    var from = this.board_get(fromR, fromC);
-    var over = undefined;
-    var overCoords = undefined;
-    var to = this.board_get(toR, toC);
-
-    var rDiff = toR - fromR;
-    var cDiff = toC - fromC;
-
-    if(this.validMove_Orth2(fromR, fromC, toR, toC)){
-      var rDiff = toR - fromR;
-      var cDiff = toC - fromC;
-
-      if(Math.abs(rDiff) == 2 && cDiff == 0){
-        over = this.board_get(fromR + (rDiff/2), toC);
-        overCoords = new Pair(fromR + (rDiff/2), toC);
-      } else if(Math.abs(cDiff) == 2 && rDiff == 0){
-        over = this.board_get(toR, fromC + (cDiff/2));
-        overCoords = new Pair(toR, fromC + (cDiff/2));
-      }
-    } else {
-      throw "Moves must be 2 spaces Orthoginally";
-    }
-
-    console.log("***");
-    console.log(fromR + "," + fromC);
-    console.log(overCoords.x + "," + overCoords.y);
-    console.log(toR + "," + toC);
-
-    if((from == Slot.PEG && over == Slot.PEG) && to == Slot.EMPTY){
-      return overCoords;
-    } else {
-      throw "Moves must be jumping a PEG over another PEG into an EMPTY slot";
-    }
-  }
-
-  // fill in the rest of the model here: move(), isGameOver(), etc
-
-  move(fromR, fromC, toR, toC){
-    var from = this.board_get(fromR, fromC);
-    var to = this.board_get(toR, toC);
-
-    try {
       var overCoords = this.getJumpedOver(fromR, fromC, toR, toC);
+
+      if (overCoords.x == -1 || overCoords.y == -1) {
+        throw "Invalid Move: [" + originRow + ", " + originCol + "] -> [" + destRow + ", " + destCol
+        + "]";
+      }
+
       var over = this.board_get(overCoords.x, overCoords.y);
 
       this.board[fromR][fromC] = Slot.EMPTY;
       this.board[overCoords.x][overCoords.y] = Slot.EMPTY;
       this.board[toR][toC] = Slot.PEG;
-      this.score++;
-      return "Click Slots to select them";
-    } catch(err) {
-      return err;
     }
-  }
 
-  getScore(){
-    return this.score;
-  }
+    /**
+     * returns the coordinates of the slot that was jumped overCoords if its a valid move
+     * if the moe is invalid for any reason, throws an error.
+     * @param fromRow the row number of the position to be moved from (starts at 0)
+     * @param fromCol the column number of the position to be moved from (starts at 0)
+     * @param toRow the row number of the position to be moved to (starts at 0)
+     * @param toCol the column number of the position to be moved to (starts at 0)
+     * @return the coordinates {@code Pair} of the slot jumped over by the move
+     *          described.
+     */
+    getJumpedOver(fromR, fromC, toR, toC) {
+      var from = this.board_get(fromR, fromC);
+      var over = undefined;
+      var overCoords = undefined;
+      var to = this.board_get(toR, toC);
 
-  isGameOver(){
-    var width = this.getBoardSide();
-    var count = 0;
-    for(var i = 0; i < width; i++){
-      for(var j = 0; j < width; j++){
-        if(this.board[i][j] == PEG){
-          if(count > 1){
+      if (this.validMove_Orth2(fromR, fromC, toR, toC)) {
+        overCoords = this.getJumpedOver_coordHlp(fromR, fromC, toR, toC);
+        over = this.board_get(overCoords.x, overCoords.y);
+      } else {
+        throw this.orthoAlert;
+      }
+
+      if ((from == Slot.PEG && over == Slot.PEG) && to == Slot.EMPTY) {
+        return overCoords;
+      } else {
+        throw "Moves must be jumping a PEG over another PEG into an EMPTY slot";
+      }
+    }
+
+    /**
+     * The score of the game (the number of pegs left).
+     * @returns {number} the number of pegs left.
+     */
+    getScore() {
+      var width = this.getBoardSide();
+      var count = 0;
+      for (var i = 0; i < width; i++) {
+        for (var j = 0; j < width; j++) {
+          if (this.board[i][j] == Slot.PEG) {
             count++;
-          } else{
-            return false;
           }
         }
       }
+      return count;
+    }
+
+    /**
+     * Checks if the game is over (no valid moves left).
+     * @returns {boolean} if the game is over (won and lost are both treated the same here)
+     */
+    isGameOver() {
+      for (var originRow = 0; originRow < this.getBoardSide(); originRow++) {
+        for (var originCol = 0; originCol < this.getBoardSide(); originCol++) {
+          for (var destRow = 0; destRow < this.getBoardSide(); destRow++) {
+            for (var destCol = 0; destCol < this.getBoardSide(); destCol++) {
+              if (this.checkValidMove(originRow, originCol, destRow, destCol)) {
+                // console.log("VALID Move: ["+originRow+", "+originCol
+                // +"] -> ["+destRow+", "+destCol+"]");
+                return false;
+              } else {
+                // console.log(this.board_get(originRow, originCol) +" -> "
+                // +this.board_get(destRow, destCol)
+                // +": [" + originRow + ", " + originCol + "] -> ["+destRow+", "+destCol+"]");
+              }
+            }
+          }
+        }
+      }
+      return true;
+    }
+
+    /////////////////// Getters/Setters //////////////////
+
+    /**
+     * Get the slot from the model's 2D board array.
+     * @param r the row to get
+     * @param c the column to get
+     * @return the slot
+     * @throws an out of bounds error for the 2D board array
+     */
+    board_get(r, c) {
+      if (r < 0 || r >= this.getBoardSide() || c < 0 || c >= this.getBoardSide()) {
+        throw "Out of Bounds Board Get: " + r + " " + c;
+      }
+      return this.board[r][c];
+    }
+
+    /**
+     * Get the true width of the board.
+     * @return the the true width of the 2D board array
+     */
+    getBoardSide() {
+      return 3 * this.size - 2;
+    }
+
+    /**
+     * Get the Array
+     * @return the 2D board array
+     */
+    getBoard() {
+      return this.board;
+    }
+
+    /**
+     * Set the given row and col slot to empty if possible.
+     * @return -1 if the empty slot couldn't be set.
+     */
+    setEmpty(sRow, sCol) {
+      //calling board get also ensures valid index ranges
+      if (this.board_get(sRow, sCol) == Slot.INVALID) {
+        return -1;
+      } else {
+        this.board[sRow][sCol] = Slot.EMPTY;
+        return 1;
+      }
+    }
+
+    /////////////////// Methods European & Triangle are overriding //////////////////
+
+    /**
+     * Check if the given coordinate should be a null/invalid slot at init
+     * @param r the row to check
+     * @param c the column to check
+     * @returns {boolean} true if the given coord is Slot.INVALID
+     */
+    invalidSlotCheck(r, c) {
+      var size = this.size;
+      var rowCheck = r >= size - 1 && r < 2 * size - 1;
+      var columnCheck = c >= size - 1 && c < 2 * size - 1;
+      return !(columnCheck || rowCheck);
+    }
+
+    /////////////////// Things Triangle should override //////////////////
+
+    /**
+     * Check if the size is valid for {@ode this} kind of game
+     * @param size the size to check
+     * @returns the size if it is valid
+     * @throws an error if the size isn't valid
+     */
+    sizeCheck(size) {
+      if (size % 2 == 0 || size < 0) {
+        throw "Arm Length must be Odd and Positive";
+      }
+      return size;
+    }
+
+    /**
+     * Return true if the move is valid by the 2-space orthonginal rules
+     * @param fromRow the row number of the position to be moved from (starts at 0)
+     * @param fromCol the column number of the position to be moved from (starts at 0)
+     * @param toRow the row number of the position to be moved to (starts at 0)
+     * @param toCol the column number of the position to be moved to (starts at 0)
+     * @returns {boolean} true if the move is valid by the 2-space orthonginal rules
+     */
+    validMove_Orth2(fromR, fromC, toR, toC) {
+      var rDiff = Math.abs(toR - fromR);
+      var cDiff = Math.abs(toC - fromC);
+
+      return (rDiff == 2 && cDiff == 0) || (rDiff == 0 && cDiff == 2);
+    }
+
+    /**
+     * A helper to get the Jumped over value if it is mathematically valid
+     * @param fromRow the row number of the position to be moved from (starts at 0)
+     * @param fromCol the column number of the position to be moved from (starts at 0)
+     * @param toRow the row number of the position to be moved to (starts at 0)
+     * @param toCol the column number of the position to be moved to (starts at 0)
+     * @returns {Pair} the coordinate of the jumped over slot
+     * @throws a class-specific error desribing what makes a valid direction jump
+     */
+    getJumpedOver_coordHlp(fromR, fromC, toR, toC) {
+      var overCoords = undefined;
+      var rDiff = toR - fromR;
+      var cDiff = toC - fromC;
+
+      if (Math.abs(rDiff) == 2 && cDiff == 0) {
+        overCoords = new Pair(fromR + (rDiff / 2), toC);
+      } else if (Math.abs(cDiff) == 2 && rDiff == 0) {
+        overCoords = new Pair(toR, fromC + (cDiff / 2));
+      } else {
+        throw this.orthoAlert;
+      }
+
+      return overCoords;
+    }
+
+    //is this a valid move?
+    /**
+     * Is the given move a valid move (doesn't actually operate the move, and uses
+     * {@code getJumpedOver()} so it's used for isGameOver() NOT {@code move()}
+     * @param fromRow the row number of the position to be moved from (starts at 0)
+     * @param fromCol the column number of the position to be moved from (starts at 0)
+     * @param toRow the row number of the position to be moved to (starts at 0)
+     * @param toCol the column number of the position to be moved to (starts at 0)
+     * @returns {Pair} the coordinate of the jumped over slot
+     * @returns {boolean} if the move is valid
+     */
+    checkValidMove(fromRow, fromCol, toRow, toCol) {
+      try {
+        this.board_get(fromRow, fromCol);
+        this.board_get(fromRow, fromCol);
+        var test = this.getJumpedOver(fromRow, fromCol, toRow, toCol);
+        if (test == undefined || test.x == -1 || test.y == -1) {
+          return false;
+        }
+      } catch (err) {
+        return false;
+      }
+
+      return true;
     }
   }
 
-}
+  ///////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////// Other MS Versions //////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
 
-var model, view, ctrl;
+  //Class for European Style Marble Solitaire
+  class EuropeanMarbleSolitaireModel extends MarbleSolitaireModel {
+    constructor(size) {
+      super(size);
+    }
 
-$('#new-game').click(function(evt) {
-  try {
-    model = new MarbleSolitaireModel($('#arm').val());
-    view = new MarbleSolitaireView(model.getBoardSide());
-    ctrl = new MarbleSolitaireController(model, view);
-  } catch(err) {
-    alert(err);
+    invalidSlotCheck(r, c) {
+      var size = this.size;
+      var rowCheck = (r >= size - 1 && r < 2 * size - 1);
+      var margin = Math.max((r - (size - 1)) - (size - 1),
+          Math.max((size - 1) - r, 0));
+      var columnCheck = !(c < margin || c > (this.getBoardSide() - margin - 1));
+      return !(rowCheck || columnCheck);
+    }
   }
-});
+
+  //Class for Triangle Style Marble Solitare
+  class TriangleMarbleSolitareModel extends MarbleSolitaireModel {
+    constructor(size) {
+      super(size);
+      this.orthoAlert = "Moves must be 2 spaces Orthoginally or 2 spaces SE -> NW";
+    }
+
+    sizeCheck(size) {
+      if (size < 0) {
+        throw "Triangle Side must be Positive";
+      }
+      return size;
+    }
+
+    invalidSlotCheck(r, c) {
+      return c > r;
+    }
+
+    getBoardSide() {
+      return this.size;
+    }
+
+    getJumpedOver_coordHlp(fromR, fromC, toR, toC) {
+      var overCoords = undefined;
+      var rDiff = toR - fromR;
+      var cDiff = toC - fromC;
+
+      if (Math.abs(rDiff) == 2 && cDiff == 0) {
+        overCoords = new Pair(fromR + (rDiff / 2), toC);
+      } else if (Math.abs(cDiff) == 2 && rDiff == 0) {
+        overCoords = new Pair(toR, fromC + (cDiff / 2));
+      } else if (rDiff == 2 && cDiff == 2) {
+        overCoords = new Pair(fromR + (rDiff / 2), fromC + (cDiff / 2));
+      } else if (rDiff == -2 && cDiff == -2) {
+        overCoords = new Pair(fromR + (rDiff / 2), fromC + (cDiff / 2));
+      } else {
+        throw this.orthoAlert;
+      }
+
+      return overCoords;
+    }
+
+    validMove_Orth2(fromR, fromC, toR, toC) {
+      var rDiff = Math.abs(toR - fromR);
+      var cDiff = Math.abs(toC - fromC);
+      var rDiffSigned = toR - fromR;
+      var cDiffSigned = toC - fromC
+
+      return (rDiff == 2 && cDiff == 0) || (rDiff == 0 && cDiff == 2)
+          || (rDiffSigned == -2 && cDiffSigned == -2)
+          || (rDiffSigned == 2 && cDiffSigned == 2);
+    }
+
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////// Runner ///////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
+
+  var model, view, ctrl;
+
+  $('#new-game').click(function (evt) {
+    try {
+      type = document.getElementById('game-type').value;
+
+      switch (type) {
+        case 'English':
+          model = new MarbleSolitaireModel($('#arm').val());
+          break;
+        case 'European':
+          model = new EuropeanMarbleSolitaireModel($('#arm').val());
+          break;
+        case 'Triangle':
+          model = new TriangleMarbleSolitareModel($('#arm').val());
+          break;
+        default:
+          throw "Unsupported Game Type: " + type;
+      }
+
+      view = new MarbleSolitaireView(model.getBoardSide());
+      ctrl = new MarbleSolitaireController(model, view);
+    } catch (err) {
+      alert(err);
+    }
+  });
 </script>
 </body>
 </html>
