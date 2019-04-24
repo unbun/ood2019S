@@ -11,6 +11,7 @@ import cs3500.animator.controller.actionHandlers.PlayButtonHandler;
 import cs3500.animator.controller.actionHandlers.RestartButtonHandler;
 import cs3500.animator.controller.actionHandlers.SlowDownAnimationHandler;
 import cs3500.animator.controller.actionHandlers.SpeedUpAnimationHandler;
+import cs3500.animator.controller.actionHandlers.TimeScrubHandler;
 import cs3500.animator.controller.actionHandlers.UpdateKeyFrameHandler;
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
@@ -34,7 +35,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
@@ -75,10 +78,12 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
 
 
   private JButton editAddShapeBtn;
-
   private JButton editDeleteShapeBtn;
 
   private JButton exportSVG;
+
+  private JPanel scrubberPanel;
+  private JSlider scrubberSlider;
 
   /**
    * Default constructor. Adds buttons and scroll bar to view. Sets panels onto this view, which
@@ -129,6 +134,19 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
 
     this.currentSpeed = new JLabel("Rate: " + animationPanel.getRate() + "x");
     animationPanel.add(this.currentSpeed, BorderLayout.NORTH);
+
+    //time scrubber
+    this.scrubberPanel = new JPanel();
+    this.scrubberSlider = new JSlider();
+    scrubberPanel.setSize(animationPanel.getWidth(), scrubberSlider.getHeight());
+    scrubberSlider.setMinimum(0);
+    scrubberSlider.setSnapToTicks(true);
+    scrubberSlider.setValue(0);
+    scrubberSlider.setPreferredSize(new Dimension(750, 30));
+    scrubberSlider.setPaintTicks(true);
+    scrubberSlider.setPaintLabels(true);
+    scrubberPanel.add(scrubberSlider);
+    animationPanel.add(scrubberPanel, BorderLayout.NORTH);
 
     //edit panel
     editPanel = new JPanel();
@@ -204,6 +222,7 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
     this.getEditDeleteKeyFrameBtn().addActionListener(new DeleteKeyFrameHandler(this));
     this.getEditAddKeyFrameBtn().addActionListener(new AddKeyFrameHandler(this));
     this.getEditChangeKeyFrameBtn().addActionListener(new UpdateKeyFrameHandler(this));
+    this.getTimeScrubber().addChangeListener(new TimeScrubHandler(this, this.model));
 
     try {
       this.getExportSVG().addActionListener(new ExportSVGHandler(this, this.model, this.ap));
@@ -211,6 +230,8 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
       throw new IllegalArgumentException("Unable to export SVG");
     }
   }
+
+
 
   /**
    * Getter for the model this view is using.
@@ -223,6 +244,10 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
 
   public void setModel(AnimationModel model) {
     this.model = Objects.requireNonNull(model);
+  }
+
+  public JSlider getTimeScrubber(){
+    return this.scrubberSlider;
   }
 
   /**
