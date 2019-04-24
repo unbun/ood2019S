@@ -60,4 +60,10 @@ public class Utils {
     throw new IllegalArgumentException(name + "is not a number");
   }
 
+  public static float map(float x, float inMin, float inMax, float outMin, float outMax){
+    if((inMax - inMin) + outMin == 0){
+      throw new IllegalArgumentException("Cannot map these values");
+    }
+    return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+  }
 }
