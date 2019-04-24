@@ -1,4 +1,13 @@
 
+# To Use Edit View
+When in the edit view, you can change the speed of the animation, play around with the key frames, and set loopback
+When doing any of the following edits, make sure to PAUSE the animation before doing the action, and PLAY once you are done:
+
+   - Toggle Looping
+   - Edit/Adding/Deleting Keyframes
+   - Scrubbing through Time
+
+
 # Design
 
 ![alt text](ExcellenceClassDiagram.png "Logo Title Text 1")

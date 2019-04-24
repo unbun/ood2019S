@@ -1,3 +1,5 @@
+import static org.junit.Assert.assertEquals;
+
 import cs3500.animator.shapes.AShape;
 import cs3500.animator.shapes.Oval;
 import cs3500.animator.shapes.Rectangle;
@@ -8,8 +10,6 @@ import cs3500.animator.transforms.Transform;
 import cs3500.animator.util.Posn;
 import java.awt.Color;
 import org.junit.Test;
-
-;
 
 
 /**
@@ -56,9 +56,19 @@ public class TransformTest {
     Transform t3 = new Recolor("recolor", 12, 14,
         Color.MAGENTA);
 
-    //TODO: add transforms to shapes and then get the shape states at certain times
+    t1.apply(oval);
+    assertEquals("oval:\"O1\" posn=(34.222222222222214,35.11111111111111); "
+            + "size=(7.000000, 5.000000); color=java.awt.Color[r=0,g=0,b=255]",
+        oval.getStateAt(2).toString());
+
+    t2.apply(rect);
+    assertEquals("rectangle:\"R1\" posn=(8.0,9.0); size=(16.000000, 15.000000); "
+        + "color=java.awt.Color[r=255,g=0,b=0]", rect.getStateAt(13).toString());
+
+    t3.apply(oval);
+    assertEquals("oval:\"O1\" posn=(300.0,300.0); size=(7.000000, 5.000000); "
+        + "color=java.awt.Color[r=255,g=0,b=255]", oval.getStateAt(15).toString());
   }
 
-  //TODO: test transforms that occur before and after a shape's birth and death
 
 }

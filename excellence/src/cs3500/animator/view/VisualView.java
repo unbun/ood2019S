@@ -17,7 +17,7 @@ import javax.swing.WindowConstants;
 /**
  * Implementation of the visual view animation. Creates a visual of the animation in action.
  */
-public class VisualView extends JFrame implements IAnimationView, ActionListener {
+public class VisualView extends JFrame implements IView, ActionListener {
 
   private AnimationPanel animationPanel;
 

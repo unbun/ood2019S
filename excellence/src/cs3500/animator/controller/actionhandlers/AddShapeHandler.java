@@ -1,4 +1,4 @@
-package cs3500.animator.controller.actionHandlers;
+package cs3500.animator.controller.actionhandlers;
 
 import cs3500.animator.shapes.IShape;
 import cs3500.animator.view.ControllableView;
@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
- * Action listener class that adds a Shape to the view's model when it's action is performed
+ * Action listener class that adds a Shape to the view's model when it's action is performed.
  */
 public class AddShapeHandler implements ActionListener {
 

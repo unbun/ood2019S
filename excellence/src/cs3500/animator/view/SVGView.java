@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
 /**
  * The implementation of the SVG-based view. Creates a visual in .svg file format.
  */
-public class SVGView implements IAnimationView {
+public class SVGView implements IView {
 
   @Override
   public ViewType getViewType() {

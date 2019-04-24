@@ -61,7 +61,7 @@ public interface AnimationModel {
   void createTransform(Transform trns);
 
   /**
-   * Create a KeyFrame from the given details
+   * Create a KeyFrame from the given details.
    *
    * @param name the name of the shape to update
    * @param t the time to insert the keyframe
@@ -76,7 +76,7 @@ public interface AnimationModel {
   void createKeyFrame(String name, int t, int x, int y, int w, int h, int r, int g, int b);
 
   /**
-   * Remove the key frame of the given shape at the given time
+   * Remove the key frame of the given shape at the given time.
    *
    * @param name the shape to remove the keyframe of
    * @param t the time to remove it at

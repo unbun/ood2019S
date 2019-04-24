@@ -7,10 +7,10 @@ import java.awt.event.MouseListener;
 /**
  * This interface represents the various view supported by the animator.
  */
-public interface IAnimationView {
+public interface IView {
 
   /**
-   * Set the listeners to control this view with (if applicable)
+   * Set the listeners to control this view with (if applicable).
    *
    * @param mouse the mouse listener
    * @param keys the keyboard listener
@@ -30,7 +30,7 @@ public interface IAnimationView {
    *
    * @return the animation panel of the visual views.
    * @throws IllegalArgumentException if this method is called on a Text View or an SVGView - one
-   * which does not have a panel.
+   *                                  which does not have a panel.
    */
   AnimationPanel getAnimationPanel() throws IllegalArgumentException;
 
@@ -48,7 +48,7 @@ public interface IAnimationView {
   void makeVisible();
 
   /**
-   * Setter for the view's model
+   * Setter for the view's model.
    *
    * @param model the model to use for this view.
    */

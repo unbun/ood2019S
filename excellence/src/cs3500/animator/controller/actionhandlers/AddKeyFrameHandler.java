@@ -1,4 +1,4 @@
-package cs3500.animator.controller.actionHandlers;
+package cs3500.animator.controller.actionhandlers;
 
 import cs3500.animator.view.ControllableView;
 import java.awt.event.ActionEvent;
@@ -6,14 +6,14 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
- * Action listener class that adds a KeyFram to the view's model when it's action is performed
+ * Action listener class that adds a KeyFram to the view's model when it's action is performed.
  */
 public class AddKeyFrameHandler implements ActionListener {
 
   ControllableView view;
 
   /**
-   * Default constructor.
+   * Default constructor to provide the view.
    *
    * @param view the hybrid view to be passed in
    */

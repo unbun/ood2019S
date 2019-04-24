@@ -9,8 +9,7 @@ import java.util.Objects;
 import javax.swing.JPanel;
 
 /**
- * This panel represents the region where the animation will occur. An instance of a JPanel in Java
- * Swing.
+ * This panel represents the region where the animation will occur. Also the time keeper.
  */
 public class AnimationPanel extends JPanel {
 
@@ -112,7 +111,6 @@ public class AnimationPanel extends JPanel {
     }
 
     if (this.playing) {
-//      System.out.println(time + ", r=" + rate + ", lrc=" + lowRateCount);
 
       if (rate < 1) {
         lowRateCount++;

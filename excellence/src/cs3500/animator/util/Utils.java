@@ -60,8 +60,17 @@ public class Utils {
     throw new IllegalArgumentException(name + "is not a number");
   }
 
-  public static float map(float x, float inMin, float inMax, float outMin, float outMax){
-    if((inMax - inMin) + outMin == 0){
+  /**
+   * Map the given x value from a range of inMin - inMax to outMin - outMax.
+   * @param x the value to map
+   * @param inMin the input minimum
+   * @param inMax the input maximum
+   * @param outMin the output min
+   * @param outMax the output max
+   * @return the give value mapped to the output range values.
+   */
+  public static float map(float x, float inMin, float inMax, float outMin, float outMax) {
+    if ((inMax - inMin) + outMin == 0) {
       throw new IllegalArgumentException("Cannot map these values");
     }
     return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;

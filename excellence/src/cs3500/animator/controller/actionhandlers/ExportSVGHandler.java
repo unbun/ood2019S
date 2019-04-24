@@ -1,4 +1,4 @@
-package cs3500.animator.controller.actionHandlers;
+package cs3500.animator.controller.actionhandlers;
 
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.view.ControllableView;

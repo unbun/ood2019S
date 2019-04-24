@@ -85,7 +85,8 @@ public class ModelAndTransformTests {
     model.createShape(rect1);
     model.setSpeed(2);
     assertEquals(
-        "rectangle:\"R1\" posn=(0.0,0.0); size=(15.000000, 25.000000); color=java.awt.Color[r=255,g=0,b=0]",
+        "rectangle:\"R1\" posn=(0.0,0.0); size=(15.000000, 25.000000); "
+            + "color=java.awt.Color[r=255,g=0,b=0]",
         model.getShapes().get(0).toString());
     model.createTransform(moveRect1);
     assertEquals("motion R1 \t5 0 0 25 15 255 0 0\t| 8 10 10 25 15 255 0 0\n",
@@ -108,14 +109,16 @@ public class ModelAndTransformTests {
     assertEquals(50, model.getEndTime());
     cc1.apply(rect1);
     assertEquals(
-        "rectangle:\"R1\" posn=(0.0,0.0); size=(15.000000, 25.000000); color=java.awt.Color[r=255,g=0,b=0]",
+        "rectangle:\"R1\" posn=(0.0,0.0); size=(15.000000, 25.000000);"
+            + " color=java.awt.Color[r=255,g=0,b=0]",
         model.getShapes().get(0).toString());
     model.removeShape(rect1);
 
     model.createShape(oval1);
     cc2.apply(oval1);
     assertEquals(
-        "oval:\"C\" posn=(50.0,50.0); size=(10.000000, 10.000000); color=java.awt.Color[r=0,g=255,b=0]",
+        "oval:\"C\" posn=(50.0,50.0); size=(10.000000, 10.000000); "
+            + "color=java.awt.Color[r=0,g=255,b=0]",
         model.getShapes().get(0).toString());
 
   }
@@ -129,11 +132,13 @@ public class ModelAndTransformTests {
     model.createShape(rect1);
     model.setSpeed(2);
     assertEquals(
-        "rectangle:\"R1\" posn=(0.0,0.0); size=(15.000000, 25.000000); color=java.awt.Color[r=255,g=0,b=0]",
+        "rectangle:\"R1\" posn=(0.0,0.0); size=(15.000000, 25.000000); "
+            + "color=java.awt.Color[r=255,g=0,b=0]",
         model.getShapes().get(0).toString());
     scale1.apply(rect1);
     assertEquals(
-        "rectangle:\"R1\" posn=(0.0,0.0); size=(15.000000, 25.000000); color=java.awt.Color[r=255,g=0,b=0]",
+        "rectangle:\"R1\" posn=(0.0,0.0); size=(15.000000, 25.000000); "
+            + "color=java.awt.Color[r=255,g=0,b=0]",
         model.getShapes().get(0).toString());
   }
 

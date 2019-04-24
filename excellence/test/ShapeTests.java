@@ -25,11 +25,13 @@ public class ShapeTests {
   public void testSVG() {
     initShapes();
     assertEquals(
-        "<ellipse id=\"O1\" cx=\"1.0\" cy=\"2.0\" rx=\"5.0\" ry=\"7.0\" fill=\"RGB(0,0,65025)\" visibility=\"visible\" >\n"
+        "<ellipse id=\"O1\" cx=\"1.0\" cy=\"2.0\" rx=\"5.0\" ry=\"7.0\" "
+            + "fill=\"RGB(0,0,65025)\" visibility=\"visible\" >\n"
             +
             "</ellipse>\n", oval.printSVG());
     assertEquals(
-        "<rect id=\"R1\" x=\"8.0\" y=\"9.0\" width=\"12.0\" height=\"13.0\" fill=\"RGB(65025,0,0)\" visibility=\"visible\" >\n"
+        "<rect id=\"R1\" x=\"8.0\" y=\"9.0\" width=\"12.0\" height=\"13.0\" "
+            + "fill=\"RGB(65025,0,0)\" visibility=\"visible\" >\n"
             +
             "</rect>\n", rect.printSVG());
   }

@@ -22,22 +22,48 @@ public class Posn {
     this.y = y;
   }
 
+
+  /**
+   * Getter for the X value.
+   *
+   * @return the x value
+   */
   public double getX() {
     return x;
   }
 
+  /**
+   * Setter for the X value.
+   *
+   * @param x the x value
+   */
   public void setX(double x) {
     this.x = x;
   }
 
+  /**
+   * Getter for the Y value.
+   *
+   * @return the y value
+   */
   public double getY() {
     return y;
   }
 
+  /**
+   * Setter for the Y value.
+   *
+   * @param y the y value
+   */
   public void setY(double y) {
     this.y = y;
   }
 
+  /**
+   * Get a description of this Posn.
+   *
+   * @return a formatted description of the posn.
+   */
   public String getDescription() {
     StringBuilder sb = new StringBuilder();
 

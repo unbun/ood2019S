@@ -12,7 +12,7 @@ import java.util.Comparator;
  * The implementation of the textual view. Creates a textual output describing the shapes and their
  * specific animations.
  */
-public class TextualView implements IAnimationView {
+public class TextualView implements IView {
 
   @Override
   public ViewType getViewType() {

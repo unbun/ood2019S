@@ -2,11 +2,11 @@ import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import cs3500.animator.controller.actionHandlers.LoopingHandler;
-import cs3500.animator.controller.actionHandlers.PlayButtonHandler;
-import cs3500.animator.controller.actionHandlers.RestartButtonHandler;
-import cs3500.animator.controller.actionHandlers.SlowDownAnimationHandler;
-import cs3500.animator.controller.actionHandlers.SpeedUpAnimationHandler;
+import cs3500.animator.controller.actionhandlers.LoopingHandler;
+import cs3500.animator.controller.actionhandlers.PlayButtonHandler;
+import cs3500.animator.controller.actionhandlers.RestartButtonHandler;
+import cs3500.animator.controller.actionhandlers.SlowDownAnimationHandler;
+import cs3500.animator.controller.actionhandlers.SpeedUpAnimationHandler;
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.model.ShapeFXModel;
 import cs3500.animator.shapes.IShape;
@@ -19,7 +19,7 @@ import cs3500.animator.transforms.Scale;
 import cs3500.animator.transforms.Transform;
 import cs3500.animator.util.Posn;
 import cs3500.animator.view.ControllableView;
-import cs3500.animator.view.IAnimationView;
+import cs3500.animator.view.IView;
 import cs3500.animator.view.SVGView;
 import cs3500.animator.view.TextualView;
 import java.awt.Color;
@@ -34,8 +34,8 @@ import org.junit.Test;
 public class ViewTest {
 
   private AnimationModel model;
-  private IAnimationView textview;
-  private IAnimationView svgview;
+  private IView textview;
+  private IView svgview;
   private ControllableView controlView;
 
   private IShape rect1;
@@ -65,12 +65,12 @@ public class ViewTest {
     model.createShape(rect2);
     model.createShape(oval1);
 
-    Transform MoveToRect1 = new MoveTo("R1", 10, 15, new Posn(10, 10));
-    ATransform RecolorRect2 = new Recolor("R2", 20, 30, Color.RED);
+    Transform moveToRect1 = new MoveTo("R1", 10, 15, new Posn(10, 10));
+    ATransform recolorRect2 = new Recolor("R2", 20, 30, Color.RED);
     ATransform scaleOval1 = new Scale("C", 40, 45, 3, 0);
 
-    model.createTransform(MoveToRect1);
-    model.createTransform(RecolorRect2);
+    model.createTransform(moveToRect1);
+    model.createTransform(recolorRect2);
     model.createTransform(scaleOval1);
 
     assertEquals("shape R1 rectangle\n" +
@@ -91,33 +91,40 @@ public class ViewTest {
     model.createShape(rect2);
     model.createShape(oval1);
 
-    Transform MoveToRect1 = new MoveTo("R1", 10, 15, new Posn(10, 10));
-    ATransform RecolorRect2 = new Recolor("R2", 20, 30, Color.red);
+    Transform moveToRect1 = new MoveTo("R1", 10, 15, new Posn(10, 10));
+    ATransform recolorRect2 = new Recolor("R2", 20, 30, Color.red);
     ATransform scaleOval1 = new Scale("C", 40, 45, 3, 0);
 
-    model.createTransform(MoveToRect1);
-    model.createTransform(RecolorRect2);
+    model.createTransform(moveToRect1);
+    model.createTransform(recolorRect2);
     model.createTransform(scaleOval1);
 
     assertEquals("<svg width=\"800\" height=\"800\" version=\"1.1\"\n" +
         "xmlns=\"http://www.w3.org/2000/svg\">\n" +
-        "<rect id=\"R1\" x=\"0.0\" y=\"0.0\" width=\"25.0\" height=\"15.0\" fill=\"RGB(65025,0,0)\" visibility=\"visible\" >\n"
+        "<rect id=\"R1\" x=\"0.0\" y=\"0.0\" width=\"25.0\" height=\"15.0\" "
+        + "fill=\"RGB(65025,0,0)\" visibility=\"visible\" >\n"
         +
-        "<animate attributeType=\"xml\" begin=\"1000ms\" dur=\"500ms\" attributeName=\"x\" from=\"0\" to=\"10\" fill=\"freeze\" />\n"
+        "<animate attributeType=\"xml\" begin=\"1000ms\" dur=\"500ms\" attributeName=\"x\" "
+        + "from=\"0\" to=\"10\" fill=\"freeze\" />\n"
         +
-        "<animate attributeType=\"xml\" begin=\"1000ms\" dur=\"500ms\" attributeName=\"y\" from=\"0\" to=\"10\" fill=\"freeze\" />\n"
-        +
-        "</rect>\n" +
-        "\n" +
-        "<rect id=\"R2\" x=\"0.0\" y=\"0.0\" width=\"10.0\" height=\"15.0\" fill=\"RGB(0,0,65025)\" visibility=\"visible\" >\n"
-        +
-        "<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"1000ms\" attributeName=\"fill\" from=\"RGB(0,0,65025)\" to=\"RGB(65025,0,0)\" fill=\"freeze\" />\n"
+        "<animate attributeType=\"xml\" begin=\"1000ms\" dur=\"500ms\" attributeName=\"y\" "
+        + "from=\"0\" to=\"10\" fill=\"freeze\" />\n"
         +
         "</rect>\n" +
         "\n" +
-        "<ellipse id=\"C\" cx=\"50.0\" cy=\"50.0\" rx=\"10.0\" ry=\"10.0\" fill=\"RGB(0,65025,0)\" visibility=\"visible\" >\n"
+        "<rect id=\"R2\" x=\"0.0\" y=\"0.0\" width=\"10.0\" height=\"15.0\" "
+        + "fill=\"RGB(0,0,65025)\" visibility=\"visible\" >\n"
         +
-        "<animate attributeType=\"xml\" begin=\"4000ms\" dur=\"500ms\" attributeName=\"rx\" from=\"10.0\" to=\"11.5\" fill=\"freeze\" />\n"
+        "<animate attributeType=\"xml\" begin=\"2000ms\" dur=\"1000ms\" attributeName=\""
+        + "fill\" from=\"RGB(0,0,65025)\" to=\"RGB(65025,0,0)\" fill=\"freeze\" />\n"
+        +
+        "</rect>\n" +
+        "\n" +
+        "<ellipse id=\"C\" cx=\"50.0\" cy=\"50.0\" rx=\"10.0\" ry=\"10.0\" "
+        + "fill=\"RGB(0,65025,0)\" visibility=\"visible\" >\n"
+        +
+        "<animate attributeType=\"xml\" begin=\"4000ms\" dur=\"500ms\" attributeName=\"rx\" "
+        + "from=\"10.0\" to=\"11.5\" fill=\"freeze\" />\n"
         +
         "</ellipse>\n" +
         "\n" +
@@ -131,12 +138,12 @@ public class ViewTest {
     model.createShape(rect2);
     model.createShape(oval1);
 
-    Transform MoveToRect1 = new MoveTo("R1", 10, 15, new Posn(10, 10));
-    ATransform RecolorRect2 = new Recolor("R2", 20, 30, Color.red);
+    Transform moveToRect1 = new MoveTo("R1", 10, 15, new Posn(10, 10));
+    ATransform recolorRect2 = new Recolor("R2", 20, 30, Color.red);
     ATransform scaleOval1 = new Scale("C", 40, 45, 3, 0);
 
-    model.createTransform(MoveToRect1);
-    model.createTransform(RecolorRect2);
+    model.createTransform(moveToRect1);
+    model.createTransform(recolorRect2);
     model.createTransform(scaleOval1);
 
     ActionListener l1 = new PlayButtonHandler(this.controlView);
@@ -156,12 +163,12 @@ public class ViewTest {
     model.createShape(rect2);
     model.createShape(oval1);
 
-    Transform MoveToRect1 = new MoveTo("R1", 10, 15, new Posn(10, 10));
-    ATransform RecolorRect2 = new Recolor("R2", 20, 30, Color.red);
+    Transform moveToRect1 = new MoveTo("R1", 10, 15, new Posn(10, 10));
+    ATransform recolorRect2 = new Recolor("R2", 20, 30, Color.red);
     ATransform scaleOval1 = new Scale("C", 40, 45, 3, 0);
 
-    model.createTransform(MoveToRect1);
-    model.createTransform(RecolorRect2);
+    model.createTransform(moveToRect1);
+    model.createTransform(recolorRect2);
     model.createTransform(scaleOval1);
 
     ActionListener l1 = new RestartButtonHandler(this.controlView);

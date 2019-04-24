@@ -3,7 +3,7 @@ package cs3500.animator.controller;
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.util.Posn;
 import cs3500.animator.view.ControllableView;
-import cs3500.animator.view.IAnimationView;
+import cs3500.animator.view.IView;
 import cs3500.animator.view.SVGView;
 import cs3500.animator.view.TextualView;
 import cs3500.animator.view.ViewType;
@@ -17,14 +17,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * This controller implements the tasks of an {@code AnimationController}. This controller also acts as the
- * MouseListener and KeyListener of the {@code ControllableView} view (but can still be used to run
- * the other views as well).
+ * This controller implements the tasks of an {@code AnimationController}. This controller also acts
+ * as the MouseListener and KeyListener of the {@code ControllableView} view (but can still be used
+ * to run the other views as well).
  */
 public class ShapeFXController implements AnimationController, MouseListener, KeyListener {
 
   private final AnimationModel model;
-  private IAnimationView view;
+  private IView view;
   private Appendable output = System.out;
   private String inputFilePath = "";
   private int speed = 1;
@@ -79,13 +79,8 @@ public class ShapeFXController implements AnimationController, MouseListener, Ke
   }
 
   /**
-   * Creates the desired view based on user input; can be one of the following:
-   * <ul>
-   * <item>visual</item>
-   * <item>edit</item>
-   * <item>svg</item>
-   * <item>text</item>
-   * </ul>
+   * Creates the desired view based on user input; can be one of the following visual, edit, svg,
+   * or text.
    *
    * @param view the view to be made
    */
@@ -220,10 +215,8 @@ public class ShapeFXController implements AnimationController, MouseListener, Ke
 
     ControllableView cView = (ControllableView) view;
 
-    switch (e.getKeyChar()) {
-      case 'q':
-        System.exit(0);
-        break;
+    if (e.getKeyChar() == 'q') {
+      System.exit(0);
     }
 
   }

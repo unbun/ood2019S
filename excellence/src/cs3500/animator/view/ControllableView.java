@@ -1,18 +1,18 @@
 package cs3500.animator.view;
 
 
-import cs3500.animator.controller.actionHandlers.AddKeyFrameHandler;
-import cs3500.animator.controller.actionHandlers.AddShapeHandler;
-import cs3500.animator.controller.actionHandlers.DeleteKeyFrameHandler;
-import cs3500.animator.controller.actionHandlers.DeleteShapeHandler;
-import cs3500.animator.controller.actionHandlers.ExportSVGHandler;
-import cs3500.animator.controller.actionHandlers.LoopingHandler;
-import cs3500.animator.controller.actionHandlers.PlayButtonHandler;
-import cs3500.animator.controller.actionHandlers.RestartButtonHandler;
-import cs3500.animator.controller.actionHandlers.SlowDownAnimationHandler;
-import cs3500.animator.controller.actionHandlers.SpeedUpAnimationHandler;
-import cs3500.animator.controller.actionHandlers.TimeScrubHandler;
-import cs3500.animator.controller.actionHandlers.UpdateKeyFrameHandler;
+import cs3500.animator.controller.actionhandlers.AddKeyFrameHandler;
+import cs3500.animator.controller.actionhandlers.AddShapeHandler;
+import cs3500.animator.controller.actionhandlers.DeleteKeyFrameHandler;
+import cs3500.animator.controller.actionhandlers.DeleteShapeHandler;
+import cs3500.animator.controller.actionhandlers.ExportSVGHandler;
+import cs3500.animator.controller.actionhandlers.LoopingHandler;
+import cs3500.animator.controller.actionhandlers.PlayButtonHandler;
+import cs3500.animator.controller.actionhandlers.RestartButtonHandler;
+import cs3500.animator.controller.actionhandlers.SlowDownAnimationHandler;
+import cs3500.animator.controller.actionhandlers.SpeedUpAnimationHandler;
+import cs3500.animator.controller.actionhandlers.TimeScrubHandler;
+import cs3500.animator.controller.actionhandlers.UpdateKeyFrameHandler;
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.shapes.IShape;
 import cs3500.animator.shapes.Oval;
@@ -35,7 +35,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
@@ -48,7 +47,7 @@ import javax.swing.WindowConstants;
  * The implementation of the edit view that allows users to control the animation with buttons and
  * the export of a svg file from a visual view for the animation.
  */
-public class ControllableView extends JFrame implements IAnimationView, ActionListener {
+public class ControllableView extends JFrame implements IView, ActionListener {
 
   private AnimationPanel animationPanel;
   private Appendable ap;
@@ -74,6 +73,7 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
   private JTextField editAddShape;
   private JTextField editAddShapeName;
   private JTextField editAddColor;
+
   private JTextField editAddPosnSize;
 
 
@@ -232,7 +232,6 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
   }
 
 
-
   /**
    * Getter for the model this view is using.
    *
@@ -242,11 +241,21 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
     return this.model;
   }
 
+  /**
+   * Setter for the model.
+   *
+   * @param model the model to use for this view.
+   */
   public void setModel(AnimationModel model) {
     this.model = Objects.requireNonNull(model);
   }
 
-  public JSlider getTimeScrubber(){
+  /**
+   * Getter for the scrubber slider.
+   *
+   * @return the scrubber slider
+   */
+  public JSlider getTimeScrubber() {
     return this.scrubberSlider;
   }
 
@@ -297,7 +306,7 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
 
 
   /**
-   * Getter for the current speed label
+   * Getter for the current speed label.
    *
    * @return the current speed label (for rate)
    */
@@ -352,7 +361,7 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
   }
 
   /**
-   * Getter for the button to update a key frame
+   * Getter for the button to update a key frame.
    *
    * @return the update key frame button
    */
@@ -361,7 +370,7 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
   }
 
   /**
-   * Getter for the button to add a shape
+   * Getter for the button to add a shape.
    *
    * @return the add shape button
    */
@@ -370,12 +379,40 @@ public class ControllableView extends JFrame implements IAnimationView, ActionLi
   }
 
   /**
-   * Getter for the button to delete a shape
+   * Getter for the button to delete a shape.
    *
    * @return the delete shape button
    */
   public JButton getEditDeleteShapeBtn() {
     return editDeleteShapeBtn;
+  }
+
+
+  /**
+   * Getter for the timer.
+   *
+   * @return the timer
+   */
+  public Timer getTimer() {
+    return timer;
+  }
+
+  /**
+   * Getter for the entire editPanel.
+   *
+   * @return the edit panel
+   */
+  public JPanel getEditPanel() {
+    return editPanel;
+  }
+
+  /**
+   * Getter for the scrubber slider's panel.
+   *
+   * @return the scrubber panel's slider
+   */
+  public JPanel getScrubberPanel() {
+    return scrubberPanel;
   }
 
   /**

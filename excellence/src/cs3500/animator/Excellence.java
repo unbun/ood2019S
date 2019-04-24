@@ -1,7 +1,7 @@
 package cs3500.animator;
 
-import cs3500.animator.controller.ShapeFXController;
 import cs3500.animator.controller.AnimationController;
+import cs3500.animator.controller.ShapeFXController;
 import cs3500.animator.model.AnimationModel;
 import cs3500.animator.model.ShapeFXModel;
 import cs3500.animator.util.AnimationBuilder;
@@ -19,9 +19,9 @@ public class Excellence {
    * Entry point.
    *
    * @param args parameters, -iv and -if are required. -o is set to syst.out if not specified, tick
-   * set to 1 if not specified. -if is input file, it must be a pre-existing file:
-   * TextAnimationOutput.txt or SVGOutput.svg. -iv must be either text, visual or svg. -speed is
-   * tick.
+   *              set to 1 if not specified. -if is input file, it must be a pre-existing file:
+   *              TextAnimationOutput.txt or SVGOutput.svg. -iv must be either text, visual or svg.
+   *              -speed is tick.
    */
   public static void main(String[] args) {
 
